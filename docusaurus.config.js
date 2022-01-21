@@ -7,12 +7,11 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: "Xiaohai's mind Palace",
-  url: "https://xiaohai-huang.vercel.app",
+  url: "https://xiaohai-mind.vercel.app",
   baseUrl: "/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
-  favicon:
-    "http://ie-mps-1258344699.cos.ap-nanjing.myqcloud.com/demo/100003380103/input/1642771429/me.png",
+  favicon: "img/favicon.ico",
   organizationName: "xiaohai-huang", // Usually your GitHub org/user name.
   projectName: "Learning Notes", // Usually your repo name.
 
@@ -23,42 +22,48 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
-          editUrl: "https://github.com/xiaohai-huang/learning-notes/tree/master"
+          editUrl:
+            "https://github.com/xiaohai-huang/learning-notes/tree/master",
+          // Equivalent to `enableUpdateBy`.
+          showLastUpdateAuthor: true,
+          // Equivalent to `enableUpdateTime`.
+          showLastUpdateTime: true,
         },
         blog: {
           showReadingTime: true,
-          editUrl: "https://github.com/xiaohai-huang/learning-notes/tree/master"
+          editUrl:
+            "https://github.com/xiaohai-huang/learning-notes/tree/master",
         },
         theme: {
-          customCss: require.resolve("./src/css/custom.css")
-        }
-      })
-    ]
+          customCss: require.resolve("./src/css/custom.css"),
+        },
+      }),
+    ],
   ],
 
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: "Notes",
+        title: "Home",
         logo: {
           alt: "My Site Logo",
-          src: "img/logo.svg"
+          src: "img/favicon.ico",
         },
         items: [
           {
             type: "doc",
             docId: "intro",
             position: "left",
-            label: "Tutorial"
+            label: "Notes",
           },
           { to: "/blog", label: "Blog", position: "left" },
           {
             href: "https://github.com/xiaohai-huang/learning-notes",
             label: "GitHub",
-            position: "right"
-          }
-        ]
+            position: "right",
+          },
+        ],
       },
       footer: {
         style: "dark",
@@ -67,49 +72,49 @@ const config = {
             title: "Docs",
             items: [
               {
-                label: "Tutorial",
-                to: "/docs/intro"
-              }
-            ]
+                label: "Notes",
+                to: "/docs/intro",
+              },
+            ],
           },
           {
             title: "Community",
             items: [
               {
                 label: "Stack Overflow",
-                href: "https://stackoverflow.com/questions/tagged/docusaurus"
+                href: "https://stackoverflow.com/questions/tagged/docusaurus",
               },
               {
                 label: "Discord",
-                href: "https://discordapp.com/invite/docusaurus"
+                href: "https://discordapp.com/invite/docusaurus",
               },
               {
                 label: "Twitter",
-                href: "https://twitter.com/docusaurus"
-              }
-            ]
+                href: "https://twitter.com/docusaurus",
+              },
+            ],
           },
           {
             title: "More",
             items: [
               {
                 label: "Blog",
-                to: "/blog"
+                to: "/blog",
               },
               {
                 label: "GitHub",
-                href: "https://github.com/xiaohai-huang/learning-notes"
-              }
-            ]
-          }
+                href: "https://github.com/xiaohai-huang/learning-notes",
+              },
+            ],
+          },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`
+        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,
-        darkTheme: darkCodeTheme
-      }
-    })
+        darkTheme: darkCodeTheme,
+      },
+    }),
 };
 
 module.exports = config;

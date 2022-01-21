@@ -36,5 +36,8 @@
     ]
   },
   "description": "",
-  "keywords": []
+  "keywords": [],
+  "devDependencies": {
+    "prettier": "^2.5.1"
+  }
 }

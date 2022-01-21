@@ -1,6 +1,6 @@
 {
   "infiniteLoopProtection": true,
-  "hardReloadOnChange": false,
+  "hardReloadOnChange": true,
   "view": "browser",
   "template": "docusaurus",
   "node": "14",

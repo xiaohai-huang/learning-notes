@@ -21,7 +21,7 @@ This command starts a local development server and opens up a browser window. Mo
 ```bash
 yarn build
 # run a docsearch crwal, install 'jq' if necessary
-docker run -it --env-file=.env.local -e "CONFIG=$(cat docsearch-config.json | jq -r tostring)" algolia/docsearch-scraper
+yarn scan
 ```
 
 This command generates static content into the `build` directory and can be served using any static contents hosting service.  

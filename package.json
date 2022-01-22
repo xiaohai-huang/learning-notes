@@ -8,6 +8,7 @@
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
+    "scan": "docker run -it --env-file=.env.local -e \"CONFIG=$(cat docsearch-config.json | jq -r tostring)\" algolia/docsearch-scraper",
     "clear": "docusaurus clear",
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",

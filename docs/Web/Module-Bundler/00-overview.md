@@ -1,4 +1,4 @@
-# Module Bundler Overview
+# Overview
 
 ## Webpack
 

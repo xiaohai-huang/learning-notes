@@ -149,6 +149,7 @@ const config = {
       crossorigin: "anonymous",
     },
   ],
+  themes: ["@docusaurus/theme-live-codeblock"],
   i18n: {
     // 2020/08/19 (year/month/day)
     defaultLocale: "en-ZA",

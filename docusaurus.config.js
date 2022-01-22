@@ -66,6 +66,11 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       hideableSidebar: true,
+      algolia: {
+        appId: "NIXA4HHO8S",
+        apiKey: "0e434f5d05dd96ad91008f11f2903066",
+        indexName: "xiaohai-mind-palace-index",
+      },
       navbar: {
         title: "Home",
         logo: {

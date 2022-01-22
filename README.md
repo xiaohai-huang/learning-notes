@@ -4,22 +4,30 @@ This website is built using [Docusaurus 2](https://docusaurus.io/), a modern sta
 
 ### Installation
 
-```
-$ yarn
+```bash
+yarn
 ```
 
 ### Local Development
 
-```
-$ yarn start
+```bash
+yarn start
 ```
 
 This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
 
 ### Build
 
-```
-$ yarn build
+```bash
+yarn build
+# run a docsearch crwal, install 'jq' if necessary
+docker run -it --env-file=.env.local -e "CONFIG=$(cat docsearch-config.json | jq -r tostring)" algolia/docsearch-scraper
 ```
 
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
+This command generates static content into the `build` directory and can be served using any static contents hosting service.  
+The `.env.local` file needs to contain the following entries:
+
+```bash
+APPLICATION_ID=NIXA4HHO8S
+API_KEY=xxx
+```

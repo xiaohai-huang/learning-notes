@@ -12,10 +12,7 @@ function HomepageHeader() {
         <h1 className="hero__title">Xiaohai's Mind Palace</h1>
         <p className="hero__subtitle">A website for organizing notes</p>
         <div className={styles.buttons}>
-          <Link
-            className="button button--secondary button--lg"
-            to="/docs/intro"
-          >
+          <Link className="button button--secondary button--lg" to="/docs">
             View Notes
           </Link>
         </div>

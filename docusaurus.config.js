@@ -15,6 +15,21 @@ const config = {
   organizationName: "xiaohai-huang", // Usually your GitHub org/user name.
   projectName: "Learning Notes", // Usually your repo name.
 
+  plugins: [
+    [
+      "@docusaurus/plugin-content-docs",
+      /** @type {import('@docusaurus/plugin-content-docs').Options} */
+      {
+        id: "university",
+        path: "university",
+        routeBasePath: "university",
+        editUrl: "https://github.com/xiaohai-huang/learning-notes/tree/master",
+        sidebarPath: require.resolve("./sidebarsUniversity.js"),
+        showLastUpdateAuthor: true,
+        showLastUpdateTime: true,
+      },
+    ],
+  ],
   presets: [
     [
       "classic",
@@ -56,6 +71,11 @@ const config = {
             docId: "intro",
             position: "left",
             label: "Notes",
+          },
+          {
+            to: "/university",
+            label: "University",
+            position: "left",
           },
           { to: "/blog", label: "Blog", position: "left" },
           {

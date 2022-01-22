@@ -134,6 +134,11 @@ const config = {
         darkTheme: darkCodeTheme,
       },
     }),
+  i18n: {
+    // 2020/08/19 (year/month/day)
+    defaultLocale: "en-ZA",
+    locales: ["en-ZA"],
+  },
 };
 
 module.exports = config;

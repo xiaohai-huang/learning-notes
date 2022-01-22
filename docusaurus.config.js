@@ -89,6 +89,7 @@ const config = {
             position: "left",
           },
           { to: "/blog", label: "Blog", position: "left" },
+          { to: "/showcase", label: "Showcase", position: "left" },
           {
             href: "https://github.com/xiaohai-huang/learning-notes",
             label: "GitHub",

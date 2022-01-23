@@ -62,11 +62,11 @@ export default function JSEditor({ children }) {
   return (
     <section className="js-live-editor">
       <div
-        className="editorWrapper"
+        className="editorWrapper shadow--md"
         style={{ maxHeight: "300px", overflow: "auto" }}
       >
         <Editor
-          className="editor shadow--md"
+          className="editor"
           textareaClassName="codeArea"
           value={code}
           onValueChange={(code) => setCode(code)}

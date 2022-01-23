@@ -1,6 +1,6 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
-
+const path = require("path");
 const lightCodeTheme = require("prism-react-renderer/themes/github");
 const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 const math = require("remark-math");
@@ -31,6 +31,14 @@ const config = {
         rehypePlugins: [katex],
         showLastUpdateAuthor: true,
         showLastUpdateTime: true,
+      },
+    ],
+    [
+      "docusaurus-plugin-module-alias",
+      {
+        alias: {
+          "@src": path.resolve(__dirname, "src"),
+        },
       },
     ],
   ],

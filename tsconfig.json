@@ -1,4 +1,10 @@
 {
   "extends": "@tsconfig/docusaurus/tsconfig.json",
-  "include": ["src/"]
+  "include": ["src/"],
+  "compilerOptions": {
+    "paths": {
+      "@src/*": ["src/*"]
+    },
+    "lib": ["es2021.String"]
+  }
 }

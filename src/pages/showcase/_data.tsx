@@ -1,4 +1,6 @@
 import React from "react";
+import Link from "@docusaurus/Link";
+
 import { Case } from "./_components/ShowcaseCard";
 
 export const cases: Case[] = [
@@ -8,13 +10,12 @@ export const cases: Case[] = [
     preview: require("./_previews/xbright.png").default,
     description: (
       <>
-        体验腾讯明眸转码后的效果
-        <br />
-        - 支持两段视频的实时对比
+        体验腾讯明眸视频转码后的效果
+        <br />- 支持两段视频的<b>实时对比</b>
         <br />
         - 支持视频详细参数自定义配置
-        <br />- 开发了"我的视频", 支持 <b>上传/管理</b> 视频
-        <br />- 支持英文界面 (i18n)
+        <br />- 开发了<b>"我的视频"</b>, 支持 <b>上传/管理</b> 视频
+        <br />- 支持英文界面 (<Link to="https://react.i18next.com">i18n</Link>)
       </>
     ),
     source: "",
@@ -57,7 +58,8 @@ export const cases: Case[] = [
       <>
         - 重构云直播计费用量页面
         <br />- 实现了 '拉流转推' 统计数据展示页面
-        <br />- 学习了 控制台的微前端架构
+        <br />- 实现了 视频处理控制台的一些小需求
+        <br />- 学习了 微前端架构
       </>
     ),
     source: "",

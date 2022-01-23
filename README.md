@@ -25,7 +25,7 @@ yarn scan
 ```
 
 This command generates static content into the `build` directory and can be served using any static contents hosting service.  
-The `.env.local` file needs to contain the following entries:
+The `.env.local` file needs to contain the following entries retrieved from [algolia](https://www.algolia.com):
 
 ```bash
 APPLICATION_ID=NIXA4HHO8S

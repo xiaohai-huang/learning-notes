@@ -36,10 +36,11 @@ export default function JSEditor({ children }) {
     setError(null);
     setOutput("");
     const modifiedSourceCode =
-      `const results=[]; ${code} ;return results;`.replaceAll(
+      `const __results=[];\n ${code} ;\n return __results;`.replaceAll(
         "console.log",
-        "results.push"
+        "__results.push"
       );
+    console.log(modifiedSourceCode);
 
     try {
       const outputLines: string[] = new Function(modifiedSourceCode)();
@@ -63,7 +64,7 @@ export default function JSEditor({ children }) {
     <section className="js-live-editor">
       <div
         className="editorWrapper shadow--md"
-        style={{ maxHeight: "300px", overflow: "auto" }}
+        style={{ maxHeight: "450px", overflow: "auto" }}
       >
         <Editor
           className="editor"

@@ -3,10 +3,9 @@ import Editor from "react-simple-code-editor";
 import { highlight, languages } from "prismjs/components/prism-core";
 import "prismjs/components/prism-clike";
 import "prismjs/components/prism-javascript";
-import "prismjs/themes/prism-coy.css";
 import clsx from "clsx";
 
-import "./styles.css";
+import "./styles.scss";
 
 const hightlightWithLineNumbers = (input, language) =>
   highlight(input, language)
@@ -43,7 +42,7 @@ type JSEditorProps = {
 };
 
 export default function JSEditor({
-  children,
+  children = "",
   title = "",
   run = true,
 }: JSEditorProps) {
@@ -80,12 +79,11 @@ export default function JSEditor({
   useEffect(() => {
     if (run) handleRun();
   }, [run]);
-
   return (
     <section className="js-live-editor">
       <i>{title}</i>
       <div
-        className="editorWrapper shadow--md"
+        className="editorWrapper shadow--md thin-scrollbar"
         style={{ maxHeight: "450px", overflow: "auto" }}
       >
         <Editor

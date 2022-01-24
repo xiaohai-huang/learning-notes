@@ -41,6 +41,7 @@ const config = {
         },
       },
     ],
+    "docusaurus-plugin-sass",
   ],
   presets: [
     [

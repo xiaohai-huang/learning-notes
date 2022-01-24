@@ -6,11 +6,52 @@ title: this keyword
 import JSEditor from "@src/components/js-live-code-editor";
 import firstExample from "!!raw-loader!./_scripts/01-this-first.js";
 
-What is `this` ?
-
 Useful resources:
 
 - [Stack overflow](https://stackoverflow.com/a/3127440)
 - [You Don't Know JS: this & Object Prototypes - 1st Edition](https://github.com/getify/You-Dont-Know-JS/blob/1st-ed/this%20&%20object%20prototypes/README.md#you-dont-know-js-this--object-prototypes)
 
-<JSEditor>{firstExample}</JSEditor>
+## What is `this` ?
+
+> `this` is a binding that is made when a function is invoked, what it references is determined by entirely by the **[call-site](#call-site)** where the function is called.
+> When a function is invoked, an [execution context](/docs-todos) is created. It contains the following information:
+
+- Where the function was called from (the [call stack](/docs-todos))
+- How the function was invoked
+- What parameters were passed
+- `this`
+
+![execution context](./_assets/this-exectution-context.png)
+
+One of the most important properties of [execution context](/docs-todos) is the `this` reference that will be used for the duration of that function call.
+
+## How to determine call-site ? {#call-site}
+
+[call-site](#call-site): The location in code where a function is called (not where it's declared).
+
+Because [call stack](/docs-todos) is a stack of functions that have been called to get us to the current moment of execution. The call-site of a function is in the invocation _before_ the currently executing function. see the the image below
+
+<JSEditor title="call-site explanation" run={false}>
+  {firstExample}
+</JSEditor>
+
+Insert a debugger at the code above
+
+![call-site](./_assets/call-site.png)
+In this example, the [call-site](#call-site) of function `foo` (currently executing function), is in `bar` line 16.
+
+## Rules
+
+### Default Binding
+
+```js title="standalone function invocation"
+function foo() {
+  console.log(this.a);
+}
+
+var a = 2;
+
+foo(); // 2
+```
+
+In `strict mode`, the global object is not eligible for the _default binding_.

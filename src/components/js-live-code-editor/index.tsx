@@ -27,7 +27,26 @@ const formatOutput = (outputLines: any[]) => {
   return result;
 };
 
-export default function JSEditor({ children }) {
+type JSEditorProps = {
+  /**
+   * The source code
+   */
+  children: string;
+  /**
+   * The title of the editor
+   */
+  title: string;
+  /**
+   * Run on mount?
+   */
+  run: boolean;
+};
+
+export default function JSEditor({
+  children,
+  title = "",
+  run = true,
+}: JSEditorProps) {
   const [code, setCode] = useState<string>(children);
   const [output, setOutput] = useState("");
   const [error, setError] = useState(null);
@@ -35,11 +54,13 @@ export default function JSEditor({ children }) {
   const handleRun = () => {
     setError(null);
     setOutput("");
-    const modifiedSourceCode =
-      `const __results=[];\n ${code} ;\n return __results;`.replaceAll(
-        "console.log",
-        "__results.push"
-      );
+    const modifiedSourceCode = `const __results=[];
+        
+        (()=>{
+          ${code}
+        })();
+      
+        return __results;`.replaceAll("console.log", "__results.push");
     console.log(modifiedSourceCode);
 
     try {
@@ -57,11 +78,12 @@ export default function JSEditor({ children }) {
   };
 
   useEffect(() => {
-    handleRun();
-  }, []);
+    if (run) handleRun();
+  }, [run]);
 
   return (
     <section className="js-live-editor">
+      <i>{title}</i>
       <div
         className="editorWrapper shadow--md"
         style={{ maxHeight: "450px", overflow: "auto" }}

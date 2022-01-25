@@ -80,7 +80,7 @@ export default function JSEditor({
     if (run) handleRun();
   }, [run]);
   return (
-    <section className="js-live-editor">
+    <section className="js-live-editor margin-bottom--md">
       <i>{title}</i>
       <div
         className="editorWrapper shadow--md thin-scrollbar"

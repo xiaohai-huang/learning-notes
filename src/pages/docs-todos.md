@@ -6,3 +6,4 @@ They are unavailable now 🤭
 
 - ❎ execution context
 - ❎ call stack
+- ❎ strict mode

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Editor from "react-simple-code-editor";
+import inspect from "object-inspect";
 import { highlight, languages } from "prismjs/components/prism-core";
 import "prismjs/components/prism-clike";
 import "prismjs/components/prism-javascript";
@@ -19,7 +20,7 @@ const formatOutput = (outputLines: any[]) => {
     let formatedLine = line;
     // @ts-ignore
     if (line !== window) {
-      formatedLine = JSON.stringify(line);
+      formatedLine = inspect(line);
     }
     result += `${idx + 1} ${formatedLine}\n`;
   });

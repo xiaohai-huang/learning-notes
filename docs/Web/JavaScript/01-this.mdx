@@ -12,11 +12,14 @@ import explictBindingExample1 from "!!raw-loader!./_scripts/01-this-explict-bind
 import newBindingExample1 from "!!raw-loader!./_scripts/01-this-new-binding-01.js";
 import orderExample1 from "!!raw-loader!./_scripts/01-this-order-01.js";
 import arrowFunctionExample1 from "!!raw-loader!./_scripts/01-this-arrow-function-01.js";
+import arrowFunctionExample2 from "!!raw-loader!./_scripts/01-this-arrow-function-02.js";
+import arrowFunctionExample3 from "!!raw-loader!./_scripts/01-this-arrow-function-03.js";
+import classExample1 from "!!raw-loader!./_scripts/01-this-class-01.js";
 
 Useful resources:
 
 - [Stack overflow](https://stackoverflow.com/a/3127440)
-- [You Don't Know JS: this & Object Prototypes - 1st Edition](https://github.com/getify/You-Dont-Know-JS/blob/1st-ed/this%20&%20object%20prototypes/README.md#you-dont-know-js-this--object-prototypes)
+- [You Don't Know JS: this & Object Prototypes - 1st Edition (ch1 ~ ch2)](https://github.com/getify/You-Dont-Know-JS/blob/1st-ed/this%20&%20object%20prototypes/README.md#you-dont-know-js-this--object-prototypes)
 
 ## What is `this` ?
 
@@ -55,7 +58,14 @@ In this example, the [call-site](#call-site) of function `foo` (currently execut
 How to determine where `this` will point during the **execution of a function** ?
 
 1. Find the [call-site](#call-site)
-2. Determine which of 4 rules applies
+2. Determine which of 4 rules applies.
+
+These 4 rules are applied in this order:
+
+1. Called with `new`? Use the **newly constructed object**.
+2. Called with `call`, `apply` (or `bind`)? Use the specified object.
+3. Called with a conext object in front of the call? Use that object. e.g. `person.sayName()`
+4. Default: `strict mode` ? `undefined` : `globalThis`
 
 ### Default Binding {#default-binding}
 
@@ -305,6 +315,20 @@ ES6 introduces **arrow-function** which doesn't follow the rules specified above
 
 > arrow-functions adopt the this binding from the enclosing (function or global) scope.
 
-[arrow-function in object literal](https://stackoverflow.com/questions/36717376/arrow-function-in-object-literal)
+[arrow-function in object literal](https://stackoverflow.com/a/36717461)
 
-<CodeBlock className="language-js">{arrowFunctionExample1}</CodeBlock>
+<CodeBlock className="language-js" title="arrow-function in object literal">
+  {arrowFunctionExample1}
+</CodeBlock>
+
+<CodeBlock className="language-js" title="polyfill for arrow-function">
+  {arrowFunctionExample2}
+</CodeBlock>
+
+<JSEditor title="arrow-function's this cannot be changed after created">
+  {arrowFunctionExample3}
+</JSEditor>
+
+Instance methods in `class` are just normal function. see below
+
+<JSEditor title="instance method behaviour">{classExample1}</JSEditor>

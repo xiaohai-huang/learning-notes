@@ -83,10 +83,7 @@ export default function JSEditor({
   return (
     <section className="js-live-editor margin-bottom--md">
       <i>{title}</i>
-      <div
-        className="editorWrapper shadow--md thin-scrollbar"
-        style={{ maxHeight: "450px", overflow: "auto" }}
-      >
+      <div className="editorWrapper shadow--md thin-scrollbar">
         <Editor
           className="editor"
           textareaClassName="codeArea"
@@ -96,7 +93,7 @@ export default function JSEditor({
           padding={10}
           style={{
             fontFamily: '"Fira code", "Fira Mono", monospace',
-            fontSize: 16,
+            fontSize: 18,
           }}
         />
       </div>

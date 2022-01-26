@@ -12,7 +12,7 @@ person2.sayName = () => {
 };
 
 // pre-es6
-var self = this;
+var self = this; // captures this
 const person3 = {};
 person3.Name = "xiaohai";
 person3.sayName = function () {

@@ -75,6 +75,7 @@ export default function JSEditor({
 
   const handleReset = () => {
     setCode(children);
+    setOutput("");
   };
 
   useEffect(() => {

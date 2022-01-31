@@ -332,3 +332,24 @@ ES6 introduces **arrow-function** which doesn't follow the rules specified above
 Instance methods in `class` are just normal function. see below
 
 <JSEditor title="instance method behaviour">{classExample1}</JSEditor>
+
+## Questions
+
+```js title="Question 1"
+window.name = "hello";
+
+function Foo() {
+  console.log(JSON.stringify(this)); // {}
+  this.name = "bar";
+  this.getName = function () {
+    return this.name;
+  };
+}
+const { log } = console;
+let foo = new Foo();
+let getName = foo.getName;
+
+log(foo.getName()); // implicit binding
+log(getName()); // implict binding lost - use default binding
+log(Foo.bind(foo).getName);
+```

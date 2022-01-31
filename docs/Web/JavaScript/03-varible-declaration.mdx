@@ -1,0 +1,61 @@
+---
+sidebar_label: var - let - const
+title: Varible declaration
+---
+
+import JSEditor from "@src/components/js-live-code-editor";
+import firstExample from "!!raw-loader!./_scripts/03-variable-declaration-01.js";
+import secondExample from "!!raw-loader!./_scripts/03-variable-declaration-02.js";
+import thirdExample from "!!raw-loader!./_scripts/03-variable-declaration-03.js";
+
+Usefull resources:
+
+- [Var, Let, and Const – What's the Difference?](https://www.freecodecamp.org/news/var-let-and-const-whats-the-difference/)
+- [Variables and scoping](https://exploringjs.com/es6/ch_variables.html#sec_overview-variables)
+
+## `var`
+
+### Scope of `var`
+
+`var` declarations are **global** or **function** scope.
+
+#### Global Scope
+
+The scope is global when `var` variable is declared outside of a function.
+
+```js title="Global Scope"
+var myVar = "Global Variable";
+console.log(myVar); // Global Variable
+console.log(window.myVar); // Global Variable
+```
+
+#### Function Scope
+
+The scope is function scope when `var` variable is declared inside a function. This means that it is only available within that function.
+
+<JSEditor title="Function Scope">{firstExample}</JSEditor>
+
+#### Re-declaraed and Updated
+
+[Re-declaration?](https://github.com/getify/You-Dont-Know-JS/blob/2nd-ed/scope-closures/ch5.md#re-declaration)
+
+`var` variable can be re-declared and updated
+
+<JSEditor>{secondExample}</JSEditor>
+<JSEditor>{thirdExample}</JSEditor>
+
+```js
+var studentName;
+var studentName; // pointless, no-op
+
+studentName = "Frank";
+console.log(studentName);
+// Frank
+
+console.log(studentName); // ???
+```
+
+### Hoisting of `var`
+
+1. The identifier is hoisted to the top of the scope
+2. It's automatically initialzed to the value `undefined`

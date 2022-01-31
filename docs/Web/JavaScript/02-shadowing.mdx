@@ -1,0 +1,33 @@
+---
+sidebar_label: Shadowing
+title: Shadowing
+---
+
+import JSEditor from "@src/components/js-live-code-editor";
+import firstExample from "!!raw-loader!./_scripts/02-shadow-01.js";
+import secondExample from "!!raw-loader!./_scripts/02-shadow-02.js";
+import thirdExample from "!!raw-loader!./_scripts/02-shadow-03.js";
+
+Usefull resources:
+
+- [You Don't Know JS Yet: Scope & Closures - 2nd Edition - Chapter 3: The Scope Chain](https://github.com/getify/You-Dont-Know-JS/blob/2nd-ed/scope-closures/ch3.md#shadowing)
+
+## What is shadowing ?
+
+When you have two or more variables, each in different scope, with the same lexical names.
+
+<JSEditor run={false}>{firstExample}</JSEditor>
+
+The `city` variable (parameter) at line 3 shadows the variable `city` at line 1. That's why re-assignment of `city` at line 4 only affects the **inner variable**, not the outer one.
+
+## Illegal Shadowing
+
+Not all combinations of declaration shadowing are allowed. `let` can shadow `var`, but `var` cannot shadow `let`
+
+<JSEditor>{secondExample}</JSEditor>
+
+`var` at line 4 is trying to '**cross the boundary**' of `let` declaration.
+
+<JSEditor title="valid. if there is a function boundary in between">
+  {thirdExample}
+</JSEditor>

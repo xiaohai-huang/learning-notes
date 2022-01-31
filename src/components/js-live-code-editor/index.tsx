@@ -22,7 +22,7 @@ const formatOutput = (outputLines: any[]) => {
     if (line !== window) {
       formatedLine = inspect(line);
     }
-    result += `${idx + 1} ${formatedLine}\n`;
+    result += `${idx + 1}:  ${formatedLine}\n`;
   });
   return result;
 };
@@ -49,27 +49,41 @@ export default function JSEditor({
 }: JSEditorProps) {
   const [code, setCode] = useState<string>(children);
   const [output, setOutput] = useState("");
-  const [error, setError] = useState(null);
 
   const handleRun = () => {
-    setError(null);
     setOutput("");
-    const modifiedSourceCode = `const __results=[];
+    const modifiedSourceCode = `
+    const __results=[];
         
-        (()=>{
-          ${code}
-        })();
+    try{
+      (()=>{
+        ${code}
+      })();
+    }catch(err){
+      return {results: __results, err};
+    }
       
-        return __results;`.replaceAll("console.log", "__results.push");
-    console.log(modifiedSourceCode);
+    return {results: __results};`.replaceAll("console.log", "__results.push");
+    console.log(`var output =  (()=>{
+      ${modifiedSourceCode}
+    })() `);
 
     try {
-      const outputLines: string[] = new Function(modifiedSourceCode)();
+      const {
+        results: outputLines,
+        err,
+      }: { results: string[]; err: Error | undefined } = new Function(
+        modifiedSourceCode
+      )();
 
-      setOutput(formatOutput(outputLines));
+      if (err) {
+        setOutput(formatOutput([...outputLines, err]));
+      } else {
+        setOutput(formatOutput(outputLines));
+      }
     } catch (err) {
-      setError(err);
-      setOutput(err);
+      // Compile time error - cannot even execute the code
+      setOutput(formatOutput([err]));
     }
   };
 
@@ -110,19 +124,16 @@ export default function JSEditor({
       >
         Reset
       </button>
-      <textarea
-        value={output}
-        readOnly
+      <div
         className={clsx(
           "outputArea",
           "shadow--md",
           "margin-top--md",
-          "padding--sm",
-          {
-            error: error !== null,
-          }
+          "padding--sm"
         )}
-      />
+      >
+        {output === "" ? " " : output}
+      </div>
     </section>
   );
 }

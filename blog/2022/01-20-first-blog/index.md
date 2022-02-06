@@ -1,5 +1,4 @@
 ---
-slug: first-blog-what
 title: Xiaohai's First Blog Post
 authors: xiaohai
 tags: [other]

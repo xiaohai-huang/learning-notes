@@ -2,7 +2,7 @@ name: Run docsearch-scraper
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, test-workflow ]
   pull_request:
     branches: [ master ]
 
@@ -21,14 +21,18 @@ jobs:
         id: docsearch_config
         with: 
           cmd: "jq 'tostring' docsearch-config.json"
-
+      - name: test docsearch config
+        run: echo ${{ steps.docsearch_config.outputs.value }}
+        
       - name: Run scraper
         env:
           APPLICATION_ID: ${{ secrets.APPLICATION_ID }}
-          API_KEY: ${{ secrets.API_KEY }} 
+          API_KEY: ${{ secrets.API_KEY }}
         run: |
-          'docker run -i --rm \
+            CONFIG=${{ steps.docsearch_config.outputs.value }}
+            echo $CONFIG
+            docker run -i --rm \
                       -e APPLICATION_ID=$APPLICATION_ID \
                       -e API_KEY=$API_KEY \
-                      -e CONFIG=${{ steps.docsearch_config.outputs.value }} \
-                      algolia/docsearch-scraper'
+                      -e CONFIG=$CONFIG \
+                      algolia/docsearch-scraper

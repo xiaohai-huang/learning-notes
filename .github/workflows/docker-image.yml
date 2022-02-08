@@ -20,7 +20,7 @@ jobs:
         uses: sergeysova/jq-action@v2
         id: docsearch_config
         with: 
-          cmd: "jq --raw-output 'tostring' docsearch-config.json"
+          cmd: "jq 'tostring' docsearch-config.json"
 
       - name: Run scraper
         env:

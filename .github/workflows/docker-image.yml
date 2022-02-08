@@ -20,10 +20,10 @@ jobs:
         uses: sergeysova/jq-action@v2
         id: docsearch_config
         with: 
-          cmd: "jq .docsearch_config docsearch-config.json -r"
+          cmd: "jq --raw-output 'tostring' docsearch-config.json"
 
       - name: Run scraper
         env:
           APPLICATION_ID: ${{ secrets.APPLICATION_ID }}
           API_KEY: ${{ secrets.API_KEY }} 
-        run: 'docker run -it --rm -e \"CONFIG=${{ steps.docsearch_config.outputs.value }}\" algolia/docsearch-scraper'
+        run: 'docker run -i --rm -e \"CONFIG=${{ steps.docsearch_config.outputs.value }}\" algolia/docsearch-scraper'

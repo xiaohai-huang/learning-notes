@@ -4,11 +4,11 @@
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
-    "start": "docusaurus start",
+    "start": "docusaurus start --host 0.0.0.0",
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
-    "scan": "docker run -it --rm --env-file=.env.local -e \"CONFIG=$(cat docsearch-config.json | jq -r tostring)\" algolia/docsearch-scraper",
+    "scan": "CONFIG=\"$(cat docsearch-config.json)\"; docker run -it --rm --env-file=.env.local -e \"CONFIG=${CONFIG}\"  algolia/docsearch-scraper",
     "clear": "docusaurus clear",
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",

@@ -26,4 +26,9 @@ jobs:
         env:
           APPLICATION_ID: ${{ secrets.APPLICATION_ID }}
           API_KEY: ${{ secrets.API_KEY }} 
-        run: 'docker run -i --rm -e CONFIG=${{ steps.docsearch_config.outputs.value }} algolia/docsearch-scraper'
+        run: |
+          'docker run -i --rm \
+                      -e APPLICATION_ID=$APPLICATION_ID \
+                      -e API_KEY=$API_KEY \
+                      -e CONFIG=${{ steps.docsearch_config.outputs.value }} \
+                      algolia/docsearch-scraper'

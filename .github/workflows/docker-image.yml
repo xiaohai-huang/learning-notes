@@ -16,23 +16,14 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
       
-      - name: Read docsearch config
-        uses: sergeysova/jq-action@v2
-        id: docsearch_config
-        with: 
-          cmd: "jq 'tostring' -r docsearch-config.json"
-      - name: test docsearch config
-        run: echo ${{ steps.docsearch_config.outputs.value }}
-        
       - name: Run scraper
         env:
           APPLICATION_ID: ${{ secrets.APPLICATION_ID }}
           API_KEY: ${{ secrets.API_KEY }}
         run: |
-            CONFIG=${{ steps.docsearch_config.outputs.value }}
-            echo $CONFIG
-            docker run -i --rm \
-                      -e APPLICATION_ID=$APPLICATION_ID \
-                      -e API_KEY=$API_KEY \
-                      -e CONFIG="${CONFIG}" \
-                      algolia/docsearch-scraper
+          CONFIG="$(cat docsearch-config.json)"
+          docker run -i --rm \
+                  -e APPLICATION_ID=$APPLICATION_ID \
+                  -e API_KEY=$API_KEY \
+                  -e CONFIG="${CONFIG}" \
+                  algolia/docsearch-scraper

@@ -20,7 +20,7 @@ jobs:
         uses: sergeysova/jq-action@v2
         id: docsearch_config
         with: 
-          cmd: "jq 'tostring' docsearch-config.json"
+          cmd: "jq 'tostring' -r docsearch-config.json"
       - name: test docsearch config
         run: echo ${{ steps.docsearch_config.outputs.value }}
         
@@ -34,5 +34,5 @@ jobs:
             docker run -i --rm \
                       -e APPLICATION_ID=$APPLICATION_ID \
                       -e API_KEY=$API_KEY \
-                      -e CONFIG=$CONFIG \
+                      -e CONFIG="${CONFIG}" \
                       algolia/docsearch-scraper

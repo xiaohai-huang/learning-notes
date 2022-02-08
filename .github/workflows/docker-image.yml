@@ -1,0 +1,27 @@
+name: Run docsearch-scraper
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  scan:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Read docsearch config
+      - uses: sergeysova/jq-action@v2
+        id: docsearch_config
+        with: 
+          cmd: "jq .docsearch_config docsearch-config.json -r"
+
+      - name: Run scraper
+        env:
+          APPLICATION_ID: ${{ secrets.APPLICATION_ID }}
+          API_KEY: ${{ secrets.API_KEY }} 
+        run: 'docker run -it --rm -e \"CONFIG=${{ steps.docsearch_config.outputs.value }}\" algolia/docsearch-scraper'

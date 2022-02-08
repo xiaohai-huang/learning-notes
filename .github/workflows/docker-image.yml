@@ -13,7 +13,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout repo
       - uses: actions/checkout@v2
+      
       - name: Read docsearch config
       - uses: sergeysova/jq-action@v2
         id: docsearch_config

@@ -1,0 +1,29 @@
+name: Run docsearch-scraper
+
+on:
+  push:
+    branches: [ master, test-workflow ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  scan:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      
+      - name: Run scraper
+        env:
+          APPLICATION_ID: ${{ secrets.APPLICATION_ID }}
+          API_KEY: ${{ secrets.API_KEY }}
+        run: |
+          CONFIG="$(cat docsearch-config.json)"
+          docker run -i --rm \
+                  -e APPLICATION_ID=$APPLICATION_ID \
+                  -e API_KEY=$API_KEY \
+                  -e CONFIG="${CONFIG}" \
+                  algolia/docsearch-scraper

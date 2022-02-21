@@ -39,7 +39,7 @@ export const cases: Case[] = [
   },
   {
     title: "视立方·音视频终端引擎 - 购买页",
-    website: "https://cloud.tencent.com/act/event/video_BestPractices",
+    website: "https://buy.cloud.tencent.com/vcube",
     preview: require("./_previews/vcube-buy.png").default,
     description: (
       <>

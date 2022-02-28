@@ -1,0 +1,23 @@
+import JSEditor from "@src/components/js-live-code-editor";
+import solution from "!!raw-loader!./_scripts/Design Linked List.js";
+
+# Design Linked List
+
+src: [https://leetcode.com/explore/learn/card/linked-list/209/singly-linked-list/1290/](https://leetcode.com/explore/learn/card/linked-list/209/singly-linked-list/1290/)
+
+## Requirement
+
+Implement the `MyLinkedList` class:
+
+`MyLinkedList()` Initializes the MyLinkedList object.
+`int get(int index)` Get the value of the index<sup>th</sup> node in the linked list. If the index is invalid, return -1.
+
+`void addAtHead(int val)` Add a node of value val before the first element of the linked list. After the insertion, the new node will be the first node of the linked list.
+
+`void addAtTail(int val)` Append a node of value val as the last element of the linked list.
+
+`void addAtIndex(int index, int val)` Add a node of value val before the indexth node in the linked list. If index equals the length of the linked list, the node will be appended to the end of the linked list. If index is greater than the length, the node will not be inserted.
+
+`void deleteAtIndex(int index)` Delete the index<sup>th</sup> node in the linked list, if the index is valid.
+
+<JSEditor run={false}>{solution}</JSEditor>

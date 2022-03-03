@@ -17,3 +17,8 @@ docker run -itd --restart always --cap-add=NET_ADMIN \
 ```
 
 Then download the config file from the `http://<public-ip>:7070` and then import the config file (`client.ovpn`) to the [vpn client](https://openvpn.net/vpn-client/).
+
+Clients:
+
+- [Windows](https://6669-first-cloudbase-env-5c619520c1a6-1255762420.tcb.qcloud.la/mind-storage/openvpn-connect-windows.msi)
+- [Android](https://6669-first-cloudbase-env-5c619520c1a6-1255762420.tcb.qcloud.la/mind-storage/oepnvpn-android.apk)

@@ -1,7 +1,7 @@
 ---
 title: Server Setup
 authors: xiaohai
-tags: [other]
+tags: [Docker]
 ---
 
 ## How to setup a VPN server?

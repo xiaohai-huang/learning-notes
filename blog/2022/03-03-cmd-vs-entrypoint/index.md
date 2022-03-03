@@ -8,9 +8,10 @@ tags: [Docker]
 >
 > The CMD specifies arguments that will be fed to the ENTRYPOINT.
 
-`ENTRYPOINT` can also be overridden using --entrypoint flag
+- `ENTRYPOINT` can also be overridden using `--entrypoint` flag
+- `CMD` will be overridden when running the container with alternative arguments (e.g. `bash`).
 
-`CMD` will be overridden when running the container with alternative arguments.
+<!-- truncate -->
 
 ## ping example
 

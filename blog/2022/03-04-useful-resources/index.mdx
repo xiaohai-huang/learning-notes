@@ -1,0 +1,22 @@
+---
+title: Useful Learning Resources
+authors: xiaohai
+tags: [study]
+---
+
+import ShowcaseCard from "@src/pages/showcase/_components/ShowcaseCard";
+import { data } from "./_data.tsx";
+
+- [Staology](https://www.statology.org)
+
+<!-- truncate -->
+
+<div class="container">
+  <div class="row">
+    {data.map((item, i) => (
+      <div key={i} class="col col--6 margin-bottom--md">
+        <ShowcaseCard {...item} />
+      </div>
+    ))}
+  </div>
+</div>

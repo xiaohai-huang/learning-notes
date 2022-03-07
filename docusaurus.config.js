@@ -155,6 +155,12 @@ const config = {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
       },
+      metadata: [
+        {
+          name: "google-site-verification",
+          content: "iFrSR5cC3aavO6kjl53PDhETx5DcEmN4Vn9Vh8Ry4Nc",
+        },
+      ],
     }),
   stylesheets: [
     {

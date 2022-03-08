@@ -5,6 +5,6 @@
     "paths": {
       "@src/*": ["src/*"]
     },
-    "lib": ["es2021.String"]
+    "lib": ["es2021.String", "DOM"]
   }
 }

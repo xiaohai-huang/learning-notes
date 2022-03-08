@@ -1,0 +1,132 @@
+---
+sidebar_label: Multiple Linear Regression
+title: Multiple Linear Regression
+---
+
+## Definition
+
+> Predicting one thing from several things
+
+Still fitting a line to some data, just in multiple dimensions.
+
+The line:
+
+$$
+y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dotsb + \beta_p x_p
+$$
+
+<p style={{ textAlign: "center" }}>or</p>
+
+$$
+y = \beta_0 + \sum^p_{i=1} \beta_i x_i
+$$
+
+- Many predictors/inputs ($x_1, x_2, x_3, \dots$, x_p)
+- One response/output ($y$)
+- Need to find $\beta_0, \beta_1, \beta_2, \dots, \beta_p$
+
+## Analyse a Linear Model Performance
+
+There are many tools that can be used to measure the individual terms, and the validity of the whole model.
+
+### Individual Terms (Coefficients)
+
+Example data comming from [number of cyclists](https://github.com/xiaohai-huang/cab420-workspace/blob/d374f220a128ca3d544b076216b51a45d4983749/work/week1/CAB420_Regression_Example_1_Linear_Regression.ipynb) case study
+
+```python
+model = sm.ols(formula="cnt ~ atemp + temp + hum + windspeed", data=data_train).fit()
+print(model.summary())
+```
+
+```
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept   1708.8451    296.956      5.755      0.000    1124.182    2293.509
+atemp      -3132.5570   3164.040     -0.990      0.323   -9362.093    3096.979
+temp        8823.6644   2823.617      3.125      0.002    3264.372    1.44e+04
+hum        -1134.9410    302.778     -3.748      0.000   -1731.067    -538.815
+windspeed  -3052.9184    642.368     -4.753      0.000   -4317.647   -1788.190
+==============================================================================
+```
+
+#### Standard Error
+
+Definition: A measure of how much the coefficient changes by if we **resample** the data and **recompute** the regression.
+
+#### tStat
+
+Definition: $\frac{Coefficient}{standard Error}$ indicates that the result is less likely to be the result of noise. Therefore, we want this to be long way from **0**.
+
+#### `p-value` {#p-value}
+
+On an individual term, the `p-value` is the most useful. The **null hypothesis** states that the coefficient is equal to 0.
+
+- Low p-value means that you can reject the null hypothesis. Because that term is significant and thus important to the model.
+- High p-value means that the term is not significant, there are two main reasons for this.
+  1. the predictor term (`input`) and the response are not related. In this case, the term shouldn't be in the model
+  2. the predictor term is correlated with another predictor. Therefore, the relationship between that variable and the response is captured twice in the model.
+
+#### Correlation
+
+When an individual term's `p-value` is high, using correlation can help identify what's going on to improve the model. [see correlation](011-simple-linear-regression.mdx#correlation)
+
+### Model Level
+
+```
+==============================================================================
+Dep. Variable:                    cnt   R-squared:                       0.748
+Model:                            OLS   Adj. R-squared:                  0.744
+Method:                 Least Squares   F-statistic:                     198.4
+Date:                Tue, 08 Mar 2022   Prob (F-statistic):           8.06e-79
+Time:                        01:32:58   Log-Likelihood:                -2190.2
+No. Observations:                 273   AIC:                             4390.
+Df Residuals:                     268   BIC:                             4408.
+Df Model:                           4
+Covariance Type:            nonrobust
+==============================================================================
+```
+
+$R^2$ and RMSE and useful values to consider
+
+#### R-Squared
+
+Definition: The $R^2$ indicates how much of the observed variance explained by the model.
+
+- **0** - the model captures/explains nothing
+- **1** - the model captures/explains everything
+  - **1** is the ideal performance, but **1** may also indicate overfitting.
+  - The $R^2$ can only be calculated on the **training data**. but why?
+
+Defined as follows:
+
+- $R^2 = 1 - \frac{SSE}{SSY}$
+- $SSE = \sum^n_{i=0}(y_i - \hat{y_i})^2$, SSE is the sum of the errors between the predicted and the actual value.
+- $SSY = \sum^n_{i=0}(y_i - \bar{y})^2$, SSY or SST (Total Sum of Squares). Is the sum of the differences from the mean.
+
+#### Adjusted R-Squared
+
+Definition: Considers the model's complexity (number of terms) as well as how much variance it explains. Which means that complex models are penalised.
+
+#### RMSE (Root Mean Square Error) {#RMSE}
+
+Definition: **Root Mean Squre Error** (RMSE) is the standard deviation of the residuals (prediction errors). It is a measure of how spread these residuals are. Therefore, smaller RMSEs are better. The scale of RMSE is dependent on the data. Unlike $R^2$, it can be computed on training, validation, and testing sets.
+
+$$
+RMSE = \sqrt{ \overline{ (prediction - actual)^2  } }
+$$
+
+```python
+def compute_RMSE(predicted, actual):
+    return numpy.sqrt(numpy.mean((predicted - actual)**2))
+```
+
+What is RMSE? [[2-min video](https://youtu.be/N6y5wqdIBas), [blog](https://www.statisticshowto.com/probability-and-statistics/regression-analysis/rmse-root-mean-square-error/)]
+
+#### Df Residuals
+
+Definition: The df(Residual) is the total **number of observations** (rows) minus the **number of parameters** being estimated.
+
+#### F-statistic
+
+Definition: A p-value used to indicate if the entire model is significant, much the same as we have for the individual terms.

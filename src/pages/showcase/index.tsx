@@ -8,7 +8,7 @@ function ShowcaseHeader() {
   return (
     <section className="margin-top--lg margin-bottom--lg text--center">
       <h1>Xiaohai's Projects</h1>
-      <p>List of websites built by xiaohai</p>
+      <p>List of projects xiaohai is building</p>
       <a
         className="button button--primary"
         href="https://github.com/xiaohai-huang"

@@ -116,22 +116,9 @@ const config = {
                 label: "Notes",
                 to: "/docs",
               },
-            ],
-          },
-          {
-            title: "Community",
-            items: [
               {
-                label: "Stack Overflow",
-                href: "https://stackoverflow.com/questions/tagged/docusaurus",
-              },
-              {
-                label: "Discord",
-                href: "https://discordapp.com/invite/docusaurus",
-              },
-              {
-                label: "Twitter",
-                href: "https://twitter.com/docusaurus",
+                label: "University",
+                to: "/university",
               },
             ],
           },
@@ -141,6 +128,10 @@ const config = {
               {
                 label: "Blog",
                 to: "/blog",
+              },
+              {
+                label: "Todos",
+                to: "/todos",
               },
               {
                 label: "GitHub",

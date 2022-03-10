@@ -1,7 +1,9 @@
 ---
+title: Introduction
+sidebar_label: Introduction
 sidebar_position: 1
 ---
 
-# QUT Computer Science
+This page contains the notes for university units.
 
-Computer Science
+- QUT Computer Science Degree

@@ -1,10 +1,10 @@
 ---
-title: Server Setup
+title: How to Setup a VPN Server?
 authors: xiaohai
 tags: [Docker]
+image: https://developers.redhat.com/sites/default/files/styles/article_feature/public/blog/2014/05/homepage-docker-logo.png?itok=zx0e-vcP
+description: "Setup a VPN server using Docker in just one command."
 ---
-
-## How to setup a VPN server?
 
 Just a simple command
 

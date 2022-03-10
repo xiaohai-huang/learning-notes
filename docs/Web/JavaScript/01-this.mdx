@@ -26,22 +26,22 @@ Useful resources:
 > `this` is a binding that is made when a function is invoked, what it references is determined by entirely by the **[call-site](#call-site)** where the function is called.
 > When a function is invoked, an **execution context** is created which contains the following information:
 
-[Execution context](/docs-todos)
+[Execution context](/todos)
 
-- Where the function was called from (the [call stack](/docs-todos))
+- Where the function was called from (the [call stack](/todos))
 - How the function was invoked
 - What parameters were passed
 - `this`
 
 ![execution context](./_assets/this-exectution-context.png)
 
-One of the most important properties of [execution context](/docs-todos) is the `this` reference that will be used for the duration of that function call.
+One of the most important properties of [execution context](/todos) is the `this` reference that will be used for the duration of that function call.
 
 ## How to determine call-site ? {#call-site}
 
 [call-site](#call-site): The location in code where a function is called (not where it's declared).
 
-Because [call stack](/docs-todos) is a stack of functions that have been called to get us to the current moment of execution. The call-site of a function is in the invocation _before_ the currently executing function. In other words, it is the second item from the top of [call stack](/docs-todos). see the the image below
+Because [call stack](/todos) is a stack of functions that have been called to get us to the current moment of execution. The call-site of a function is in the invocation _before_ the currently executing function. In other words, it is the second item from the top of [call stack](/todos). see the the image below
 
 <JSEditor title="call-site explanation" run={false}>
   {firstExample}
@@ -90,7 +90,7 @@ In this example, `foo()` is called with a _plain, un-decorated function referenc
 
 #### Strict mode behaviour
 
-In [strict mode](/docs-todos), the global object is not eligible for the _default binding_. That means `this` will be set to `undefined`.
+In [strict mode](/todos), the global object is not eligible for the _default binding_. That means `this` will be set to `undefined`.
 
 ```js title='"use strict" in function definition (contents)' {2,8}
 function foo() {

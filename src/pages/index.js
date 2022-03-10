@@ -16,7 +16,7 @@ function HomepageHeader() {
             View Notes
           </Link>
           <Link
-            className="button button--secondary button--lg margin-left--sm"
+            className="button button--secondary button--lg"
             to="/university"
           >
             View University

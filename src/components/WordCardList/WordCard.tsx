@@ -40,7 +40,7 @@ function WordCard({ word = "" }) {
   }, [word]);
 
   if (error) {
-    return <div>error: {error}</div>;
+    return <div>error: {error.message}</div>;
   }
 
   if (loading) {

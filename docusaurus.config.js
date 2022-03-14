@@ -8,7 +8,7 @@ const katex = require("rehype-katex");
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "Xiaohai's mind Palace",
+  title: "Xiaohai's Mind Palace",
   url: "https://xiaohai-mind.vercel.app",
   baseUrl: "/",
   onBrokenLinks: "throw",

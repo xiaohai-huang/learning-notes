@@ -20,7 +20,7 @@ This command starts a local development server and opens up a browser window. Mo
 
 ```bash
 yarn build
-# run a docsearch crwal, install 'jq' if necessary
+# run a docsearch crwal
 yarn scan
 ```
 

@@ -17,12 +17,6 @@ git stash push -u -m "stash_name"
 git stash push --include-untracked -m "stash_name"
 ```
 
-apply a stash using custom stash name
-
-```bash
-git stash apply stash_name
-```
-
 <!-- truncate -->
 
 show stash list

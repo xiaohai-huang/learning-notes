@@ -16,10 +16,10 @@
     "dev": "docusaurus start"
   },
   "dependencies": {
-    "@docusaurus/core": "2.0.0-beta.14",
-    "@docusaurus/plugin-content-docs": "^2.0.0-beta.14",
-    "@docusaurus/preset-classic": "2.0.0-beta.14",
-    "@docusaurus/theme-live-codeblock": "^2.0.0-beta.14",
+    "@docusaurus/core": "0.0.0-4728",
+    "@docusaurus/plugin-content-docs": "0.0.0-4728",
+    "@docusaurus/preset-classic": "0.0.0-4728",
+    "@docusaurus/theme-live-codeblock": "0.0.0-4728",
     "@mdx-js/react": "^1.6.21",
     "clsx": "^1.1.1",
     "docusaurus-plugin-sass": "^0.2.2",
@@ -49,9 +49,8 @@
   "description": "",
   "keywords": [],
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "^2.0.0-beta.14",
+    "@docusaurus/module-type-aliases": "0.0.0-4728",
     "@tsconfig/docusaurus": "^1.0.4",
-    "docusaurus-plugin-module-alias": "^0.0.2",
     "prettier": "^2.5.1",
     "typescript": "^4.5.5"
   }

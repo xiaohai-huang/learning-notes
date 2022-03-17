@@ -33,14 +33,20 @@ const config = {
         showLastUpdateTime: true,
       },
     ],
-    [
-      "docusaurus-plugin-module-alias",
-      {
-        alias: {
-          "@src": path.resolve(__dirname, "src"),
+    async function plugin(conext, options) {
+      return {
+        name: "docusaurus-plugin-module-alias",
+        configureWebpack() {
+          return {
+            resolve: {
+              alias: {
+                "@src": path.resolve(__dirname, "src"),
+              },
+            },
+          };
         },
-      },
-    ],
+      };
+    },
     "docusaurus-plugin-sass",
   ],
   presets: [

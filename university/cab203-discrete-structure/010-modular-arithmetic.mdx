@@ -1,0 +1,133 @@
+---
+sidebar_label: Modular Arithmetic
+title: Modular Arithmetic
+description: "notes about modular arithmetic and its examples: parity, clock arithmetic"
+---
+
+import JSEditor from "@src/components/js-live-code-editor";
+import WordCardList from "@src/components/WordCardList";
+import sourceCode from "!!raw-loader!./_assets-01/mod_arithmetic.js";
+
+> Modular arithmetic is a system of arithmetic for integers, which considers the **remainder**.
+>
+> In modular arithmetic, numbers "wrap around" upon reaching a given fixed quantity (this given quantity is known as the modulus) to leave a remainder.
+
+## Parity
+
+Prity refers to the state of being _even_ or _odd_.
+
+- Integers have one of two different parities:
+  - $x$ is _even_ means $2|x$
+  - $x$ is _odd_ means $2|(x-1)$
+- Some properties:
+  - even $\pm$ even = even
+  - even $\pm$ odd = odd
+  - odd $\pm$ odd = even
+
+## Clock Arithmetic
+
+Time _wraps_ around at 12. In addition, adding any multiple of 12 hours does not change the o'clock.
+
+example 1: now is 10 o'clock. What time is it after 5 hours?
+
+<center>3 o'clock</center>
+
+example 2: what time is it after 27 hours from now? What time is it after 39 hours from now?
+
+<JSEditor>
+  console.log(27 % 12); console.log(39 % 12);console.log(15 % 12);
+</JSEditor>
+
+So `a` and `b` are the same o'clock if 12 divides `a - b` or `(a - b) % 12 == 0`
+
+```js
+const a = 15;
+const b = 15 + 12 * 2; // 39
+const result = (a - b) % 12;
+console.log(result); // 0
+```
+
+## Modular Arithmetic
+
+Modular arithmetic is an abstraction of [parity](#parity) and [clock arithmetic](#clock-arithmetic).
+
+- **Parity** is arithmetic modulo 2
+- **Clocks** use arithmetic modulo 12
+
+### Modular Equivalence
+
+Modular equivalence is also called **modualr congruence**.
+
+Definition: $n | (a - b)$, if $a - b$ is divisible by $n$. Then $a$ and $b$ are _equivalent modulo n_.
+
+$$
+n | (a - b) \implies a \equiv b \ (\textrm{mod}\ n)
+$$
+
+Example:
+
+$$
+\begin{aligned}
+a & = 50 \\
+b & = 20 \\
+n & = 10 \\
+\\
+\frac{a-b}{n} & = \frac{30}{10} = 3 \dots 0 \\
+a & \equiv b \ (\textrm{mod}\ n)
+\end{aligned}
+$$
+
+### Properties of Modular Arithmetic
+
+Modualr equivalence plays nicely with ["addition", "subtraction", "multiplication"].
+
+Suppose that $a_1 \equiv b_1 \ (\textrm{mod}\ n)$ and $a_2 \equiv b_2 \ (\textrm{mod}\ n)$. Then:
+
+- $a_1 + a_2 \equiv b_1 + b_2 \ (\textrm{mod}\ n)$
+- $a_1 - a_2 \equiv b_1 - b_2 \ (\textrm{mod}\ n)$
+- $a_1 \times a_2 \equiv b_1 \times b_2 \ (\textrm{mod}\ n)$
+
+This means we can use many tools from normal arithmetic with modular arithmetic.
+
+### mod Operator
+
+Definition: $a\ \textrm{mod}\ n$ is the smallest non-negative integer $c$ such that $a \equiv c\ (\textrm{mod}\ n)$.
+
+Equivalently, $a\ \textrm{mod}\ n$ is the remainder when you divide $a$ by $n$ ($\frac{a}{n}$).
+
+Example: $11\ \textrm{mod}\ 2 = 1$, because $11 = (5 \times 2) + 1$
+
+### Proof of Lemma
+
+> A **lemma** is little statement that is true in a mathematical theory,
+> derived from its **axioms**. We can show that it is true by using a
+> proof which shows the steps necessary to get from the axioms to
+> the statement. We can also use other lemmas in the proof if we
+> have already proved them.
+
+Lemma: Let $a$ and $b$ be integers.
+$a\ \textrm{mod}\ b = 0 \implies b|a$.
+
+Proof:
+
+1. According to the definition of [mod operator](#mod-operator), $a \equiv 0 \ (\textrm{mod}\ b)$.
+2. Use [modular equivalence](#modular-equivalence) definition, $b | (a - 0)$
+3. Based on a well known lemma, we known that $a - 0 = a$, so $b | a$
+
+### Applications of Modular Arithmetic
+
+- [Parity](#parity)
+- [Clock arithmetic](#clock-arithmetic)
+- **RSA** encryption
+- CPU integer arithmetic
+- Indices for **ring buffers**
+
+## Appendix
+
+### Code
+
+<JSEditor title="modular equivalence">{sourceCode}</JSEditor>
+
+### Vocabulary
+
+<WordCardList words={["congruence", "modulo", "axioms"]} />

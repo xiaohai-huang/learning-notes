@@ -46,6 +46,7 @@ function WordCard({ word = "" }) {
   if (loading) {
     return <div>loading...</div>;
   }
+  console.log(data);
 
   return data ? (
     <div className="card shadow--md">
@@ -65,20 +66,22 @@ function WordCard({ word = "" }) {
           </div>
         ))}
       </div>
-      <div className="card__footer">
-        <div className="button-group button-group--block">
-          {data.phonetics.map((phonetic, i) => (
-            <button
-              key={i}
-              className="button button--secondary button--block"
-              onClick={() => playAudio(phonetic.audio ?? "")}
-              disabled={!Boolean(phonetic.audio)}
-            >
-              {phonetic.text}
-            </button>
-          ))}
+      {data.phonetics.length === 0 ? null : (
+        <div className="card__footer">
+          <div className="button-group button-group--block">
+            {data.phonetics.map((phonetic, i) => (
+              <button
+                key={i}
+                className="button button--secondary button--block"
+                onClick={() => playAudio(phonetic.audio ?? "")}
+                disabled={!Boolean(phonetic.audio)}
+              >
+                {phonetic.text}
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   ) : (
     <></>

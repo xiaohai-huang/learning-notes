@@ -172,3 +172,53 @@ A 4 bit string, $\bar{x} = 1100$. Mask for bits 0 and 2: $\bar{mask} = 0101$
 | Turn off bits 0 and 2                | $\bar{x} \& (\lnot \bar{mask})$ |  1000  |
 | Turn of all bits except bits 0 and 2 |     $\bar{x} \& \bar{mask}$     |  0100  |
 | Toggle bits 0 and 2                  |   $\bar{x} \oplus \bar{mask}$   |  1001  |
+| **Test if bit 2 is on **             | `is_on = ( x & (1 << 2) ) != 0` |  True  |
+
+## Python
+
+`0b` is the prefix for binary constants.
+
+`bin(num)` returns the binary representation of an integer as a string.
+
+```python title="bit strings and bit operations"
+>>> help(bin) # Return the binary representation of an integer.
+>>> bin(2796202)
+'0b1010101010101010101010'
+>>> bin(0b1100)
+'0b1100'
+
+>>> bin(0b1100 & 0b1010) # AND
+'0b1000'
+
+>>> bin(0b1100 | 0b1010) # OR
+'0b1110'
+
+>>> bin(0b1100 ^ 0b1010) # XOR
+'0b110'
+
+>>> bin(~0b1100) # NOT all bits
+'-0b1101'
+```
+
+```python title="bit mask"
+x = 0
+
+# create a mask for bit 0 and 2
+mask = (1 << 0) | (1 << 2) # `0b101'
+
+# flip/toggle bit 0 and 2
+x = x ^ mask # x == 0b101
+
+# flip/toggle again
+x = x ^ mask # x == 0b0
+
+# turn off bit 0 and 2
+x = x & (~mask) # x == 0b0
+
+# turn on bit 0 and 2
+x = x | mask # x == 0b101
+
+# test if bit 2 is 0
+mask_for_bit_2 = 1 << 2
+is_on = (x & mask_for_bit_2) != 0
+```

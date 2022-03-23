@@ -222,3 +222,8 @@ x = x | mask # x == 0b101
 mask_for_bit_2 = 1 << 2
 is_zero = (x & mask_for_bit_2) == 0
 ```
+
+## References
+
+- [Lecture Notes](<https://docs.google.com/viewerng/viewer?url=https://github.com/xiaohai-huang/resources/raw/master/QUT/Discrete-Structure/week2/lecture01+(1).pdf>)
+- [Week2 Resources](https://github.com/xiaohai-huang/resources/tree/master/QUT/Discrete-Structure/week2)

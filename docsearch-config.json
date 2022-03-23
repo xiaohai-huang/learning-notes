@@ -1,7 +1,7 @@
 {
   "index_name": "xiaohai-mind-palace-index",
-  "start_urls": ["http://xiaohai-mind.vercel.app/"],
-  "sitemap_urls": ["http://xiaohai-mind.vercel.app/sitemap.xml"],
+  "start_urls": ["http://xiaohai.wiki/"],
+  "sitemap_urls": ["http://xiaohai.wiki/sitemap.xml"],
   "sitemap_alternate_links": true,
   "stop_urls": ["/tests"],
   "selectors": {

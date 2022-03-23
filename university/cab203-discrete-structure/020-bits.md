@@ -30,7 +30,7 @@ The **length** of a bit string is the number of symbols.
 $\bar{x}$ is used to indicate a string. (bar)
 
 The *j*th bit in $\bar{x}$ is $\bar{x}_j$ (j starts at 0)
-The bit at index 0 of a bit string, is the rightmost bit. In most situations,We count from the **right**.
+The bit at index 0 of a bit string, is the rightmost bit. In most situations, We count from the **right**.
 
 The set of all strings of length $n$ is $\{0, 1\}^n$ (also called n-bit strings).
 
@@ -159,7 +159,7 @@ Here are some examples of bit manipulations that we can do:
 
 - Turn on bits (set the bit to 1)
 - Turn off bits (set the bit to 0)
-- Flip bits (NOT the bit), aka **toggole** the bit
+- Flip bits (NOT the bit), aka **toggle** the bit
 - Test if a bit is 0
 
 A **bitmask** can be used to manipulate groups of bits.

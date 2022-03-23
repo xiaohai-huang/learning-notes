@@ -1,22 +1,38 @@
 import React from "react";
 import clsx from "clsx";
+import Link from "@docusaurus/Link";
+
 import styles from "./HomepageFeatures.module.css";
 
 const FeatureList = [
   {
     title: "Mind Palace",
     Svg: require("../../static/img/undraw_docusaurus_mountain.svg").default,
-    description: <>A place for keeping notes from different domains.</>,
+    description: (
+      <>
+        A place for keeping notes across{" "}
+        <Link to="/docs">different domains</Link>.
+      </>
+    ),
   },
   {
     title: "University Notes",
     Svg: require("../../static/img/undraw_docusaurus_tree.svg").default,
-    description: <>The notes collected while studying in university.</>,
+    description: (
+      <>
+        The notes collected while studying at{" "}
+        <Link to="/university">university</Link>.
+      </>
+    ),
   },
   {
     title: "Showcase",
     Svg: require("../../static/img/undraw_docusaurus_react.svg").default,
-    description: <>A list of projects that I am/was working on.</>,
+    description: (
+      <>
+        A list of <Link to="/showcase">projects</Link> that I am/was working on.
+      </>
+    ),
   },
 ];
 

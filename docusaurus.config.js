@@ -140,6 +140,10 @@ const config = {
                 to: "/todos",
               },
               {
+                label: "Resources",
+                href: "https://github.com/xiaohai-huang/resources",
+              },
+              {
                 label: "GitHub",
                 href: "https://github.com/xiaohai-huang/learning-notes",
               },

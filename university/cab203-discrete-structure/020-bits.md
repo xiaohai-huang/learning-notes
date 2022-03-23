@@ -166,13 +166,13 @@ A **bitmask** can be used to manipulate groups of bits.
 
 A 4 bit string, $\bar{x} = 1100$. Mask for bits 0 and 2: $\bar{mask} = 0101$
 
-| Task                                 |             Formula             | Answer |
-| ------------------------------------ | :-----------------------------: | :----: |
-| Turn on bits 0 and 2                 |   $\bar{x} \vert \bar{mask}$    |  1101  |
-| Turn off bits 0 and 2                | $\bar{x} \& (\lnot \bar{mask})$ |  1000  |
-| Turn of all bits except bits 0 and 2 |     $\bar{x} \& \bar{mask}$     |  0100  |
-| Toggle bits 0 and 2                  |   $\bar{x} \oplus \bar{mask}$   |  1001  |
-| **Test if bit 2 is on **             | `is_on = ( x & (1 << 2) ) != 0` |  True  |
+| Task                                 |              Formula              | Answer  |
+| ------------------------------------ | :-------------------------------: | :-----: |
+| Turn on bits 0 and 2                 |    $\bar{x} \vert \bar{mask}$     |  1101   |
+| Turn off bits 0 and 2                |  $\bar{x} \& (\lnot \bar{mask})$  |  1000   |
+| Turn of all bits except bits 0 and 2 |      $\bar{x} \& \bar{mask}$      |  0100   |
+| Toggle bits 0 and 2                  |    $\bar{x} \oplus \bar{mask}$    |  1001   |
+| **Test if bit 2 is 0 **              | `is_zero = ( x & (1 << 2) ) == 0` | `False` |
 
 ## Python
 
@@ -220,5 +220,5 @@ x = x | mask # x == 0b101
 
 # test if bit 2 is 0
 mask_for_bit_2 = 1 << 2
-is_on = (x & mask_for_bit_2) != 0
+is_zero = (x & mask_for_bit_2) == 0
 ```

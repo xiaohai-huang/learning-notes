@@ -2,20 +2,22 @@ name: Run docsearch-scraper
 
 on:
   push:
-    branches: [ master, test-workflow ]
+    branches: [master, test-workflow]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
-
   scan:
-
     runs-on: ubuntu-latest
 
     steps:
+      - name: Sleep for 5 minutes
+        run: sleep 300s
+        shell: bash
+
       - name: Checkout repo
         uses: actions/checkout@v2
-      
+
       - name: Run scraper
         env:
           APPLICATION_ID: ${{ secrets.APPLICATION_ID }}

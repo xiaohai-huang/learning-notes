@@ -10,7 +10,10 @@ function HomepageHeader() {
     <header className={clsx("hero hero--primary", styles.heroBanner)}>
       <div className="container">
         <h1 className="hero__title">Xiaohai's Mind Palace</h1>
-        <p className="hero__subtitle">A website for organizing notes</p>
+        <p className="hero__subtitle">
+          A place for organizing <b>notes</b>, writing <b>blogs</b>, and
+          showcasing <b>projects</b>.
+        </p>
         <div className={styles.buttons}>
           <Link className="button button--secondary button--lg" to="/docs">
             View Notes
@@ -29,7 +32,10 @@ function HomepageHeader() {
 
 export default function Home() {
   return (
-    <Layout title="Home" description="xiaohai-huang's Mind Palace">
+    <Layout
+      title="Home"
+      description="Xiaohai's Mind Palace. A place for organizing notes across multiple domains. A place for writing blogs. A place for showcase projects."
+    >
       <HomepageHeader />
       <main>
         <HomepageFeatures />

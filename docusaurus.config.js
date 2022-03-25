@@ -88,6 +88,7 @@ const config = {
       },
       navbar: {
         title: "Home",
+        hideOnScroll: true,
         logo: {
           alt: "My Site Logo",
           src: "img/favicon.ico",

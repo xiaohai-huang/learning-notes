@@ -10,7 +10,7 @@ import YouTubeVideo from "@src/components/youtube-video";
 
 Often we want to find a relationship between two variables to:
 
-- Predict behaviour
+- Predict behavior
 - Explore relationships
 
 The simplest way to achieve this is to assume a linear relationship
@@ -48,7 +48,7 @@ $$
 
 `offset` + `coefficient` x `variable`
 
-## Minimise the Error
+## Minimize the Error
 
 Try my best to estimate $\beta_0$ and $\beta_1$ given a set of observations, $y = (y_1,\ldots,y_n)$ and $x=(x_1,\ldots,x_n)$, so they can give the best $y$ given $x$
 
@@ -68,7 +68,7 @@ $$
 
 $\hat{y_i}$ is the predicted value, $y_i$ is the ground truth (observed) value. The difference between $\hat{y_i}$ and $y_i$ is called the **error** (residual) ~ $\epsilon_i$. We assume the **residual** is normally distributed around **0**
 
-The goal is to find the values of $c$ and $m$ that minimise the sum of the square of the **errors**
+The goal is to find the values of $c$ and $m$ that minimize the sum of the square of the **errors**
 
 $$
 \sum^n_{i=1}\epsilon_i^2=\sum^n_{i=1}(y_i-\hat{y_i})^2=\sum^n_{i=1}(y_i - (mx_i + c))^2
@@ -133,11 +133,11 @@ video sources:
 ### Why Do We Care?
 
 1. If there is a linear relationship, we want to make sure the `x` is correlated with the result `y`.
-2. Want our predictors to be uncorrelated with each other, since each preditor models a different aspect of the overall relationship. If they are correlated, we can end up with redundancy in the model.
+2. Want our predictors to be uncorrelated with each other, since each predictor models a different aspect of the overall relationship. If they are correlated, we can end up with redundancy in the model.
 
 <details>
   <summary>
-    Why do we want our preditors to be uncorrelated with each other?
+    Why do we want our predictors to be uncorrelated with each other?
   </summary>
   <div>
     In the{" "}

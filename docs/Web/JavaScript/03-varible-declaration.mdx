@@ -1,6 +1,6 @@
 ---
 sidebar_label: var - let - const
-title: Varible Declaration
+title: Variable Declaration
 ---
 
 import JSEditor from "@src/components/js-live-code-editor";
@@ -9,7 +9,7 @@ import secondExample from "!!raw-loader!./_scripts/03-variable-declaration-02.js
 import thirdExample from "!!raw-loader!./_scripts/03-variable-declaration-03.js";
 import fourthExample from "!!raw-loader!./_scripts/03-variable-declaration-04.js";
 
-Usefull resources:
+Useful resources:
 
 - [Var, Let, and Const – What's the Difference?](https://www.freecodecamp.org/news/var-let-and-const-whats-the-difference/)
 - [Variables and scoping](https://exploringjs.com/es6/ch_variables.html#sec_overview-variables)
@@ -36,7 +36,7 @@ The scope is function scope when `var` variable is declared inside a function. T
 
 <JSEditor title="Function Scope">{firstExample}</JSEditor>
 
-#### Re-declaraed and Updated
+#### Re-declared and Updated
 
 [Re-declaration?](https://github.com/getify/You-Dont-Know-JS/blob/2nd-ed/scope-closures/ch5.md#re-declaration)
 
@@ -67,10 +67,10 @@ console.log(studentName); // Frank
 
 [Hoisting: Yet Another Metaphor](https://github.com/getify/You-Dont-Know-JS/blob/2nd-ed/scope-closures/ch5.md#hoisting-yet-another-metaphor)
 
-It is usefull to think of hoisting as a series of actions JS takes in setting up the program **before execution**.
+It is useful to think of hoisting as a series of actions JS takes in setting up the program **before execution**.
 
 1. The identifier is hoisted to the top of the scope
-2. It's automatically initialzed to the value `undefined`. So that the variable can be used throughout the entire scope.
+2. It's automatically initialized to the value `undefined`. So that the variable can be used throughout the entire scope.
 
 ```js title="Before 'pre-process'"
 age = 20;
@@ -79,7 +79,7 @@ console.log(age);
 var age = 30;
 ```
 
-```js title="Afrer 'pre-process'" {3}
+```js title="After 'pre-process'" {3}
 var age; // hoisted declaration
 
 age = 20;
@@ -89,7 +89,7 @@ age = 30;
 
 :::info
 
-However, `function` declarations are entirely hostied to the top of each scope. And they are hoisted first, then variables are hosited immediately after all the functions.
+However, `function` declarations are entirely hoisted to the top of each scope. And they are hoisted first, then variables are hoisted immediately after all the functions.
 
 ```js title="Before 'pre-process'"
 age = 20;

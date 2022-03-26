@@ -5,7 +5,7 @@ title: Machine Learning Basics
 
 ## What is Machine Learning?
 
-> Machine learning is a branch of artifitial intelligence (AI) and computer science which focuses on the use of data and algorithms to imitate the way that humans learn, gradually improving its accuracy.
+> Machine learning is a branch of artificial intelligence (AI) and computer science which focuses on the use of data and algorithms to imitate the way that humans learn, gradually improving its accuracy.
 
 ## Types of Machine Learning
 
@@ -13,7 +13,7 @@ title: Machine Learning Basics
 
 Task Driven (Regression/Classification)
 
-We have lablled data - we know that the answer should be
+We have labeled data - we know that the answer should be
 
 Examples:
 
@@ -27,14 +27,14 @@ No labelling - knowledge discovery
 
 Examples:
 
-- Detect abnormal behaviours
+- Detect abnormal behaviors
 
 ### Semi-Supervised
 
-Only some (usually a small amount of data) is lablled
+Only some (usually a small amount of data) is labelled
 
 - Half way between supervised and unsupervised learning
-- Learn from lablled and unlablled data
+- Learn from labelled and unlabelled data
 
 ### Reinforcement
 
@@ -85,7 +85,7 @@ The general procedure is as follows:
 2. Split the dataset into `k` groups.
 3. For each unique group:
    1. Pick one group as a test set
-   2. Take the remaining groups as a traning set
+   2. Take the remaining groups as a training set
    3. Fit the model on the training set and evaluate the model on the selected test set (from step i).
    4. Record the evaluation score and discard the model
 
@@ -93,7 +93,7 @@ The general procedure is as follows:
 
 ## Neural Networks
 
-A computer system modelled on the human brain and nervous system - Builit on simple, stacked operations
+A computer system modelled on the human brain and nervous system - Built on simple, stacked operations
 
 Typically have high number of parameters & lots of interconnections
 
@@ -106,7 +106,7 @@ Data **propagates** through the networks
 
 ### History
 
-Initial reasearch started in 1940's and 50's
+Initial research started in 1940's and 50's
 
 Deep Learning
 
@@ -138,7 +138,7 @@ More depth gives
 - Cons:
   - More parameters -> harder to learn & more likely to overfit
   - More layers -> further for gradients to propagate
-  - Harder to fit **networks** in memeory
+  - Harder to fit **networks** in memory
     - Need specialist hardware, and very long times to train
 
 ### Deep Learning Pipeline
@@ -156,7 +156,7 @@ Common Pipeline:
 
 How do we remove the human-driven feature extraction process?
 
-**Answer:** It is being done in the network. The layers at the begining of deep networks can perform feature extractions, then the later layers learn the classification (or other tasks)
+**Answer:** It is being done in the network. The layers at the beginning of deep networks can perform feature extractions, then the later layers learn the classification (or other tasks)
 
 :::
 
@@ -171,7 +171,7 @@ How do we remove the human-driven feature extraction process?
 
 - Models are huge compared to "traditional" approaches
 
-  - **Millions** vs **Hundereds** of parameters
+  - **Millions** vs **Hundreds** of parameters
   - Requires more data, runtime, and memory
   - Models are harder to interpret
     - Explainable AI. Why did my model make this decision? Too many parameters

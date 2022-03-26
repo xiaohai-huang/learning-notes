@@ -6,9 +6,9 @@ title: this keyword
 import JSEditor from "@src/components/js-live-code-editor";
 import CodeBlock from "@theme/CodeBlock";
 import firstExample from "!!raw-loader!./_scripts/01-this-first.js";
-import implictBindingExample1 from "!!raw-loader!./_scripts/01-this-implict-binding-01.js";
-import implictBindingExample2 from "!!raw-loader!./_scripts/01-this-implict-binding-02.js";
-import explictBindingExample1 from "!!raw-loader!./_scripts/01-this-explict-binding-01.js";
+import implicitBindingExample1 from "!!raw-loader!./_scripts/01-this-implicit-binding-01.js";
+import implicitBindingExample2 from "!!raw-loader!./_scripts/01-this-implicit-binding-02.js";
+import explicitBindingExample1 from "!!raw-loader!./_scripts/01-this-explicit-binding-01.js";
 import newBindingExample1 from "!!raw-loader!./_scripts/01-this-new-binding-01.js";
 import orderExample1 from "!!raw-loader!./_scripts/01-this-order-01.js";
 import arrowFunctionExample1 from "!!raw-loader!./_scripts/01-this-arrow-function-01.js";
@@ -33,7 +33,7 @@ Useful resources:
 - What parameters were passed
 - `this`
 
-![execution context](./_assets/this-exectution-context.png)
+![execution context](./_assets/this-execution-context.png)
 
 One of the most important properties of [execution context](/todos) is the `this` reference that will be used for the duration of that function call.
 
@@ -64,7 +64,7 @@ These 4 rules are applied in this order:
 
 1. Called with `new`? Use the **newly constructed object**.
 2. Called with `call`, `apply` (or `bind`)? Use the specified object.
-3. Called with a conext object in front of the call? Use that object. e.g. `person.sayName()`
+3. Called with a context object in front of the call? Use that object. e.g. `person.sayName()`
 4. Default: `strict mode` ? `undefined` : `globalThis`
 
 ### Default Binding {#default-binding}
@@ -88,7 +88,7 @@ Follow the [instruction](#rules). The first step is to find the **call-site**
 
 In this example, `foo()` is called with a _plain, un-decorated function reference_, so _default binding_ applies.
 
-#### Strict mode behaviour
+#### Strict Mode Behavior
 
 In [strict mode](/todos), the global object is not eligible for the _default binding_. That means `this` will be set to `undefined`.
 
@@ -118,23 +118,23 @@ var a = 2; // is declared in the global scope
 })();
 ```
 
-### Implict Binding
+### Implicit Binding
 
-When a function preceded by an `object` is called, the _implict binding_ rule says: that `object` should be used as the function call's `this` binding.
+When a function preceded by an `object` is called, the _implicit binding_ rule says: that `object` should be used as the function call's `this` binding.
 
-<JSEditor>{implictBindingExample1}</JSEditor>
+<JSEditor>{implicitBindingExample1}</JSEditor>
 
 Because `person` is the `this` for the `sayName()` call, therefore, `this.name` is synonymous with `person.name`.
 
 Only the last object reference matters to the [call-site](#call-site).
 
-<JSEditor>{implictBindingExample2}</JSEditor>
+<JSEditor>{implicitBindingExample2}</JSEditor>
 
-#### Implictly Lost {#implict-lost}
+#### Implicitly Lost {#implicit-lost}
 
-One common issue of implict binding is that it might lose its `this` binding. That usually means `this` falls back to the [_default binding_](#default-binding) which is either the global object or `undefined`, depending on `strict mode`.
+One common issue of implicit binding is that it might lose its `this` binding. That usually means `this` falls back to the [_default binding_](#default-binding) which is either the global object or `undefined`, depending on `strict mode`.
 
-```js title="Implictly lost - 01"
+```js title="Implicitly lost - 01"
 function sayAgeFunc() {
   console.log(`Hello, I'm ${this.age} years old.`);
 }
@@ -153,7 +153,7 @@ sayAgeStandAlone(); // Hello, I'm global age!!! years old.
 
 In this example, the [call-site](#call-site) of `sayAgeStandAlone()` is a _plain, un-decorated call_, therefore the [_default binding_](#default-binding) applies.
 
-```js title="Implictly lost - 02"
+```js title="Implicitly lost - 02"
 function sayNameFunc() {
   console.log(`Hello, my name is ${this.Name}.`);
 }
@@ -190,13 +190,13 @@ As you can see that, `this` is changed unexpectedly, we don't have control over 
 
 :::
 
-### Explict Binding
+### Explicit Binding
 
 `func.call()`, `func.apply()`, `func.bind()`
 
-`func.call()`, `func.apply()` taks an object as the first parameter which will be used as `this`, and invoke the function. Because you are directly defining what you want the `this` to be, it is known as _explict binding_.
+`func.call()`, `func.apply()` takes an object as the first parameter which will be used as `this`, and invoke the function. Because you are directly defining what you want the `this` to be, it is known as _explicit binding_.
 
-```js title="Explict binding - 01"
+```js title="Explicit binding - 01"
 function sayNameFunc() {
   console.log(`Hello, my name is ${this.Name}.`);
 }
@@ -210,21 +210,21 @@ person.sayName(); // Hello, my name is xiaohai.
 sayNameFunc.call(person); // Hello, my name is xiaohai.
 ```
 
-Invoking `sayNameFunc` with _explict binding_ by `sayNameFunc.call(...)` enable us to bind its `this` to be `person`.
+Invoking `sayNameFunc` with _explicit binding_ by `sayNameFunc.call(...)` enable us to bind its `this` to be `person`.
 
 :::note
 
-If a primitive value (`string`, `boolean`, or `number`) is passed as the first parameter `this` binding, the primitive value is wrapped in its **object-form** (`new String(...)`, `new Boolean(...)`, or `new Number(...)`, respectively). That behaviour is knwon as "boxing".
+If a primitive value (`string`, `boolean`, or `number`) is passed as the first parameter `this` binding, the primitive value is wrapped in its **object-form** (`new String(...)`, `new Boolean(...)`, or `new Number(...)`, respectively). That behavior is known as "boxing".
 
 :::
 
 #### Hard Binding
 
-However, `func.call()`, `func.apply()` still doesn't solve the problem ([implict lost](#implict-lost)) "a function **losing** its intended `this` binding".
+However, `func.call()`, `func.apply()` still doesn't solve the problem ([implicit lost](#implicit-lost)) "a function **losing** its intended `this` binding".
 
-But a variation pattern around _explict binding_ can solve the problem.
+But a variation pattern around _explicit binding_ can solve the problem.
 
-<JSEditor>{explictBindingExample1}</JSEditor>
+<JSEditor>{explicitBindingExample1}</JSEditor>
 
 We can use ES5: `Function.prototype.bind` to achieve the same result shown above. Below is a simple version of `bind`.
 
@@ -237,7 +237,7 @@ function bind(func, thisObject) {
 }
 ```
 
-`func.bind(...)` returns a new function that will call the orginal function with `this` set as you specified.
+`func.bind(...)` returns a new function that will call the original function with `this` set as you specified.
 
 :::info
 
@@ -258,16 +258,16 @@ When a function is invoked with `new` in front of it, the following things are d
 
 ## Priority of Rules
 
-What happend if the [call-site](#call-site) has multiple eligible rules? What order to apply these rules?
+What happened if the [call-site](#call-site) has multiple eligible rules? What order to apply these rules?
 
 1. [new binding](#new-binding)
-2. [explict binding](#explict-binding)
-3. [implict binding](#implict-binding)
-4. [default binding](#default-binding) has the lowerest priority among the 4.
+2. [explicit binding](#explicit-binding)
+3. [implicit binding](#implicit-binding)
+4. [default binding](#default-binding) has the lowest priority among the 4.
 
-### Explict vs Implict
+### Explicit vs Implicit
 
-```js title="explict > implict"
+```js title="explicit > implicit"
 function sayNameFunc() {
   console.log(`Hello, my name is ${this.Name}.`);
 }
@@ -285,9 +285,9 @@ person.sayName.call(person2);
 // Hello, my name is Hello, my name is dan-dan.
 ```
 
-### `new` vs Explict
+### `new` vs Explicit
 
-<JSEditor title="new > explict">{orderExample1}</JSEditor>
+<JSEditor title="new > explicit">{orderExample1}</JSEditor>
 
 ## Binding Exceptions
 
@@ -331,7 +331,7 @@ ES6 introduces **arrow-function** which doesn't follow the rules specified above
 
 Instance methods in `class` are just normal function. see below
 
-<JSEditor title="instance method behaviour">{classExample1}</JSEditor>
+<JSEditor title="instance method behavior">{classExample1}</JSEditor>
 
 ## Questions
 
@@ -350,6 +350,6 @@ let foo = new Foo();
 let getName = foo.getName;
 
 log(foo.getName()); // implicit binding
-log(getName()); // implict binding lost - use default binding
+log(getName()); // implicit binding lost - use default binding
 log(Foo.bind(foo).getName);
 ```

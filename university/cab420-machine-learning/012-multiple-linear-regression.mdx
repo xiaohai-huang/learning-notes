@@ -34,7 +34,7 @@ There are many tools that can be used to measure the individual terms, and the v
 
 ### Individual Terms (Coefficients)
 
-Example data comming from [number of cyclists](https://github.com/xiaohai-huang/cab420-workspace/blob/d374f220a128ca3d544b076216b51a45d4983749/work/week1/CAB420_Regression_Example_1_Linear_Regression.ipynb) case study
+Example data coming from [number of cyclists](https://github.com/xiaohai-huang/cab420-workspace/blob/d374f220a128ca3d544b076216b51a45d4983749/work/week1/CAB420_Regression_Example_1_Linear_Regression.ipynb) case study
 
 ```python
 model = sm.ols(formula="cnt ~ atemp + temp + hum + windspeed", data=data_train).fit()
@@ -109,11 +109,11 @@ Defined as follows:
 
 #### Adjusted R-Squared
 
-Definition: Considers the model's complexity (number of terms) as well as how much variance it explains. Which means that complex models are penalised.
+Definition: Considers the model's complexity (number of terms) as well as how much variance it explains. Which means that complex models are penalized.
 
 #### RMSE (Root Mean Square Error) {#RMSE}
 
-Definition: **Root Mean Squre Error** (RMSE) is the standard deviation of the residuals (prediction errors). It is a measure of how spread these residuals are. Therefore, smaller RMSEs are better. The scale of RMSE is dependent on the data. Unlike $R^2$, it can be computed on training, validation, and testing sets.
+Definition: **Root Mean Square Error** (RMSE) is the standard deviation of the residuals (prediction errors). It is a measure of how spread these residuals are. Therefore, smaller RMSEs are better. The scale of RMSE is dependent on the data. Unlike $R^2$, it can be computed on training, validation, and testing sets.
 
 $$
 RMSE = \sqrt{ \overline{ (prediction - actual)^2  } }

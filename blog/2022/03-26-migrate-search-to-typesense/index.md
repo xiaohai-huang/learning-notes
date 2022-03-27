@@ -4,7 +4,12 @@ authors: xiaohai
 tags: [Docker, search engine]
 description: "Self-host a typesense search server to perform document search for xiaohai.wiki. 
 This is an alternative to Algolia."
+image: https://typesense.org/_nuxt/img/typesense_logo.b12edde.svg
 ---
+
+[typesense](https://typesense.org/) is a open source Algolia alternative. This blog shows how to run a self-hosted `typesense` server on my own server.
+
+<!-- truncate -->
 
 ## Setup a `typesense` Server Using Docker
 

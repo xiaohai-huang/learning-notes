@@ -34,7 +34,7 @@ function ShowCaseCard(props: Case) {
         <Link to={props.website}>
           <h4>{props.title}</h4>
         </Link>
-        <small>{props.description}</small>
+        <p className={styles.description}>{props.description}</p>
       </div>
       <div className="card__footer">
         <section className="margin-bottom--md">

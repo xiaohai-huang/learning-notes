@@ -43,7 +43,7 @@ ax.hist(model.resid, 20)
 :::
 
 $$
-y = \beta_0 +\beta_{1x}
+y = \beta_0 +\beta_{1}x
 $$
 
 `offset` + `coefficient` x `variable`
@@ -78,13 +78,13 @@ $$
 
 :::note
 
-Minimum requirement: the number of training samples should be much larger than the number of terms we are trying to estimate
+Minimum requirement: the number of training samples should be much larger than the number of terms we are trying to estimate.
 
 :::
 
 ## Correlation
 
-Definition: It describes the degree (ranges from -1 ~ 1) to which two variables move in coordination with one another. If two variables move in the same direction, then those variables are said to have a positive **correlation**. If they move in opposite directions, then they have a negative **correlation**. It controls the strength and direction of the relationship.
+Definition: It describes the degree (ranges from -1 ~ 1) that two variables move in coordination with one another. If two variables move in the same direction, then those variables are said to have a positive **correlation**. If they move in opposite directions, then they have a negative **correlation**. It controls the strength and direction of the relationship.
 
 $$
 Covariance = \frac{\sum (x- \bar{x})(y - \bar{y})}{n-1}

@@ -33,7 +33,7 @@ We aim to find values for $\beta$ that minimizes
 
 $$
 \sum^{M}_{i = 1} {(y_i - \hat{y})^2} =
-\sum^{M}_{i = 1} {\left(  y_i - \sum^P_{j = 0} {w_j \times x_{ij}} \right)^2}
+\sum^{M}_{i = 1} {\left(  y_i - (\beta_0 + \sum^{P}_{j = 1} {\beta_j \times x_{ij}}) \right)^2}
 $$
 
 - $y_i$ is the actual value we are trying to predict (ground truth).
@@ -42,7 +42,7 @@ $$
 - $i$ stands for the **i**-th example.
 - $j$ stands for the **j**-th attribute/dimension of an example. (e.g., wind speed, gender)
 - $P$ stands for the number of attributes/dimensions of an example.
-- $w_j$ is the weight for that attribute/dimension. It is also known as coefficient.
+- $\beta_j$ is the weight for that attribute/dimension. It is also known as coefficient.
 - $x_{ij}$ stands for the **j**-th attribute/dimension of the **i**-th example.
 
 :::

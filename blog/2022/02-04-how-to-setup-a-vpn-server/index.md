@@ -22,3 +22,26 @@ Clients:
 
 - [Windows](https://6669-first-cloudbase-env-5c619520c1a6-1255762420.tcb.qcloud.la/mind-storage/openvpn-connect-windows.msi)
 - [Android](https://6669-first-cloudbase-env-5c619520c1a6-1255762420.tcb.qcloud.la/mind-storage/oepnvpn-android.apk)
+
+<!-- truncate -->
+
+## How to Backup VPN Data
+
+The **VPN** container uses **named volume** to store configuration data. 
+So we can use the `volume-backup` utility to backup data. [https://github.com/loomchild/volume-backup](https://github.com/loomchild/volume-backup).
+
+1. **Backup**. The following command will store the vpn data in `"$(pwd)/vpn_config_data.tar.bz2"`.
+
+```bash title="backup.sh"
+docker run -v openvpn_conf:/volume \
+           -v $(pwd):/backup --rm \
+           loomchild/volume-backup backup vpn_config_data.tar.bz2
+```
+
+2. **Restore**. The following command will use `"$(pwd)/vpn_config_data.tar.bz2"` to populate and override the volume named `openvpn_conf`.
+
+```bash title="restore.sh"
+docker run -v openvpn_conf:/volume \
+           -v $(pwd):/backup --rm \
+           loomchild/volume-backup restore -f vpn_config_data # without extension
+```

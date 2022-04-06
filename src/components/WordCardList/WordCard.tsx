@@ -84,7 +84,9 @@ function WordCard({ word = "" }) {
       )}
     </div>
   ) : (
-    <p>Cannot find definitions for '{word}'.</p>
+    <p>
+      Cannot find definitions for "<b>{word}</b>".
+    </p>
   );
 }
 

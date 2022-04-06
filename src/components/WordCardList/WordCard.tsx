@@ -76,7 +76,7 @@ function WordCard({ word = "" }) {
                 onClick={() => playAudio(phonetic.audio ?? "")}
                 disabled={!Boolean(phonetic.audio)}
               >
-                {phonetic.text}
+                {phonetic.text || "No Phonetic Found"}
               </button>
             ))}
           </div>
@@ -84,7 +84,7 @@ function WordCard({ word = "" }) {
       )}
     </div>
   ) : (
-    <></>
+    <p>Cannot find definitions for '{word}'.</p>
   );
 }
 

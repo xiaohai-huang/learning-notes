@@ -106,6 +106,7 @@ const config = {
           },
           { to: "/blog", label: "Blog", position: "left" },
           { to: "/showcase", label: "Showcase", position: "left" },
+          { to: "/about", label: "About", position: "right" },
           {
             href: "https://github.com/xiaohai-huang/learning-notes",
             label: "GitHub",
@@ -127,6 +128,10 @@ const config = {
                 label: "University",
                 to: "/university",
               },
+              {
+                label: "Todos",
+                to: "/todos",
+              },
             ],
           },
           {
@@ -136,18 +141,16 @@ const config = {
                 label: "Blog",
                 to: "/blog",
               },
-              {
-                label: "Todos",
-                to: "/todos",
-              },
+
               {
                 label: "Resources",
                 href: "https://github.com/xiaohai-huang/resources",
               },
               {
                 label: "GitHub",
-                href: "https://github.com/xiaohai-huang/learning-notes",
+                href: "https://github.com/xiaohai-huang",
               },
+              { to: "/about", label: "About" },
             ],
           },
         ],

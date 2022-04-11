@@ -1,0 +1,127 @@
+---
+toc_max_heading_level: 4
+description: A page that tells you who am I.
+---
+
+<div style={{display:"flex", justifyContent:"space-between", alignItems:"center"}}>
+<h1 className="margin-bottom--none">Baorong Huang</h1>
+
+<img
+  style={{
+    width: "95px",
+    borderRadius: "100px",
+  }}
+  src={require("./_assets/me.jpg").default}
+  alt="my photo"
+/>
+
+</div>
+
+Looking for a _junior_ **Web developer** / **Front End developer** job.
+
+I have 1 year experience in developing interactive and dynamic web apps using **React** + **Node**.
+
+## Contact
+
+<div className="row">
+  <div className="col col--6">
+      📧<b>E-mail</b>: <a href="mailto:jeromehuang18@gmail.com">jeromehuang18@gmail.com</a>
+  </div>
+  <div className="col col--6">
+      📞<b>Phone</b>: +86 18002260090
+  </div>
+  <div className="col col--6">
+      🔗<b>Personal Site</b>: <a href="https://xiaohai.wiki">xiaohai.wiki</a>
+  </div>
+
+  <div className="col col--6">
+      <img
+        src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
+        alt="github logo"
+        style={{ width: "25px", height: "25px", display:"inline", verticalAlign:"top" }}
+      />
+      <b>Github</b>: <a href="https://github.com/xiaohai-huang">https://github.com/xiaohai-huang</a>
+  </div>
+  
+  <div className="col col--6" style={{whiteSpace:"nowrap", textOverflow:"ellipsis", overflow:"hidden"}}>
+       <img
+        src="https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Bug.svg.original.svg"
+        alt="linkedin logo"
+        style={{ width: "26px", height: "27px", display:"inline", verticalAlign:"top", paddingLeft:"0.22rem" }}
+      /><b>Linkedin</b>: <a href="https://www.linkedin.com/in/baorong-huang-b8991b183" >https://www.linkedin.com/in/baorong-huang-b8991b183</a>
+  </div>
+</div>
+
+---
+
+## Work Experience
+
+### Front End Developer Intern
+
+🏢**Company**: [Tencent Cloud](https://intl.cloud.tencent.com/). 📍Shenzhen, China
+
+📅May 2021 - February 2022
+
+Developed and maintained up to 6 web app/pages. Some of them are listed below.
+
+1. **Tencent Cloud Management Console** | 🔗[https://console.cloud.tencent.com/live](https://console.cloud.tencent.com/live)
+
+   - Migrate some existing **jQuery** code to **React.js** + **TypeScript**.
+   - Refactor some long & complex **React Components** (handling too many conditions) by utilizing hooks.
+   - Create tabs for visualizing data usage & network traffic in the dashboard.
+
+<div />
+
+2. **Tencent Cloud RT-Cube Product Order Page** | 🔗[https://buy.cloud.tencent.com/vcube](https://buy.cloud.tencent.com/vcube)
+
+   - Allow users to purchase CSS and VOD packages all in one place (integrated a "Purchase SDK" into the app).
+   - Implement a 🛒`<ShopCart />` component using the `useReducer` hook.
+
+<div />
+
+3. **Video & Audio Product Showcase Page** | 🔗[https://cloud.tencent.com/act/event/video..](https://cloud.tencent.com/act/event/video_BestPractices)
+
+   Tech Used: ⚛️**React** + CloudBase (Firebase Alternative).
+
+   - Front End: consist of 2 pages
+     1. **Event Page**: An interactive and dynamic promotion page that brought high traffic & page views.
+        And attract many visitors to purchase the _PasS_ products within the page.
+     2. **Admin Page** (protected): A dashboard that allows marketing team to configure the content of the event page, and analyze user behavior.
+   - Back End: **Serverless** architecture
+
+     1. Cloud Function: Used for authenticate users.
+     2. Cloud Storage: Used for storing static assets. Such as videos, icons, and images.
+     3. Cloud Database: Used for "CRUD" page content. And keep track of user behavior stats.
+        **Row Level Security** is applied to ensure that only admin can modify page content.
+
+<div />
+
+4. **Xbright Experience Platform** | 🔗[https://xbright.cloud.tencent.com/?language=en](https://xbright.cloud.tencent.com/?language=en)
+   - Allow user to upload videos to Object Storage and initiate a transcoding task in the cloud to generate a new video with better image quality and lower bitrate.
+   - Allow user to compare the raw video and the transcoded video side by side.
+   - Use virtualized list library to display the video list for better performance.
+   - Internationalization. Use [i18n](https://www.i18next.com) to support both English and Chinese language.
+
+## Personal Projects
+
+### Toutiao Clone | 🔗 [https://toutiao.vercel.app](https://toutiao.vercel.app)
+
+Use **React** + **Material UI** + **Redux-toolkit** to build a responsive web app that imitates [toutiao.com](https://toutiao.com).
+
+- **Material UI Grid** is used for making the app responsive.
+- [Puppeteer](https://github.com/puppeteer/puppeteer) is used to crawl the latest news data.
+- [Dockerized](https://hub.docker.com/u/xiaohaihuang) the React front end and Express backend. And use **Github Actions** to build a CI/CD pipeline.
+  Automate the process of building the docker image and deploying to the server.
+
+## Education
+
+Bachelor of Information Technology, **Q**ueensland **U**niversity of **T**echnology.
+
+📅February 2019 - June 2022
+
+Current **GPA**: 6.632 out of 7
+
+### Honors & Awards
+
+- Dean's List of Students with Excellence Academic Performance - Semester 1, 2021 (achieved GPA 6.75).
+- Dean's List of Students with Excellence Academic Performance - Semester 2, 2020 (achieved GPA 7).

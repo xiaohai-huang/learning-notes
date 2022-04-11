@@ -1,0 +1,108 @@
+姓名: 黄宝荣
+
+Email: 867914890@qq.com
+
+手机号: 18002260090
+
+### 教育
+
+#### Queensland University of Technology
+
+#### 昆士兰科技大学（QUT）
+
+澳大利亚昆士兰州
+
+#### Bachelor of Information Technology (Computer Science)
+
+#### 信息技术学士学位（计算机科学）
+
+2 月 2019 - 6 月 2022
+当前 GPA: 6.63 out of 7
+
+# 链接
+
+Github: https://github.com/xiaohai-huang
+
+个人网站: https://xiaohai.wiki
+
+所有项目的简介和地址: https://xiaohai.wiki/showcase
+
+# 技能
+
+## PROGRAMMING
+
+- React
+- Javascript
+- HTML/CSS
+
+# 实习经历
+
+公司：腾讯
+部门：CSIG-云产品二部-视频产品中心-Web 开发组
+职位：web 开发组员工-前端
+开始时间: 2021-05-25 (6 个月)
+
+描述
+在 CSIG-云产品二部-视频产品中心实习
+在实习期间，我主要参与了 5 个项目的开发。
+
+1. 腾讯明眸体验馆 [链接](https://xbright.cloud.tencent.com)
+2. 开发腾讯云-控制台([云直播](https://console.cloud.tencent.com/live), [视频处理](https://console.cloud.tencent.com/mps))
+3. 开发视立方·音视频终端引擎购买页 [购买页链接](https://buy.cloud.tencent.com/vcube)
+4. 开发腾讯云助手小程序资源包购买功能. 微信小程序-腾讯云助手-云直播
+5. 开发 V+生态大会活动页 [链接](https://cloud.tencent.com/act/event/VPlus)
+
+---
+
+1. **腾讯明眸体验馆** - 项目链接：https://xbright.cloud.tencent.com
+   个人接手开发的一个项目。技术栈是：React+TypeScript
+   体验馆的功能：
+
+   1. 同步播放两个视频，将转码前的视频和转码后的视频进行可拖拽的对比。
+   2. 调用了腾讯云的 COS 和云 API，进行视频文件上传，和发起转码任务。
+   3. 使用虚拟列表展示 ""我的视频"
+   4. 接入 Aegis 进行数据上报
+   5. 引入 i18n，支持国际化。中英文切换
+
+   难点：
+
+   1. 同步左右视频的时候，可能出现其中一个视频还在加载中。这就导致左右画面播放卡顿。于是，设置了重新播放的逻辑。如果 `video.readyState !== 4` 就要累计失败次数，到一定数量重新播放。
+   2. 实现全屏功能时，Mac Safari 的调用全屏接口和其他浏览器不一样。经过查找后，解决了。
+
+2. **音视频通信标杆案例样板间** - 项目链接: https://cloud.tencent.com/act/event/video_BestPractices
+
+   实习期间的最后一个项目. 使用：React + 云开发 + 腾讯云资源售卖 SDK
+
+   1. 前端：主要有 2 个页面
+      1. 活动页面: 普通用户可见的页面，用户行为**追踪上报**
+      2. 运营页面 (Dashboard): 运营人员可配置管理活动页面展示的内容. 和分析用户行为 (**表格**, **折线图**).
+   2. 后端: 使用云开发的 "云存储"+"云数据库"+"云函数"
+      1. 云函数-用于登录鉴权
+      2. 云存储用于存放静态资源, "图片"，"视频"，"图标" 等。
+      3. 云数据库用于 “增删查改” 页面内容。还有用户的行为数据.
+
+3. **腾讯云-控制台**(云直播, 视频处理) - 项目链接：https://console.cloud.tencent.com/live
+   刚实习第一个接触的项目。技术栈是：React+TypeScript
+   几个参与的需求：
+
+   1. 重构云直播-计费用量页面。讲原本繁琐的非常长的代码(许多 if-else)抽分成多个单独的组件，放到各自的文件里，方便以后对页面进行拓展开发。
+   2. 使用内部的图表组件库，将 云直播-”拉流转推“ 和“用户日志”的统计数据可视化。
+
+4. **视立方·音视频终端引擎购买页** - 项目链接：https://buy.cloud.tencent.com/vcube
+   个人接手开发的一个项目，使用 React 配合内部计费组件开发。
+   难点：
+
+   1. 将 2 种不同的产品（直播资源包，点播资源包）整合到一个购买页上。资源包类型不一样，所以参数也很不同。
+   2. 因为组件库没有提供”购物车组件“，所以自己设计了数据结构编写了个购物车组件。使用了 useReducer 来控制购物车的商品数量增加或者减少。
+
+5. **V+生态大会活动页** - 项目链接: https://cloud.tencent.com/act/event/VPlus
+   与设计重构的同学配合开发的活动页。
+
+# 个人项目
+
+1. **笔记网站** - 项目链接: [http://xiaohai.wiki/](http://xiaohai.wiki/)
+2. **金铲铲装备页 demo** - 项目链接: https://jcc.vercel.app
+3. **今日小条**：https://toutiao.vercel.app/ 使用 ReactJS, Material UI, Redux-toolkit 做的前端
+   Github: https://github.com/xiaohai-huang/toutiao-clone
+   模仿今日头条 和 西瓜视频 网站的桌面版还有手机版（响应式设计）
+   可以正常地浏览头条，西瓜视频

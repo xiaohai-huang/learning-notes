@@ -1,0 +1,212 @@
+---
+sidebar_label: Propositional Logic
+title: Propositional Logic
+toc_max_heading_level: 4
+description: "Week 3: Propositional Logic. Study propositions and logical operators."
+---
+
+Propositional Logic studies:
+
+- [Propositions](#proposition)
+- [Logical connectives](#logical-operators) that build larger propositions from smaller ones
+
+:::info
+
+**Logic** allows us to determine if a large proposition is `true` or `false` based on
+how it is constructed and the truth value of the smaller pieces.
+
+:::
+
+## Proposition
+
+A **proposition** is a statement that is either `true` or `false`.
+
+Examples of _propositions_:
+
+- "I like Dan" is `true`.
+- "All humans are mortal" is `true`.
+- $5 \in \{2x : x \in \mathbb{N}\}$ is `false`.
+
+### Atomic and Compound Propositions
+
+**Compound propositions** are composed of two or more atomic propositions.
+**Atomic proposition** cannot be broken down.
+
+- "It is raining" is **atomic**.
+- "It is raining and cloudy" is a **compound proposition**. It contains two propositions "It is raining" and "It is cloudy".
+- "If I hit my head then it will hurt" is **compound**. It contains the propositions "I hit my head" and "my head will hurt".
+
+## Logical Operators
+
+Compound propositions can be built by atomic propositions and logical operators (also called logical connectives). Some common operators:
+
+| Operator       | Symbol     |
+| -------------- | ---------- |
+| NOT            | $\neg$     |
+| AND            | $\land$    |
+| OR             | $\lor$     |
+| XOR            | $\oplus$   |
+| IF...THEN      | $\implies$ |
+| IF AND ONLY IF | $\iff$     |
+
+### IF..THEN {#if-then}
+
+"$p$ implies $q$" stands for "if $p$ then $q$".
+
+$p \implies q$ is _logically equivalent_ to $\neg p \lor q$.
+
+| $p$ | $q$ | $p \implies q$ |
+| :-: | :-: | :------------: |
+| $T$ | $T$ |      $T$       |
+| $T$ | $F$ |      $F$       |
+| $F$ | $T$ |      $T$       |
+| $F$ | $F$ |      $T$       |
+
+:::info
+
+Use **vending machine** example to memorize this truth table.
+
+- $p$ is the 💵.
+- $q$ is the 🍗.
+
+:::
+
+### IF AND ONLY IF
+
+$p \iff q$ is a **shorthand** for $(p \implies q) \land (q \implies p)$
+
+| $p$ | $q$ | $p \iff q$ |
+| :-: | :-: | :--------: |
+| $T$ | $T$ |    $T$     |
+| $T$ | $F$ |    $F$     |
+| $F$ | $T$ |    $F$     |
+| $F$ | $F$ |    $T$     |
+
+:::info
+
+If both operands are the **same** then it is `true`. Otherwise it is `false`.
+
+:::
+
+## Formula
+
+To find the truth value of a formula:
+
+1. Fill in the truth value for all variables.
+2. Evaluate logical connectives from innermost parentheses outwards.
+
+:::note
+
+When $p = T$ and $q = F$
+
+$$
+\begin{aligned}
+(p \lor q) \implies (q \oplus p) & = (T \lor F) \implies (F \oplus T) \\
+& = T \implies T \\
+& = T
+
+\end{aligned}
+$$
+
+:::
+
+### Formula Classification
+
+| Classification | Always `true` | Sometimes `true` | Always `false` |
+| :------------: | :-----------: | :--------------: | :------------: |
+|   Tautology    |      ✅       |        ❌        |       ❌       |
+| Contradiction  |      ❌       |        ❌        |       ✅       |
+|   Contingent   |      ❌       |        ✅        |       ❌       |
+|  Satisfiable   |      ✅       |        ✅        |       ❌       |
+
+```python
+def classify(func):
+    propositions = [True, False]
+    results = []
+    for p in propositions:
+        for q in propositions:
+            results.append(func(p, q))
+
+    num_elements = len(results)
+    num_T = 0
+    num_F = 0
+    for result in results:
+        if result == True:
+            num_T += 1
+        else:
+            num_F += 1
+    if num_T == num_elements:
+    # if all True -> Tautology
+        return "Tautology"
+    elif num_F == num_elements:
+    # if all False -> Contradiction
+        return "Contradiction"
+    else:
+    # can be T or F -> Contingent
+        return "Contingent"
+```
+
+### Tautology
+
+Always `true`. And also [satisfiable](#satisfiable).
+
+- $T$
+- $\neg F$
+- $A \lor \neg A$
+- $\neg (A \land \neg A)$
+- $(A \land (A \implies B)) \implies B$
+
+### Contradiction
+
+Always `false`. **NOT** satisfiable.
+
+- $F$
+- $\neg T$
+- $A \land \neg A$
+- $(A \land (A \implies B)) \implies \neg B$
+
+### Contingent
+
+Can be `true` or `false` depending on the variables. Also [satisfiable](#satisfiable).
+
+- $A \lor B$
+- $A \implies B$
+
+Have a look at the [truth table](#if-then) of $A \implies B$.
+
+### Satisfiable
+
+Satisfiable formulas are either tautologies or contingent formulas.
+
+## Logical Equivalence
+
+Some formulas are _logically equivalent_ meaning that they are always the same given any variables.
+
+In other words, two statements are _logically equivalent_ if, and only if, their resulting truth tables are identical for each variation of variables.
+
+e.g. $A \implies B$ is logically equivalent to $\neg A \lor B$.
+
+So we can write $A \implies B \equiv \neg A \lor B$.
+
+:::info
+
+Saying $A \equiv B$ is the same as saying that $A \iff B$ is a [tautology](#tautology).
+
+:::
+
+```python
+def test_logical_equivalent(func_1, func_2):
+    propositions = [True, False]
+
+    for p in propositions:
+        for q in propositions:
+            if func_1(p, q) != func_2(p, q):
+                print("Not logically equivalent")
+                return False
+    print("Logically equivalent")
+    return True
+```
+
+## References
+
+- [Week3 Materials](https://github.com/xiaohai-huang/resources/tree/master/QUT/Discrete-Structure/week3)

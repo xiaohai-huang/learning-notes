@@ -30,7 +30,7 @@ If the exponent is **0**, then the answer is **1**. (example $5^0 = 1$)
 
 ## Laws of Exponents
 
-- $(ab)^2 = a^n \times b^n$
+- $(ab)^n = a^n \times b^n$
 - $a^m \times a^n = a^{m + n}$
 - $a^{m - n} = \frac{a^m}{a^n}$ (when $a \not= 0$)
 - $a^{-n} = \frac{1}{a^n}$ (when $a \not= 0$)

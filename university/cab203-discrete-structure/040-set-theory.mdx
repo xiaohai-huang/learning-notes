@@ -1,0 +1,280 @@
+---
+sidebar_label: Set Theory
+title: Set Theory
+description: "Week 4: Sets. Study set theory, Zermelo-Fraenkel set theory axioms, and Syllogisms."
+---
+
+We can define sets in 3 ways.
+
+- Listing elements.
+
+  $\text{SimplePrimes} = \{1,2,3,5,7 \}$
+
+- Set Builder notation (set comprehension).
+
+  $\text{SQUARES} = \{x \in 	\mathbb{Z} : x = y^2 \text{ for some } y \in \mathbb{Z} \}$
+
+- A list with implied pattern.
+
+  $\text{EVENS} = \{2,4,6,8, \dots \}$
+
+## Common Sets
+
+| Description                   | Notation                                           |
+| :---------------------------- | :------------------------------------------------- |
+| Integers                      | $\mathbb{Z} = \{\ldots -2, -1, 0, 1, 2, \ldots\}$  |
+| Positive Integers             | $\mathbb{Z}^{+} = \{1,2,3, \ldots\}$               |
+| Non-Negative Integers         | $\mathbb{Z}_{	\geq 0} = \{0, 1,2,3, \ldots\}$       |
+| Rationals                     | $\mathbb{Q}= \{\frac{x}{y}: x,y \in \mathbb{Z} \}$ |
+| Real Numbers                  | $\mathbb{R}$                                       |
+| Set of Numbers. 1 through $n$ | $n:[n] = \{1,\ldots , n\}$                         |
+| Empty Set (no elements)       | $\empty = \{ \}$                                   |
+
+:::note
+
+**0** is not positive.
+
+:::
+
+## Membership
+
+How to check whether an element $x$ is in a set $S$?
+
+- Checking whether $x$ in the list, if $S$ is given **explicitly**.
+- Checking whether $x$ satisfies the conditions, if $S$ is given in [Set Builder Notation](#).
+- Checking whether $x$ satisfies the implied condition, for sets given like $\{1,2,\ldots\}$
+
+:::note
+Membership Examples:
+
+- $1 \in \{1,2,3\}$
+- $12 \in \{x \in \mathbb{Z} : x \text{ divides } 60\}$ because 12 is an integer & 12 divides 60.
+- $15 \in \{1,3,5,\ldots\}$ the implied condition is "odd numbers".
+
+:::
+
+:::danger
+
+**implied** conditions are bad!
+
+:::
+
+## Equality of Sets
+
+Two sets are considered to be equal if they contain the **same** elements.
+
+e.g. $S = T$, when:
+
+- Every element $x \in S$ is in $T$. aka. Every element of $S$ is also in $T$.
+- Every element $x \in T$ is in $S$. aka. Every element of $T$ is also in $S$.
+
+Another equivalent definition using [subset](#subset):
+
+- $S \subseteq T$
+- $T \subseteq S$
+
+:::note
+
+Are these the same?
+
+- $\{1,2,3\}$ is the same set as $\{3,2,1\}$ (**order** doesn't matter).
+- $\{1,1,1\}$ is the same set as $\{1\}$ (don't **count** multiples).
+- $\{x \in \mathbb{Z}: x^2 = 4\}$ is the same as $\{2, -2\}$.
+
+:::
+
+## Size of Sets
+
+The size of a set is denoted as $|S|$ which is the number of **distinct** elements in the set.
+
+- $|\{1,2,3\}| = 3$
+- $|\{1,1,1\}| = 1$
+- $|\{\text{🃏},\text{💎},\text{💗}\}| = 3$
+
+## Subset
+
+$A$ is a **subset** of $B$, if every $x \in A$ is in $B$.
+
+$$
+A \subseteq B
+$$
+
+$A$ is a **proper subset** of $B$, if $A$ is a **subset** of $B$ and not equal to $B$.
+
+$$
+A \subset B
+$$
+
+:::info
+
+$A \subset B \equiv A \subseteq B \land A \not = B$
+
+:::
+
+The set of _all subsets_ of a set $S$ is called the **power set** of $S$,
+written $P(S)$.
+
+$$
+P(\{1,2\}) = \{\empty, \{1\},\{2\},\{1,2\}  \}
+$$
+
+:::info
+
+- The empty set is a subset of all set.
+- The set itself is also a subset of itself.
+
+:::
+
+## Set Builder Notation
+
+There are two general forms that we can use for Set Builder Notation.
+
+### Set Comprehension
+
+Specify a base set, and test if the element match the condition. (`Array.filter()`)
+
+$$
+\{x \in S: filter(x)\}
+$$
+
+$$
+\text{SQUARES} = \{x \in \mathbb{Z}: x = y^2 \text{ for some } y\in \mathbb{Z}\}
+$$
+
+### Replacement
+
+Apply a function to each member of a set and collect the results. (like `Array.map()`)
+
+$$
+\{f(x): x \in S \}
+$$
+
+$$
+\text{SQUARES} = \{x^2: x \in \mathbb{Z}\}
+$$
+
+:::caution
+
+These two constructions **cannot** generate sets than are larger than the original sets.
+
+:::
+
+### Set Builder Examples
+
+- $\{x \in \mathbb{Z}: x = 2y \text{ for some } y \in \mathbb{Z}\}$ is every **integer** that
+  is **an integer multiples by 2**, i.e. the even numbers.
+- $\{2x: x\in \mathbb{Z}\}$ is every integer times 2. i.e. the even numbers.
+- $\{x \in \mathbb{R}: 2x \in \mathbb{Z}\}$ are the real numbers that becomes integer after multiplying by 2.
+
+  i.e. $\{\ldots -1.5, -1, -0.5, 0, 0.5, 1, \ldots \}$
+
+## Set Operations
+
+Set operations consists of union, intersection, and difference.
+
+### Union
+
+Include every element in both sets.
+
+$$
+A \cup B = \{x: x \in A \lor x \in B\}
+$$
+
+:::info
+The real definition: we define $A \cup B$ to be the smallest set $S$ such that
+$A \subseteq S$ and $B \subseteq S$.
+:::
+
+### Intersection
+
+Only include elements that exist in the both sets.
+
+$$
+A \cap B = \{x \in A : x \in B\}
+$$
+
+### Difference
+
+Remove elements in $A$ that are in $B$.
+
+$$
+A \setminus  B = \{x \in A : x \not \in B \}
+$$
+
+:::note Example
+Set $A = \{1,2,3\}$ and $B = \{1,3,5\}$. Then:
+
+- $A \cup B = \{1,2,3,5\}$
+- $A \cap B = \{1,3\}$
+- $A \setminus B = \{2\}$
+
+:::
+
+## Universe Set
+
+The **universe set** $U$ is the set of all elements that we care about.
+
+Benefits:
+
+1. Allow us to define _complements_.
+2. Allow us to use set comprehensions without specifying the set to draw elements from.
+
+:::note Example
+
+With $U = \mathbb{Z}^{+}$:
+
+$$
+\begin{aligned}
+  \text{COMPOSITES} & = \overline{\text{PRIMES}} \\
+  \text{EVENS} & = \{x: x = 2y \} \\
+  \text{ODDS} & = \overline{\text{EVENS}} \\
+\end{aligned}
+$$
+
+:::
+
+## Venn Diagram
+
+Venn diagrams are used for showing the relationship between sets.
+
+For more about Venn diagrams, visit [Math is Fun](https://www.mathsisfun.com/sets/venn-diagrams.html)
+or [lecture notes](https://github.com/xiaohai-huang/resources/blob/master/QUT/Discrete-Structure/week4/lecture04.pdf)
+
+## Characteristic Vector
+
+## Sets in Python
+
+```python title="Basic Set Operations"
+S = {1, 2, 3}
+T = {1, 3, 5}
+
+S.add(4)
+S.remove(4)
+
+S.union(T)
+S.intersection(T)
+S.issubset({1, 2})
+
+print(1 in S)
+print(S - T) # { 2 }
+print(T <= S) # Is T a subset of S?
+print(S.isdisjoint(T)) # Is S intersect T empty?
+
+```
+
+Python uses a combined [comprehension](#set-comprehension) and [replacement](#replacement) notation for Set Builder notation.
+
+```python title="Set Comprehension"
+S = {0, 2, 4, 6, 8}
+def filter(x): return x % 2 == 0
+def transform(x): return x * 5
+
+new_S = { transform(x) for x in S if filter(x) }
+
+temp_S =  { x     for x in range(0, 10) if x % 2 == 0 } # {0, 2, 4, 6, 8}
+new_S =   { x * 5 for x in range(0, 10) if x % 2 == 0 } # {0, 40, 10, 20, 30}
+```
+
+## References
+
+- [Week4 Materials](https://github.com/xiaohai-huang/resources/tree/master/QUT/Discrete-Structure/week4)

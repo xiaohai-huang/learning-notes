@@ -1,0 +1,121 @@
+---
+sidebar_label: Logical Implication
+title: Logical Implication
+toc_max_heading_level: 4
+description: "Week 5: Predicate logic. Study Logical implications"
+---
+
+From one `true` proposition we can derive other true propositions.
+This is called **logical Implication**.
+
+:::note Examples
+
+- From $A \land B$ we can conclude $A$.
+- From $(A \implies B) \land A$ we can conclude B.
+
+:::
+
+If from $A$ we can conclude $B$, then we write $A \models B$,
+which is equivalent to saying that $A \implies B$ is [tautology](030-propositional-logic.mdx#tautology).
+
+:::note More Examples
+
+- $A \land B \models A$
+- $A \models A \lor B$
+- $(A \implies B) \land A \models B$
+- $(A \implies B) \land (B \implies C) \models A \implies C$
+- $(A \lor B) \land \lnot A \models B$
+
+:::
+
+## Find Logical implications
+
+We can find logical implications in two ways:
+
+1. Using a [truth table](#logical-implication-truth-table).
+2. Using a proof
+
+### Logical Implication Truth Table
+
+Two methods to find logical implications using truth table.
+
+- **Method 1**: Check the rows where LHS is `true`.
+- **Method 2**: Use the property $A \models B$ is equivalent to $A \implies B$ is [tautology](030-propositional-logic.mdx#tautology).
+
+To show that $A \models A \lor B$
+
+#### Method 1
+
+1. Draw a truth table.
+
+   | $A$ | $B$ | $A \lor B$ |
+   | :-: | :-: | :--------: |
+   | $T$ | $T$ |    $T$     |
+   | $T$ | $F$ |    $T$     |
+   | $F$ | $T$ |    $T$     |
+   | $F$ | $F$ |    $F$     |
+
+2. Only check the **rows** when $A$ is `true`.
+
+   If $A$ is `true` and $A \lor B$ is also `true`, then we can say that $A$ logically implies $A \lor B$.
+
+#### Method 2
+
+Because $A \models B$ is the same as say $A \implies B$ is a [tautology](030-propositional-logic.mdx#tautology).
+
+We can show $A \models A \lor B$ using the property above.
+
+1. Draw a truth table. Including an extra column $A \implies A \lor B$.
+
+   | $A$ | $B$ | $A \lor B$ | $A \implies A \lor B$ |
+   | :-: | :-: | :--------: | :-------------------: |
+   | $T$ | $T$ |    $T$     |          $T$          |
+   | $T$ | $F$ |    $T$     |          $T$          |
+   | $F$ | $T$ |    $T$     |          $T$          |
+   | $F$ | $F$ |    $F$     |          $T$          |
+
+2. $A \implies A \lor B$ is `true` in all cases, so logical implication is `true`.
+
+:::info
+
+**Logical implication** is not symmetric. And it is different from **[logical equivalence](030-propositional-logic.mdx#logical-equivalence)**.
+
+:::
+
+### Proof
+
+## How to Use Logical Implication
+
+**Substitution**. But unlike **[logical equivalence](030-propositional-logic.mdx#logical-equivalence)**,
+it is not always safe to make substitutions with logical implications.
+
+### Safe Substitution
+
+Only **substitute** using a logical implication if the _left hand side_ is known to be `true`.
+
+:::note Example
+
+- We have $A \land B \models A$, so if $A \land B$ is `true`, we can replace it with $A$.
+- $A$ = "It is raining"
+- $B$ = "It is cloudy"
+- If "It is raining and cloudy" is `true`, we can replace that with "It is cloudy".
+
+:::
+
+### Unsafe Substitution
+
+What would happen if the _left hand side_ is `false`?
+
+- Use $A \land B \models A$ substitute into $\lnot (A \land B)$, to get $\lnot A$.
+- $A$ = "Socrates is human"
+- $B$ = "Socrates is a teapot"
+- From "**NOT** (Socrates is human and a teapot)" ($A \land B$), we cannot conclude that "Socrates is **not** human" ($\lnot A$).
+
+## Logical Equivalence vs. Logical Implication
+
+| $P \equiv Q$                                 | $P \models Q$                                           |
+| -------------------------------------------- | ------------------------------------------------------- |
+| $P$ and $Q$ always have the same truth value | $Q$ is `true` whenever $P$ is `true`                    |
+| Can make substitutions (not restrictions)    | Can only safely make substitutions when $P$ is `true`   |
+| Truth table: Two columns are identical       | Truth table: In rows where $P$ are $T$, $Q$ is also $T$ |
+| $P \iff Q$ is a tautology                    | $P \implies Q$ is a tautology                           |

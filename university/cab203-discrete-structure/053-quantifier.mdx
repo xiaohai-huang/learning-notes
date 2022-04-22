@@ -1,0 +1,105 @@
+---
+sidebar_label: Quantifier
+title: Quantifier
+description: "Week 5: Predicate logic. Study existential/universal quantifiers."
+---
+
+**Quantifiers** are symbols that allow us to talk about parameters in predicates.
+
+Two kinds:
+
+- [Existential Quantification](#existential-quantification) (there exists)
+- [Universal Quantification](#universal-quantification) (for all)
+
+:::info
+
+**Quantifiers** allow us to form **propositions** out of _predicates_
+without filling in any specific value for parameters.
+
+:::
+
+## Existential Quantification
+
+The _existential quantifier_ has the symbol $\exists$ and means "there exists".
+
+$$
+\exists x \in \mathbb{Z} \, (x^2 = 4)
+$$
+
+The above expression means that "There exists $x$ from $\mathbb{Z}$ such that $x^2 = 4$ is `true`".
+
+:::tip
+
+We don't get to known which value of $x$ works, just that some value of $x$ works.
+
+:::
+
+:::note Examples
+Existential Quantifiers Examples:
+
+- $\exists x \in S \, p(x)$ means "There exists an $x$ in $S$ such that $p(x)$ is `true`".
+- $\exists x \in \text{ANIMALS } \, x \text{ is a fish}$ means that
+  "There exists an $x$ in $\text{ANIMALS}$ such that $x$ is a fish is `true`".
+- $\exists x \in \mathbb{R} \, (x \in \mathbb{Z})$ means that
+  "There exists some real number $x$ such that $x$ is an integer".
+
+:::
+
+## Universal Quantification
+
+The _universal quantifier_ has the symbol $\forall$ and means "for all".
+
+$$
+\forall x \in \mathbb{Z}( x^2 \geq 0)
+$$
+
+The above expression means that "For every $x$ in $\mathbb{Z}$, $x^2 \geq 0$ is always `true`".
+
+:::note Examples
+
+Universal Quantifiers Examples:
+
+- $\forall x \in S \, p(x)$ means that "For all $x$ from $S$, $p(x)$ is `true`".
+- $\forall x \in \text{ANIMALS} \, (x \text{ is a cat})$ means that "For all $x$ in $\text{ANIMALS}$, $x$ is a cat".
+- $\forall x \in \mathbb{Z} \, (x \in \mathbb{R})$ mean that "All integers are real numbers".
+
+:::
+
+## Free Parameters
+
+Consider $A(y) = \exists x \, p(x,y)$.
+
+- The parameter $x$ is **quantified** over, so we cannot fill it in.
+- The parameter $y$ is **not quantified** over, so we can fill it in.
+- $y$ is called a **free parameter**.
+- The truth value of $A(y)$ depends on the value of parameter $y$.
+
+:::info
+
+If there are **no** free parameters, then the predicate is **fully quantified**.
+
+:::
+
+## Necessary and Sufficient Conditions
+
+When $\forall x \, (p(x) \implies q(x))$ we say:
+
+- $p(x)$ is a _sufficient condition_ for $q(x)$.
+- $q(x)$ is a _necessary condition_ for $p(x)$.
+
+When $\forall x \, p(x) \iff q(x)$ we say:
+
+- $p(x)$ is _necessary and sufficient_ for $q(x)$.
+- $q(x)$ is _necessary and sufficient_ for $p(x)$.
+
+:::note Example
+
+Statement: "Squareness is a _sufficient condition_ for rectangularity".
+
+We can say that $\forall x$, if $x$ is a square, then x is a rectangle.
+
+:::
+
+## References
+
+- [Week5 Materials](https://github.com/xiaohai-huang/resources/tree/master/QUT/Discrete-Structure/week5)

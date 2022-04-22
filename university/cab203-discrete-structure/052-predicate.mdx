@@ -1,0 +1,84 @@
+---
+sidebar_label: Predicate
+title: Predicate
+description: "Week 5: Predicate logic. Study predicate logic. An introduction to predicate."
+---
+
+- A **propositional function** or **predicate** is a sentence that contains one or more variables.
+- A predicate becomes a proposition when the variables are substituted with specific values.
+
+## Parameters and Predicates
+
+We can generalize **propositions** by allowing _parameters_.
+
+**Parameters** allow us to talk generally about propositions that share a common form and meaning.
+
+:::note Examples
+
+- $A(x) = x\text{ is a cat}$
+- $B(x,y) =$ $x$ times $y$ is 6.
+- $C(x,y) =$ $x = y + 1$
+
+:::
+
+## Predicate versus Formula
+
+What is the difference between _parameters_ in predicates and _letters_ in [formulas](030-propositional-logic.mdx#formula)?
+
+- $A = \lnot (p \land q)$
+
+  The variables in this formula ($p$, $q$) stand for propositions (which must evaluate to `true` or `false`).
+
+- $B(x) = x \text{ is a fish}$
+
+  Parameters ($x$) in predicates can stand for anything (usually elements from a universe set).
+
+## Truth Values of Predicates
+
+Before we can evaluate the truth value of a predicate we need to fill in the parameters with **actual values**.
+Once we have filled **all variables** in a predicate, we can consider it as a regular proposition and has a truth value.
+
+:::note Examples
+
+- Given $A(x) = x^2 =1$. Then $A(1)$ is `true`, but $A(2)$ is `false`.
+- Given $A(x)$ is "$x$ is a girl $\implies$ $x$ is my girlfriend". Then $A(\text{Dan})$ is `true`,
+  but $A(\text{RandomFemale})$ is `false`.
+
+:::
+
+:::caution
+
+Given $A(x)$ is "If $x$ is human then $x$ is mortal".
+We might be tempted to say that $A(x)$ is `true`, but we cannot because we **haven't** fille in $x$ yet.
+
+:::
+
+## Logic with Predicates
+
+### Logical Equivalence with Predicates
+
+All equivalences for Boolean formulas can be used for predicates.
+
+- $\lnot (\forall x \, p(x)) \equiv \exists x \, \lnot p(x)$
+- $\lnot (\exists x \, p(x)) \equiv \forall x \, \lnot p(x)$
+- $\forall x \, (p(x) \land q(x)) \equiv (\forall x \, p(x)) \land (\forall x \, q(x))$
+- $\exists x \, (p(x) \lor q(x)) \equiv (\exists x \, p(x)) \lor (\exist x \, q(x))$
+
+### Logical Implication with Predicates
+
+Logical implications for predicates.
+
+- All logical implications for formulas still work. [read more](050-logical-implication.mdx)
+- $(\forall x \in S \, p(x)) \land (y \in S) \models p(y)$
+- $p(x) \land (x \in S) \models \exists y \in S \, p(y)$
+- $(\forall x \in S \, p(x)) \land (S \not = \empty) \models \exists y \in S \, p(y)$
+
+### Expressing Problems as Predicates
+
+- x is prime = $\lnot ( \exists x,z \in \mathbb{N} \, ( (yz = x) \land (y \not = 1) \land (z \not = 1)   )   )$
+- The above predicate is equivalent to this $\forall y,z \in \mathbb{N} \, ((yz \not = x) \lor (y = 1) \lor (z = 1))$
+
+## References
+
+- [Week5 Materials](https://github.com/xiaohai-huang/resources/tree/master/QUT/Discrete-Structure/week5)
+- [What is a propositional function or predicate?](https://www3.cs.stonybrook.edu/~pramod.ganapathi/doc/discrete-mathematics/PredicateLogic.pdf)

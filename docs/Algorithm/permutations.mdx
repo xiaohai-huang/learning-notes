@@ -1,0 +1,60 @@
+---
+sidebar_label: Permutations
+title: Permutations
+---
+
+- Description: [https://leetcode.com/problems/permutations/](https://leetcode.com/problems/permutations/)
+- Inspired by: [https://levelup.gitconnected.com/find-all-permutations-of-a-string-in-javascript-af41bfe072d2](https://levelup.gitconnected.com/find-all-permutations-of-a-string-in-javascript-af41bfe072d2)
+
+```js
+let findPermutations = (string) => {
+  if (!string || typeof string !== "string") {
+    return "Please enter a string";
+  } else if (string.length < 2) {
+    return string;
+  }
+
+  let permutationsArray = [];
+
+  for (let i = 0; i < string.length; i++) {
+    let char = string[i];
+
+    let remainingChars =
+      string.slice(0, i) + string.slice(i + 1, string.length);
+
+    for (let permutation of findPermutations(remainingChars)) {
+      permutationsArray.push(char + permutation);
+    }
+  }
+  return permutationsArray;
+};
+
+const permute = (nums) => {
+  if (nums < 2) {
+    return [nums];
+  }
+  const permutationsArray = [];
+
+  for (let i = 0; i < nums.length; i++) {
+    const num = nums[i];
+    const remainingNums = [
+      ...nums.slice(0, i),
+      ...nums.slice(i + 1, nums.length),
+    ];
+    for (const permutation of permute(remainingNums)) {
+      if (Array.isArray(permutation)) {
+        permutationsArray.push([num, ...permutation]);
+      } else {
+        permutationsArray.push([num, permutation]);
+      }
+    }
+  }
+  return permutationsArray;
+};
+/**
+ *
+ * 输入：nums = [1,2,3]
+ * 输出：[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
+ */
+console.log(permute([1, 2, 3]));
+```

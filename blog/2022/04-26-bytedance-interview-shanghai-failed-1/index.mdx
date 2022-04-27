@@ -1,0 +1,30 @@
+---
+title: ByteDance Shanghai Interview Failed 1
+authors: xiaohai
+tags: [study, interview]
+---
+
+1. Browser cache. - cookie.
+2. Breadth-First Traversal and Depth First Traversal.
+3. script tag. async and defer.
+4. React Hook
+
+```js
+var obj = {
+  a: 1,
+  foo: function (b) {
+    b = b || this.a;
+    return function (c) {
+      console.log(this.a);
+      console.log(b);
+      console.log(c);
+    };
+  },
+};
+
+var a = 2;
+var obj2 = { a: 3 };
+
+obj.foo(a).call(obj2, 1);
+obj.foo.call(obj2)(1);
+```

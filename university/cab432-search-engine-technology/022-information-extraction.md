@@ -15,7 +15,7 @@ Create semantic annotation of text using XML tags.
 - Uses _lexicons_ (lists of words and phrases)
 - Rules also used to verify and find new entity names
 
-### Statistical
+#### Statistical
 
 Use machine learning techniques to develop rules.
 

@@ -7,6 +7,10 @@ toc_max_heading_level: 4
 - Name: Baorong Huang
 - Student Number: n10172912
 
+Score: 5/8
+
+[feedback](https://github.com/xiaohai-huang/cab420-workspace/blob/master/work/machine-learning/a1/assignment%201A.pdf)
+
 ## Problem 1. Regression
 
 The purpose of the data is to explore the link between the various socio-economic factors and crime.

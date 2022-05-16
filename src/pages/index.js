@@ -34,7 +34,7 @@ export default function Home() {
   return (
     <Layout
       title="Home"
-      description="Xiaohai's Mind Palace. A place for organizing notes across multiple domains. A place for writing blogs. A place for showcase projects."
+      description="Xiaohai's Mind Palace. A place for organizing notes across multiple domains. A place for writing blogs. A place for showcasing projects."
     >
       <HomepageHeader />
       <main>

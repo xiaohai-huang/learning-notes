@@ -1,0 +1,369 @@
+---
+sidebar_label: Relations
+title: Relations
+description: "Week 6: Relations"
+toc_max_heading_level: 4
+---
+
+import YouTubeVideo from "@src/components/youtube-video";
+
+## Tuples
+
+The notation $(a, b)$ is an ordered pair. And the order matters.
+
+Paris:
+
+- $(a, b) \not = (b, a)$
+- $(a, a) \not = (a)$ - repetition is allowed.
+- (cat, dog)
+- `("Dan", 19)`
+
+## Cartesian Product
+
+Given sets $A$ and $B$ we define the **Cartesian Product** to be the set
+
+$$
+A \times B = \{(a,b) : a \in A,\ b \in B\}
+$$
+
+The **size** of $A \times B$ is given by $|A \times B| = |A| \times |B|$
+
+```jsx live
+function CartesianProduct() {
+  const [result, setResult] = useState({});
+  const A = ["a", "b", "c", "D"];
+  const B = [1, 2, 3];
+
+  function getProduct(a, b) {
+    const results = [];
+    for (let i = 0; i < a.length; i++) {
+      for (let j = 0; j < b.length; j++) {
+        let temp = Array.isArray(a[i]) ? [...a[i]] : [a[i]];
+
+        results.push([...temp, b[j]]);
+      }
+    }
+    return results;
+  }
+  function getProductMultiple(sets) {
+    let temp = sets[0];
+    const N = sets.length;
+
+    for (let i = 1; i < N; i++) {
+      temp = getProduct(temp, sets[i]);
+    }
+
+    return temp;
+  }
+
+  function Result({ sets }) {
+    const products = getProductMultiple(sets);
+    return (
+      <pre>
+        <ol>
+          {sets.map((s, i) => (
+            <li key={i}>{JSON.stringify(s)}</li>
+          ))}
+        </ol>
+        size: {products.length}
+        <br />
+        {JSON.stringify(products)}
+      </pre>
+    );
+  }
+
+  return (
+    <div>
+      <h3>A x B</h3>
+      <Result sets={[A, B]} />
+      -----
+      <h3>A x A</h3>
+      <Result sets={[A, A]} />
+      -----
+      <h3>bit strings</h3>
+      <Result
+        sets={[
+          ["0", "1"],
+          ["0", "1"],
+        ]}
+      />
+      <h3>bit strings of length 3</h3>
+      <Result
+        sets={[
+          ["0", "1"],
+          ["0", "1"],
+          ["0", "1"],
+        ]}
+      />
+      <h3>Random</h3>
+      <Result
+        sets={[
+          [1, 2, 3, 4],
+          [5, 6, 7, 8],
+        ]}
+      />
+    </div>
+  );
+}
+```
+
+### More Cartesian Products
+
+More generally we have:
+
+- $A_1 \times \dots \times A_n = \{(a_1, a_2, \dots a_n) : a_1 \in A_1, \dots a_n \in A_n \}$
+- $A^n = A \times A \times A$ (n copies of $A$) - e.g. $\mathbb{R}^2$
+- The size $|A \times B \times C |= |A| \cdot |B| \cdot |C|$
+
+#### Some Examples
+
+- $\mathbb{R}^2$ describes points on a 2-dimensional plane.
+- $\{0, 1\}^n$ is the set of bit strings of length $n$.
+- $\{0, \dots, 1919\} \times \{0,\dots, 1079\}$ encodes (x,y) coordinates on a 1080p screen.
+
+## Relations
+
+Let $A$ and $B$ be sets. A binary relation from $A$ to $B$ is a subset of $A \times B$.
+
+A relation **over** $A$ is a subset of $A \times A$.
+
+If $R$ is a binary relation then we write $aRb$ to mean $(a,b) \in R$. So $a < b$ is shorthand for $(a,b) \in <$.
+
+### Properties of Relations
+
+Here are some special properties that a binary relation can have:
+
+- symmetric
+- reflexive
+- transitive
+- anti-symmetric
+- irreflexive
+
+<YouTubeVideo
+  src="https://www.youtube.com/embed/uGxPGT6boYQ"
+  caption="properties of relations"
+/>
+
+#### Symmetric
+
+We say a binary relation is **symmetric** if
+
+$$
+(a,b) \in R \implies (b,a) \in R
+$$
+
+That is whenever we have (a,b) we also have (b,a)
+
+:::note Examples
+
+- $=$
+- $a \equiv b \ (\text{mod}\ n)$
+- $\empty, A \times A$
+
+:::
+
+#### Anti-Symmetric
+
+A relation $R$ on a set $A$ is **anti-symmetric** if $\forall a,b \in A$ if $(a,b) \in R$ and $(b,a) \in R$, then $a=b$.
+
+$$
+\forall a \forall b\ ((a,b) \in R \land (b,a) \in R \implies a=b)
+$$
+
+:::note Examples
+
+- $R_1 = \{(a,b) \in A \times A : a=b \}$ - e.g., $a=2 ,\ b=2$
+- $R_2 = \{(a,b) \in A \times A : a \leq b \}$ - e.g., $a=2, \ b=2$
+- $R_3 = \{(a,b) \in A \times A : a > b \}$ - cannot find any pair that satisfies the condition. So `\implies` will always return `True`.
+
+**Not** anti-symmetric:
+
+- $R_4 = \{(a,b) \in A \times A : a + b \leq 3 \}$
+
+$a=1, \ b=2$
+
+$(1,2) \in R \land (2,1) \in R \implies a = b$ This returns `False`, so $R_4$ is not anti-symmetric.
+
+:::
+
+:::note Examples
+
+- $<, >$
+- $\leq, \geq$
+- $\subseteq, \sub$
+
+:::
+
+#### Reflexive
+
+A binary relation is reflexive iff $(a,a) \in R$ for every $a \in A$
+
+:::note Examples
+
+- $\leq, \geq$
+- $=$
+- $\subseteq$
+- $a \equiv b \ (\text{mod}\ n)$
+
+:::
+
+#### Irreflexive
+
+A binary relation $R = A \times A$ is **irreflexive** if
+
+$$
+\forall a \in A \ (a,a) \not \in R
+$$
+
+:::note Examples
+
+- $<, >$
+- $\sub$
+- $\not =$
+
+:::
+
+#### Transitive
+
+A relation $R$ on a set $A$ is transitive if $\forall a,b,c \in A$
+
+$$
+(a,b) \in R \land (b,c) \in R \implies (a,c) \in R
+$$
+
+:::note Examples
+
+- $R_1 = \{(a,b) : a=b \}$
+  - let $a=2,\ b=2, \ c=2$
+  - $(2,2)(2,2) \implies (2,2) \in R$ ✅
+- $R_2 = \{(a,b)  : a \leq b \}$
+  - let $a=2,\ b=5, \ c=8$
+  - $(2,5)(5,8) \implies (2,8) \in R$ ✅
+- $R_3 = \{(a,b)  : a > b \}$
+  - let $a=3,\ b=2, \ c=1$
+  - $(3,2)(2,1) \implies (3,1) \in R$ ✅
+- $R_4 = \{(a,b)  : a + b \leq 3\}$
+  - let $a=3,\ b=0, \ c=2$
+  - $(3,0)(0,2) \implies (3,2)$ ❌
+
+:::
+
+:::tip
+
+Find a counter example where it is not true.
+
+:::
+
+:::note Examples
+
+- $\leq, \geq$
+- $<, >$
+- $=$
+- $\subseteq, \sub$
+- $a \equiv b \ (\text{mod}\ n)$
+
+:::
+
+#### Example
+
+Find whether the following relation is reflexive, symmetric, anti-symmetric or transitive on $S = \{1,2,3\}$
+
+$$
+R = \{(1,1), (1,2), (2,1),(2,2),(3,3)\}
+$$
+
+- ✅reflexive. $\forall a \in S \ (a,a) \in R$
+  - $(1,1), (2,2), (3,3) \in R$
+- ✅symmetric. $\forall (a,b) \in R, (b,a) \in R$
+- ❌anti-symmetric. $(a,b) \in R \land (b,a) \in R \implies a=b$
+  - $(1,2)(2,1)$ but $1 \not = 2$
+- ✅transitive. $\forall (a,b)(b,c) \in R$, $(a,c) \in R$
+  - $(1,1)(1,2) \in R$, $(1,2) \in R$
+  - $(1,2)(2,1) \in R$, $(1,1) \in R$
+
+## Equivalence Relation
+
+An **equivalence relation** is a binary relation that is:
+
+- symmetric
+- reflexive
+- transitive
+
+:::note Examples
+
+- $=$
+- $a \equiv b \ (\text{mod}\ n)$
+- $A \times A$
+
+:::
+
+:::note Example
+
+Let $R$ be the relation on the set of real numbers such that $a \ R\ b$ iff $a-b$ is an integer.
+Is this an equivalence relation?
+
+$R = \{(a,b) : a - b \in \mathbb{Z}\}$
+
+- symmetric? - $aRb \implies bRa$
+  - $a-b \in \mathbb{Z} \implies b-a \in \mathbb{Z}$
+- reflexive? - $aRa \implies a - a \in \mathbb{Z}$
+- transitive? - $aRb \land bRc \implies aRc$
+  - $a - b \in \mathbb{Z} \land b - c \in \mathbb{Z} \implies a - c \in \mathbb{Z}$
+
+:::
+
+### Equivalence Classes
+
+<YouTubeVideo
+  src="https://www.youtube.com/embed/ZgcTX16borA"
+  caption="Equivalence relation & classes"
+/>
+
+## Partial Ordering
+
+A **partial ordering** on a set $A$ is a binary relation over $A$ which is:
+
+- reflexive
+- transitive
+- anti-symmetric
+
+:::note Examples
+
+- $\leq, \geq$
+- $\subseteq$
+
+:::
+
+:::info
+
+If the relation is **irreflexive** instead of **reflexive**, it is called a _strict_ partial ordering. (without the equal sign)
+
+:::
+
+## Total Ordering
+
+A total ordering is a partial ordering $R$ over $A$ that also has the property:
+
+$$
+\forall x,y \in A (xRy \lor yRx)
+$$
+
+This means that we can always compare any two elements of $A$.
+
+:::note Example
+
+- $\leq, \geq$
+- lexicographical ordering
+
+:::
+
+:::info
+
+If the relation is **irreflexive** instead of **reflexive**, it is called a _strict_ total ordering. (without the equal sign)
+
+:::
+
+## References
+
+- [Youtube Video](https://www.youtube.com/watch?v=uGxPGT6boYQ)
+- [QUT Materials](https://github.com/xiaohai-huang/resources/tree/master/QUT/Discrete-Structure/week6)

@@ -1,0 +1,92 @@
+---
+sidebar_label: Sequences
+title: Sequences
+description: "Week 6: Sequences"
+toc_max_heading_level: 4
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+Sometimes we care about some sets of items, but the order matters.
+
+- Bytes in a file
+- Ranked sports team in a league
+
+We use sequences for this job. These are often implemented as _lists_ or _arrays_.
+
+A sequence of length $n$ is a function $x : \{1 \dots n\} \implies S$ for some set $S$.
+
+:::info
+
+1. Sequences are often notated like $x_j$ rather than $x(j)$
+2. Another notation could be `[1,5,7,1]`
+
+:::
+
+## Sequences in Python: lists
+
+```python
+my_list = [1,5,6]
+my_list[2] = 12
+print(my_list[2])
+
+my_list.append(8)
+my_list.pop()
+len(my_list)
+17 in my_list
+```
+
+## Sequences in Python: tuples
+
+see [tuples](060-relations.mdx#tuples).
+
+## Mutability
+
+In Python, some objects can be changed, others are static.
+
+- mutable types can change overtime: `lists`, `dict` and, `set`.
+- immutable types don't change: `tuple`, `frozenset`, `number`, and `string`
+
+## Hashability
+
+Hashable types can be identified by a hash value, used internally by some containers
+
+- mutable types are not hashable
+- immutable types are generally hashable
+- immutable containers are hashable only if they contain only hashable elements.
+
+:::info
+
+Set **elements** and dictionary **keys** must be hashable.
+
+````mdx-code-block
+<Tabs>
+  <TabItem value="set" label="Set">
+
+  ```python
+S = {[1]}
+Traceback (most recent call last):
+File "<stdin>", line 1, in <module>
+TypeError: unhashable type: 'list'
+  ```
+
+  </TabItem>
+  <TabItem value="dict" label="Dictionary">
+
+  ```python
+D = {["my_key"]:7}
+Traceback (most recent call last):
+File "<stdin>", line 1, in <module>
+TypeError: unhashable type: 'list'
+  ```
+
+  </TabItem>
+</Tabs>
+````
+
+:::
+
+## References
+
+- [QUT Materials](https://github.com/xiaohai-huang/resources/tree/master/QUT/Discrete-Structure/week6)

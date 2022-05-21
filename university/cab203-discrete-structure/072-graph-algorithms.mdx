@@ -1,0 +1,110 @@
+---
+sidebar_label: Graph Algorithms
+title: Graph Algorithms
+description: "Week 7: Graphs. Breadth-First Search and Depth-First Search"
+toc_max_heading_level: 4
+---
+
+import bfsExample from "!!raw-loader!./_assets-07/bfs.py";
+import dfsExample from "!!raw-loader!./_assets-07/dfs.py";
+
+import CodeBlock from "@theme/CodeBlock";
+
+Many computational problems can be expressed in terms of graphs:
+
+- Finding optimal airline route.
+- Determining if a network is connected.
+- Determining if there is a deadlock between processes waiting for resources.
+- ...and many more
+
+## Generic Problems in Graph
+
+- Find a Spanning Tree.
+- Find a shortest path.
+- Find a cycle.
+- Visit every vertex in a graph by moving along edges (graph traversal).
+
+Two generic methods for solving these problems.
+
+- Depth-First traversal (search)
+- Breadth-First traversal (search)
+
+## Breadth-First Traversal
+
+**Breadth-First Traversal** process the vertices in a graph in the **order of distance** from some initial vertex.
+
+- Set $D_0 = \{u\}$ and process $u$.
+- Set $D_1 =$ neighbors of $u$, and process them.
+- Set $D_2 =$ neighbors of $D_1$ that we haven't seen before, and process them.
+- ...
+  We may not bother to keep track of the sets $D_j$.
+
+:::tip
+
+**BFS** tries to stay as close to $u$ as possible, only moving further away when we have visited everything close by.
+
+:::
+
+### Breadth-First Traversal in Python
+
+The visualization of the graph can be found [here](070-graphs.mdx#graph-visualization).
+
+<CodeBlock language="python" title="_assets-07/bfs.py">
+  {bfsExample}
+</CodeBlock>
+
+### Uses of BFS
+
+- Build Spanning Tree
+- Find shortest path
+- Find cycles
+- Find connected components
+- Test if a graph is bipartite
+- Find maximum flows
+
+## Depth-First Traversal
+
+**DFS** tries to go as far away from $u$ as possible, then backtracking when it cannot go any further.
+
+### Depth-First Traversal in Python
+
+The visualization of the graph can be found [here](070-graphs.mdx#graph-visualization).
+
+<CodeBlock language="python" title="_assets-07/dfs.py">
+  {dfsExample}
+</CodeBlock>
+
+### Uses of DFS
+
+- Build Spanning Tree
+- Find cycle
+- Find connected components
+- Maze solving
+- Find a topological ordering
+
+## Important Examples
+
+In a situation where we have to make multiple choices. We can construct a graph (tree).
+
+### Maze
+
+In a maze, the set of vertices can be the "interesting" places.
+
+- Start, End
+- Places which we choose to go
+
+We can use **Depth-First Traversal** to find a path from the start to the end.
+
+### Game
+
+In a game (chess, Rubik's Cube, etc.).
+
+- Vertex: the configuration of the game
+- Edge: legal move
+
+Then **BFT** can be used to find the choices to make to get to a
+winning position as fast as possible.
+
+## References
+
+- [QUT Materials](https://github.com/xiaohai-huang/resources/tree/master/QUT/Discrete-Structure/week7)

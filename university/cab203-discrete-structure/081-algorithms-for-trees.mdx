@@ -1,0 +1,40 @@
+---
+sidebar_label: Algorithms for Trees
+title: Algorithms for Trees
+description: "Week 8: Algorithms for Trees"
+toc_max_heading_level: 4
+---
+
+## Building Spanning Trees
+
+We can build spanning trees with BFS or DFS.
+
+- The spanning trees built with BFS will contain shortest paths from initial vertex to others.
+- DFS will not have this property.
+
+### Represent Spanning Trees
+
+Use a python dictionary `parents`.
+
+- key: a vertex.
+- value: the parent of the vertex.
+
+### BFS Spanning Tree
+
+General Idea:
+
+- Use BFS to get distance classes.
+
+## Case Study: Teleportation
+
+## Case Study: 9P
+
+- Vertex: game states. The arrangement of numbers.
+- Edges: valid moves
+
+### 9P instance
+
+An instance of 9P is a start configuration.
+
+Because there are a fixed number of items.
+And each position has a special meaning i.e. the position where the number lives in the game. We use **tuples**.

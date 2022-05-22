@@ -5,7 +5,7 @@ tags: [technology, monitor, WebRTC]
 description: "This blog shows how to turn a tablet into a secondary monitor/display on Windows."
 ---
 
-This blog shows how to turn a tablet into a secondary monitor.
+This blog shows how to turn a tablet into a secondary monitor in just 2 steps.
 
 <!-- truncate -->
 
@@ -15,7 +15,7 @@ Create a virtual monitor.
 
 Download the virtual display driver from [https://github.com/xiaohai-huang/resources/blob/master/xiaohai.wiki/blog-data/usbmmidd_v2.zip](https://github.com/xiaohai-huang/resources/blob/master/xiaohai.wiki/blog-data/usbmmidd_v2.zip)
 
-Run `CMD` as Administrator.
+Use CMD to execute the following commands to create a virtual display. Note: Run as Administrator.
 
 ```bash title="install the virtual display driver"
 deviceinstaller64 install usbmmidd.inf usbmmidd
@@ -29,20 +29,24 @@ deviceinstaller64 enableidd 1
 deviceinstaller64 enableidd 0
 ```
 
-To completely remove the drivers from your system, run the following commands.
-
-```bash
-deviceinstaller64 stop usbmmidd
-deviceinstaller64 remove usbmmid
-```
-
 At this point, we should be able to see the secondary monitor that appears in the **Display Settings**.
 
 ![Screenshot shows the secondary monitor exists in Display Settings](virtual-monitor.png)
 
-## Share the Secondary Display
+:::note
 
-In this example, I use **WebRTC** to share the screen.
+To completely remove the drivers from your system, run the following commands.
+
+```bash title="remove the driver"
+deviceinstaller64 stop usbmmidd
+deviceinstaller64 remove usbmmid
+```
+
+:::
+
+## Step2: Share the Secondary Display
+
+In this step I will show you how to use **WebRTC** enabled web app to share the screen.
 
 Navigate to this website [https://screen.xiaohai-huang.net](https://screen.xiaohai-huang.net)
 
@@ -61,5 +65,6 @@ Here is the final result.
 
 ## References
 
+- [How To Create a Virtual Monitor - Windows [2022 New & Working - No Adapters/Hardware Needed]](https://www.youtube.com/watch?v=ybHKFZjSkVY)
 - [Activating a Secondary Display on Windows 10 when no Monitor is Connected](https://www.amyuni.com/forum/viewtopic.php?t=3030)
 - [screen-share app](https://github.com/xiaohai-huang/screen-share)

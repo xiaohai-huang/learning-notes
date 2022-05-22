@@ -1,11 +1,15 @@
 ---
-title: Turn a Tablet into a Secondary Monitor
+title: Turn a Tablet Into a Secondary Monitor
 authors: xiaohai
 tags: [technology, monitor, WebRTC]
 description: "This blog shows how to turn a tablet into a secondary monitor/display on Windows."
 ---
 
 This blog shows how to turn a tablet into a secondary monitor in just 2 steps.
+
+Here is what the final result would look like.
+
+![Final result](final-result.jpg)
 
 <!-- truncate -->
 
@@ -56,12 +60,6 @@ Navigate to this website [https://screen.xiaohai-huang.net](https://screen.xiaoh
 In the **Master** page, click the "share screen" button and share your secondary display.
 
 ![Screenshot shows how to share the screen](share-screen.png)
-
-## Result
-
-Here is the final result.
-
-![Final result](final-result.jpg)
 
 ## References
 

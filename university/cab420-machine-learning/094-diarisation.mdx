@@ -1,0 +1,31 @@
+---
+sidebar_label: Diarisation
+description: Group identities in media
+---
+
+import WordCardList from "@src/components/WordCardList";
+
+# Diarisation
+
+- **Speaker Diarisation** answers the question "who spoke when"?
+  - For a corpus of audio, determine which clips of audio belong to the same speaker.
+- **Face Diarisation** performs a similar task for faces
+  - For a corpus of video/images, group faces based on identities.
+
+## Face Diarisation Pipeline
+
+For all frames to process
+
+- Run face detection
+- Extract cropped faces
+- Encode cropped faces to obtain an **embedding** to represent the face
+
+Finally, **cluster** embeddings.
+
+## Vocabulary
+
+<WordCardList words={["corpus"]} />
+
+## References
+
+- [QUT Week9 Materials](https://github.com/xiaohai-huang/cab420-workspace/tree/master/work/machine-learning/week9)

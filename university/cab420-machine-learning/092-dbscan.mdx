@@ -1,0 +1,81 @@
+---
+sidebar_label: DBScan
+description: Density-Based Spatial Clustering of Applications with Noise.
+---
+
+import YouTubeVideo from "@src/components/youtube-video";
+
+# DBScan
+
+The idea is that if a particular point belongs to a cluster, it should be near to lots of other points in that cluster.
+
+Density Based
+
+- Groups together points that are **closely packed**, i.e. dense
+- Points that are sparse are assigned to **outliers** or **noise**.
+
+We need to specify two parameters:
+
+- $\epsilon$, a distance that defines how close two points should be for them to be be considered in the same cluster.
+- $N_{min}$, a minimum number of points that defines the minimum number of points that should be in a cluster.
+
+:::tip
+
+Don't need to specify $K$.
+
+:::
+
+<YouTubeVideo
+  src="https://www.youtube.com/embed/_A9Tq6mGtLI"
+  caption="DBSCAN Explanation and Visualization"
+/>
+
+:::tip
+
+A visualization of the algorithm can be found here-[Visualizing DBSCAN Clustering](https://www.naftaliharris.com/blog/visualizing-dbscan-clustering/).
+
+:::
+
+## Definition
+
+Core and non-core points.
+
+A point is a **core point** if there $N_{min}$ points within distance $\epsilon$.
+
+A point is **directly reachable** if it is within distance $\epsilon$ of a core point.
+
+## Implications
+
+DBScan can:
+
+- Find arbitrarily shaped clusters, i.e. can capture highly non-linear clusters.
+- Clusters can surround each other, if they are not connected. (e.g. inner circle and outer circle)
+- Can label points as noise or outliers
+
+## Drawbacks
+
+- Sensitive to hyper-parameters
+  - Incorrectly setting the distance threshold (epsilon) can lead to severe **over** or **under** clustering.
+- Can't add points to clusters after clustering.
+  - New points can change conductivities, which then alters the clustering results.
+
+:::caution
+
+trying to specify the hyper-parameters (in particular the distance threhold) can be non-trivial.
+
+:::
+
+## Python
+
+```python
+from sklearn.cluster import DBSCAN
+clustering = DBSCAN(eps=0.1, min_samples=5).fit(X)
+
+fig = plt.figure(figsize=[8, 8])
+ax = fig.add_subplot(1, 1, 1)
+ax.scatter(X[:,0], X[:,1], c=clustering.labels_);
+```
+
+## References
+
+- [QUT Week9 Materials](https://github.com/xiaohai-huang/cab420-workspace/tree/master/work/machine-learning/week9)

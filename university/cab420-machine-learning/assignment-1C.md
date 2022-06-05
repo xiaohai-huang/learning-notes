@@ -128,7 +128,7 @@ Steps for obtaining recommendations for a user:
 <!-- Q. For Q1, how can tell if my recommendations make sense?
 A. One way would be to create some test subjects. Pick a few subjects at random, remove a bunch of the movies that they've seen, and then see if you're approach can recommend movies that they've enjoyed. Note that if you do this, I'd suggest that for your test subjects make sure you pick users who've watched lots of moves, and only remove a small number of films. This will help ensure that your changes to their viewing history don't change the cluster to which they are assigned. -->
 
-In order to check if the recommendations make sense. I pick a few users at random, remove a bunch of the movies that they have seen. Then I find the **intersection** between the movies my system recommended and the movies removed. After that I calculate a metrics called $Accuracy$ to evaluate the performance. And it is defined as follow:
+In order to check if the recommendations make sense. I pick a few users at random, remove a bunch of the movies that they have seen. Then I find the **intersection** between the movies my system recommended and the movies removed. After that I calculate a metric called $Accuracy$ to evaluate the performance. And it is defined as follow:
 
 $$
 \begin{aligned}

@@ -153,8 +153,531 @@ What we see is:
 
 ## Problem 2. Multi-Task Learning
 
-### Discussion of Data Characteristics and Pre-processing
+Using the given data to implement a multi-task deep learning approach
+that, given an input image, classifies the traits.
+
+### Data Characteristics
+
+#### Small Dataset
+
+The training dataset contains `520x100x60` _colorful_ images. The size of the training set is very small and it is difficult to train a effective deep neural network by simply feeding these data.
+
+#### Class Imbalance
+
+![Class imbalance](_assets-1C/q2-class-imbalance.png)
+
+The dataset contains imbalanced class distribution. This is a situation where the number of observations which belong to a class is significantly large than those belonging to the other classes.
+
+According to the class distribution graph above, we can see:
+
+1. `torso_type`, the number of short torso clothing is significantly greater than short torso clothing.
+2. `torso_colour`, yellow, grey and unknown torso colors are dominating the distribution. We have a lot of unknown labels for torso color.
+3. `leg_type`, long leg clothing is dominating the distribution.
+4. `leg_colour`, the number of examples for colors like green, orange, purple, and white is limited.
+
+This imbalanced dataset will make it harder for the model to classify traits. Because DCNNs are usually aimed to improve accuracy by reducing the error so they do not take the class distribution/proportion into consideration.
+
+#### Missing Data
+
+Some labels have the value of $-1$. This indicates that the labels of these data are missing. Because we only have a very small amount of data to train, it is impractical to drop these _unknown_ data. The number of training examples will become even smaller if we drop samples with $-1$. My approach to deal with these $-1$ labels is semi-supervised learning.
+
+We can treat this as a semi-supervised learning to enable us learn from labeled and unlabeled data.
+
+This is achieved by defining a loss function which does the standard categorical cross entropy, but it will first find any elements that do not have labels and remove them, so it only calculate the loss on those that we have labels for. In order to make this work, we also need to convert the labels into one-hot encodings.
+
+### Pre-processing
+
+#### Split Data
+
+The provided utils only split the data into training and testing set, which is insufficient to evaluate the model's performance during training. Therefore, I further split the training data into two sets. One is training the other one is the validation set. So that I can effectively tune the hyper-parameters during the training.
+
+```python
+validation_split = 0.1
+train_x.shape # (468, 100, 60, 3)
+val_x.shape   # (52, 100, 60, 3)
+test_x.shape  # (196, 100, 60, 3)
+```
+
+#### One-Hot Encoding
+
+As discussed in the [Data Characteristics](#missing-data) section, in order to implement a semi-supervised learning task, we need to convert `y` into one-hot encoding. During the transformation, when we encounter $-1$, the label will be replaced with a vector of $-1s$ to tell the loss function to ignore this example.
+
+#### Data Augmentation
+
+![data augmentation](_assets-1C/q2-data-augmentation.png)
+
+Because we only have a small amount of training data. I use data augmentation to generate images to help my model generalize for unseen data.
+
+```python
+ImageDataGenerator(
+                  # rotate between -3, +3 degrees
+                  rotation_range=3,
+                  # horiziontal shift by +/- 1% of the image width
+                  width_shift_range=0.01,
+                  # vertical shift by +/- 1% of the image width
+                  height_shift_range=0.01,
+                  # range for zooming
+                  zoom_range=0.01,
+                  # allow horizontal flips of data
+                  horizontal_flip=True,
+                  )
+```
+
+The reason why I choose these parameters for data augmentation is that they can generate "new images" for the model to learn and the augmented images are still distinguishable according to the images above.
 
 ### Model Development and Hyper-parameter Selection
 
+### Network Design
+
+The full network architecture can be found in the [Appendix](#appendix).
+
+Because we only have a small amount of training data, we can pick a pre-trained model and fine-tune the model using this small dataset. The pre-trained model should be a model that has been trained on image related task and original input image of the model should be colorful if possible.
+
+The **ResNet** with `"imagenet"` weights is a good pre-trained model to fine-tune because it has been trained on image related task and they share the same type of input data. When the model is loaded, we firstly set the `trainable` property of the parameters of the pre-trained model to `False` and add a few Dense layers and finally output the results.
+
+However, I decided to build a ResNet from scratch. It is a ResNet that has 3 stages, for each stage there are 3 residual blocks and 8,16,32 convolutional filters respectively.
+
+Finally for each output label (e.g., gender, torso_colour) I create 3 Dense layers with $ReLU$ of sizes 64,32,16 and a output layer which has size of their one-hot encodings.
+
+```python
+outputs = []
+for label in label_info:
+   # 3 Dense layers
+   x = Dense(64, name=f"pre-{label}-1", activation="relu")(base_model)
+   x = Dense(32, name=f"pre-{label}-2", activation="relu")(x)
+   x = Dense(16, name=f"pre-{label}-3", activation="relu")(x)
+   # output layer which has the size of its one-hot encoding
+   output = Dense(label_info[label], name=label)(x)
+   outputs.append(output)
+```
+
+The **loss function** for each output is the **masked categorical cross entropy** which can ignore the missing data (the key component of the semi-supervised learning). One exception is the output for mask, I would use the **mean squared error** to compare the generated mask and the actual mask.
+
+```python
+# semi-supervised cateogorical cross entropy loss. This wil find any rows that have a -1 in the labels
+# and remove them from consideration
+def masked_cce(y_true, y_pred):
+    y_true_masked = tf.boolean_mask(y_true, tf.reduce_any(tf.not_equal(y_true, -1), 1))
+    y_pred_masked = tf.boolean_mask(y_pred, tf.reduce_any(tf.not_equal(y_true, -1), 1))
+    return K.mean(K.categorical_crossentropy(y_true_masked, y_pred_masked, from_logits=True))
+```
+
+Because this is a multi-task learning, **loss weights** can be added to the model to help our network consider all tasks equally. We can just provide a dictionary of loss weights when we build the model. However, we are not given any information about which output should be optimized ,therefore, I didn't change the loss weights.
+
+The training data also contain the information about **mask**, we can pick the output of the **ResNet**(`base_model`) as the **latent space representation** which contains all the important information needed to represent our original data point. And then attach a **decoder** to this layer to construct a **mask**(semantic segmentation) using the compressed representation. The hope is that the model can learn the spatial relationships between these traits. For example, if the model knows where the leg is then it can classify the leg type or leg clothing color more effectively. Because the model can ignore those irrelevant information by just focusing on the pixels that contain the leg. Due to time constraint, I didn't implement this.
+
 ### Analysis of Results
+
+#### Gender
+
+```bash
+              precision    recall  f1-score   support
+
+           0       0.60      0.67      0.63       106
+           1       0.55      0.47      0.50        90
+
+    accuracy                           0.58       196
+   macro avg       0.57      0.57      0.57       196
+weighted avg       0.57      0.58      0.57       196
+```
+
+![q2-gender-confusion-matrix](_assets-1C/q2-gender-confusion-matrix.png)
+
+#### Torso Clothing Type
+
+```bash
+              precision    recall  f1-score   support
+
+           0       0.40      0.45      0.43        75
+           1       0.63      0.58      0.60       121
+
+    accuracy                           0.53       196
+   macro avg       0.52      0.52      0.51       196
+weighted avg       0.54      0.53      0.54       196
+```
+
+![q2 Torso Clothing Type Confusion Matrix](_assets-1C/q2-torso-type-conf.png)
+
+#### Torso Clothing Color
+
+```bash
+              precision    recall  f1-score   support
+
+           0       0.53      0.78      0.63        51
+           1       0.30      0.39      0.34        23
+           2       0.18      0.17      0.17        12
+           3       0.29      0.22      0.25         9
+           4       0.11      0.19      0.14        21
+           5       0.00      0.00      0.00         5
+           6       0.38      0.43      0.40         7
+           7       0.00      0.00      0.00         5
+           8       0.67      0.21      0.32        19
+           9       0.26      0.17      0.21        35
+          10       0.00      0.00      0.00         9
+
+    accuracy                           0.36       196
+   macro avg       0.25      0.23      0.22       196
+weighted avg       0.33      0.36      0.32       196
+```
+
+![q2 Torso Clothing Color Confusion Matrix](_assets-1C/q2-torso-color-conf.png)
+
+#### Leg Clothing Type
+
+```bash
+              precision    recall  f1-score   support
+
+           0       0.72      0.90      0.80       114
+           1       0.79      0.50      0.61        82
+
+    accuracy                           0.73       196
+   macro avg       0.75      0.70      0.71       196
+weighted avg       0.75      0.73      0.72       196
+```
+
+![q2 Leg Clothing Type Confusion Matrix](_assets-1C/q2-leg-type-conf.png)
+
+#### Leg Clothing Color
+
+```bash
+              precision    recall  f1-score   support
+
+           0       0.52      0.94      0.67        69
+           1       0.57      0.48      0.52        63
+           2       0.50      0.12      0.20         8
+           3       0.00      0.00      0.00         7
+           4       0.50      0.26      0.34        27
+           6       0.00      0.00      0.00         6
+           7       0.00      0.00      0.00         2
+           8       0.00      0.00      0.00         0
+           9       0.50      0.08      0.13        13
+          10       0.00      0.00      0.00         1
+
+    accuracy                           0.53       196
+   macro avg       0.26      0.19      0.19       196
+weighted avg       0.49      0.53      0.47       196
+```
+
+![q2 Leg Clothing Color Confusion Matrix](_assets-1C/q2-leg-color-conf.png)
+
+#### Luggage
+
+```bash
+              precision    recall  f1-score   support
+
+           0       0.68      0.73      0.70       135
+           1       0.27      0.23      0.25        61
+
+    accuracy                           0.57       196
+   macro avg       0.48      0.48      0.48       196
+weighted avg       0.55      0.57      0.56       196
+```
+
+![q2 Luggage Confusion Matrix](_assets-1C/q2-luggage-conf.png)
+
+## Jupyter Notebooks
+
+- [Q1 notebook](https://github.com/xiaohai-huang/cab420-workspace/blob/master/work/machine-learning/a1c/Q1/Q1-solution.ipynb)
+- [Q2 notebook](https://github.com/xiaohai-huang/cab420-workspace/blob/master/work/machine-learning/a1c/Q2/assignment1C_Q2.ipynb)
+- [HTML version of this assignment](https://xiaohai.wiki/university/cab420-machine-learning/assignment-1C)
+
+## Appendix
+
+Question 2 Model Architecture
+
+```bash
+Model: "simple_resnet_v2"
+__________________________________________________________________________________________________
+ Layer (type)                   Output Shape         Param #     Connected to
+==================================================================================================
+ img (InputLayer)               [(None, 100, 60, 3)  0           []
+                                ]
+
+ conv2d_106 (Conv2D)            (None, 100, 60, 8)   224         ['img[0][0]']
+
+ batch_normalization_94 (BatchN  (None, 100, 60, 8)  32          ['conv2d_106[0][0]']
+ ormalization)
+
+ activation_94 (Activation)     (None, 100, 60, 8)   0           ['batch_normalization_94[0][0]']
+
+ conv2d_107 (Conv2D)            (None, 100, 60, 8)   72          ['activation_94[0][0]']
+
+ batch_normalization_95 (BatchN  (None, 100, 60, 8)  32          ['conv2d_107[0][0]']
+ ormalization)
+
+ activation_95 (Activation)     (None, 100, 60, 8)   0           ['batch_normalization_95[0][0]']
+
+ conv2d_108 (Conv2D)            (None, 100, 60, 8)   584         ['activation_95[0][0]']
+
+ batch_normalization_96 (BatchN  (None, 100, 60, 8)  32          ['conv2d_108[0][0]']
+ ormalization)
+
+ activation_96 (Activation)     (None, 100, 60, 8)   0           ['batch_normalization_96[0][0]']
+
+ conv2d_110 (Conv2D)            (None, 100, 60, 32)  288         ['activation_94[0][0]']
+
+ conv2d_109 (Conv2D)            (None, 100, 60, 32)  288         ['activation_96[0][0]']
+
+ add_30 (Add)                   (None, 100, 60, 32)  0           ['conv2d_110[0][0]',
+                                                                  'conv2d_109[0][0]']
+
+ batch_normalization_97 (BatchN  (None, 100, 60, 32)  128        ['add_30[0][0]']
+ ormalization)
+
+ activation_97 (Activation)     (None, 100, 60, 32)  0           ['batch_normalization_97[0][0]']
+
+ conv2d_111 (Conv2D)            (None, 100, 60, 8)   264         ['activation_97[0][0]']
+
+ batch_normalization_98 (BatchN  (None, 100, 60, 8)  32          ['conv2d_111[0][0]']
+ ormalization)
+
+ activation_98 (Activation)     (None, 100, 60, 8)   0           ['batch_normalization_98[0][0]']
+
+ conv2d_112 (Conv2D)            (None, 100, 60, 8)   584         ['activation_98[0][0]']
+
+ batch_normalization_99 (BatchN  (None, 100, 60, 8)  32          ['conv2d_112[0][0]']
+ ormalization)
+
+ activation_99 (Activation)     (None, 100, 60, 8)   0           ['batch_normalization_99[0][0]']
+
+ conv2d_113 (Conv2D)            (None, 100, 60, 32)  288         ['activation_99[0][0]']
+
+ add_31 (Add)                   (None, 100, 60, 32)  0           ['add_30[0][0]',
+                                                                  'conv2d_113[0][0]']
+
+ batch_normalization_100 (Batch  (None, 100, 60, 32)  128        ['add_31[0][0]']
+ Normalization)
+
+ activation_100 (Activation)    (None, 100, 60, 32)  0           ['batch_normalization_100[0][0]']
+
+ conv2d_114 (Conv2D)            (None, 100, 60, 8)   264         ['activation_100[0][0]']
+
+ batch_normalization_101 (Batch  (None, 100, 60, 8)  32          ['conv2d_114[0][0]']
+ Normalization)
+
+ activation_101 (Activation)    (None, 100, 60, 8)   0           ['batch_normalization_101[0][0]']
+
+ conv2d_115 (Conv2D)            (None, 100, 60, 8)   584         ['activation_101[0][0]']
+
+ batch_normalization_102 (Batch  (None, 100, 60, 8)  32          ['conv2d_115[0][0]']
+ Normalization)
+
+ activation_102 (Activation)    (None, 100, 60, 8)   0           ['batch_normalization_102[0][0]']
+
+ conv2d_116 (Conv2D)            (None, 100, 60, 32)  288         ['activation_102[0][0]']
+
+ add_32 (Add)                   (None, 100, 60, 32)  0           ['add_31[0][0]',
+                                                                  'conv2d_116[0][0]']
+
+ batch_normalization_103 (Batch  (None, 100, 60, 32)  128        ['add_32[0][0]']
+ Normalization)
+
+ activation_103 (Activation)    (None, 100, 60, 32)  0           ['batch_normalization_103[0][0]']
+
+ conv2d_117 (Conv2D)            (None, 50, 30, 16)   528         ['activation_103[0][0]']
+
+ batch_normalization_104 (Batch  (None, 50, 30, 16)  64          ['conv2d_117[0][0]']
+ Normalization)
+
+ activation_104 (Activation)    (None, 50, 30, 16)   0           ['batch_normalization_104[0][0]']
+
+ conv2d_118 (Conv2D)            (None, 50, 30, 16)   2320        ['activation_104[0][0]']
+
+ batch_normalization_105 (Batch  (None, 50, 30, 16)  64          ['conv2d_118[0][0]']
+ Normalization)
+
+ activation_105 (Activation)    (None, 50, 30, 16)   0           ['batch_normalization_105[0][0]']
+
+ conv2d_120 (Conv2D)            (None, 50, 30, 32)   1056        ['add_32[0][0]']
+
+ conv2d_119 (Conv2D)            (None, 50, 30, 32)   544         ['activation_105[0][0]']
+
+ add_33 (Add)                   (None, 50, 30, 32)   0           ['conv2d_120[0][0]',
+                                                                  'conv2d_119[0][0]']
+
+ batch_normalization_106 (Batch  (None, 50, 30, 32)  128         ['add_33[0][0]']
+ Normalization)
+
+ activation_106 (Activation)    (None, 50, 30, 32)   0           ['batch_normalization_106[0][0]']
+
+ conv2d_121 (Conv2D)            (None, 50, 30, 16)   528         ['activation_106[0][0]']
+
+ batch_normalization_107 (Batch  (None, 50, 30, 16)  64          ['conv2d_121[0][0]']
+ Normalization)
+
+ activation_107 (Activation)    (None, 50, 30, 16)   0           ['batch_normalization_107[0][0]']
+
+ conv2d_122 (Conv2D)            (None, 50, 30, 16)   2320        ['activation_107[0][0]']
+
+ batch_normalization_108 (Batch  (None, 50, 30, 16)  64          ['conv2d_122[0][0]']
+ Normalization)
+
+ activation_108 (Activation)    (None, 50, 30, 16)   0           ['batch_normalization_108[0][0]']
+
+ conv2d_123 (Conv2D)            (None, 50, 30, 32)   544         ['activation_108[0][0]']
+
+ add_34 (Add)                   (None, 50, 30, 32)   0           ['add_33[0][0]',
+                                                                  'conv2d_123[0][0]']
+
+ batch_normalization_109 (Batch  (None, 50, 30, 32)  128         ['add_34[0][0]']
+ Normalization)
+
+ activation_109 (Activation)    (None, 50, 30, 32)   0           ['batch_normalization_109[0][0]']
+
+ conv2d_124 (Conv2D)            (None, 50, 30, 16)   528         ['activation_109[0][0]']
+
+ batch_normalization_110 (Batch  (None, 50, 30, 16)  64          ['conv2d_124[0][0]']
+ Normalization)
+
+ activation_110 (Activation)    (None, 50, 30, 16)   0           ['batch_normalization_110[0][0]']
+
+ conv2d_125 (Conv2D)            (None, 50, 30, 16)   2320        ['activation_110[0][0]']
+
+ batch_normalization_111 (Batch  (None, 50, 30, 16)  64          ['conv2d_125[0][0]']
+ Normalization)
+
+ activation_111 (Activation)    (None, 50, 30, 16)   0           ['batch_normalization_111[0][0]']
+
+ conv2d_126 (Conv2D)            (None, 50, 30, 32)   544         ['activation_111[0][0]']
+
+ add_35 (Add)                   (None, 50, 30, 32)   0           ['add_34[0][0]',
+                                                                  'conv2d_126[0][0]']
+
+ batch_normalization_112 (Batch  (None, 50, 30, 32)  128         ['add_35[0][0]']
+ Normalization)
+
+ activation_112 (Activation)    (None, 50, 30, 32)   0           ['batch_normalization_112[0][0]']
+
+ conv2d_127 (Conv2D)            (None, 25, 15, 32)   1056        ['activation_112[0][0]']
+
+ batch_normalization_113 (Batch  (None, 25, 15, 32)  128         ['conv2d_127[0][0]']
+ Normalization)
+
+ activation_113 (Activation)    (None, 25, 15, 32)   0           ['batch_normalization_113[0][0]']
+
+ conv2d_128 (Conv2D)            (None, 25, 15, 32)   9248        ['activation_113[0][0]']
+
+ batch_normalization_114 (Batch  (None, 25, 15, 32)  128         ['conv2d_128[0][0]']
+ Normalization)
+
+ activation_114 (Activation)    (None, 25, 15, 32)   0           ['batch_normalization_114[0][0]']
+
+ conv2d_130 (Conv2D)            (None, 25, 15, 64)   2112        ['add_35[0][0]']
+
+ conv2d_129 (Conv2D)            (None, 25, 15, 64)   2112        ['activation_114[0][0]']
+
+ add_36 (Add)                   (None, 25, 15, 64)   0           ['conv2d_130[0][0]',
+                                                                  'conv2d_129[0][0]']
+
+ batch_normalization_115 (Batch  (None, 25, 15, 64)  256         ['add_36[0][0]']
+ Normalization)
+
+ activation_115 (Activation)    (None, 25, 15, 64)   0           ['batch_normalization_115[0][0]']
+
+ conv2d_131 (Conv2D)            (None, 25, 15, 32)   2080        ['activation_115[0][0]']
+
+ batch_normalization_116 (Batch  (None, 25, 15, 32)  128         ['conv2d_131[0][0]']
+ Normalization)
+
+ activation_116 (Activation)    (None, 25, 15, 32)   0           ['batch_normalization_116[0][0]']
+
+ conv2d_132 (Conv2D)            (None, 25, 15, 32)   9248        ['activation_116[0][0]']
+
+ batch_normalization_117 (Batch  (None, 25, 15, 32)  128         ['conv2d_132[0][0]']
+ Normalization)
+
+ activation_117 (Activation)    (None, 25, 15, 32)   0           ['batch_normalization_117[0][0]']
+
+ conv2d_133 (Conv2D)            (None, 25, 15, 64)   2112        ['activation_117[0][0]']
+
+ add_37 (Add)                   (None, 25, 15, 64)   0           ['add_36[0][0]',
+                                                                  'conv2d_133[0][0]']
+
+ batch_normalization_118 (Batch  (None, 25, 15, 64)  256         ['add_37[0][0]']
+ Normalization)
+
+ activation_118 (Activation)    (None, 25, 15, 64)   0           ['batch_normalization_118[0][0]']
+
+ conv2d_134 (Conv2D)            (None, 25, 15, 32)   2080        ['activation_118[0][0]']
+
+ batch_normalization_119 (Batch  (None, 25, 15, 32)  128         ['conv2d_134[0][0]']
+ Normalization)
+
+ activation_119 (Activation)    (None, 25, 15, 32)   0           ['batch_normalization_119[0][0]']
+
+ conv2d_135 (Conv2D)            (None, 25, 15, 32)   9248        ['activation_119[0][0]']
+
+ batch_normalization_120 (Batch  (None, 25, 15, 32)  128         ['conv2d_135[0][0]']
+ Normalization)
+
+ activation_120 (Activation)    (None, 25, 15, 32)   0           ['batch_normalization_120[0][0]']
+
+ conv2d_136 (Conv2D)            (None, 25, 15, 64)   2112        ['activation_120[0][0]']
+
+ add_38 (Add)                   (None, 25, 15, 64)   0           ['add_37[0][0]',
+                                                                  'conv2d_136[0][0]']
+
+ batch_normalization_121 (Batch  (None, 25, 15, 64)  256         ['add_38[0][0]']
+ Normalization)
+
+ activation_121 (Activation)    (None, 25, 15, 64)   0           ['batch_normalization_121[0][0]']
+
+ average_pooling2d_4 (AveragePo  (None, 6, 3, 64)    0           ['activation_121[0][0]']
+ oling2D)
+
+ flatten_4 (Flatten)            (None, 1152)         0           ['average_pooling2d_4[0][0]']
+
+ pre-gender-1 (Dense)           (None, 64)           73792       ['flatten_4[0][0]']
+
+ pre-torso_type-1 (Dense)       (None, 64)           73792       ['flatten_4[0][0]']
+
+ pre-torso_colour-1 (Dense)     (None, 64)           73792       ['flatten_4[0][0]']
+
+ pre-leg_type-1 (Dense)         (None, 64)           73792       ['flatten_4[0][0]']
+
+ pre-leg_colour-1 (Dense)       (None, 64)           73792       ['flatten_4[0][0]']
+
+ pre-luggage-1 (Dense)          (None, 64)           73792       ['flatten_4[0][0]']
+
+ pre-gender-2 (Dense)           (None, 32)           2080        ['pre-gender-1[0][0]']
+
+ pre-torso_type-2 (Dense)       (None, 32)           2080        ['pre-torso_type-1[0][0]']
+
+ pre-torso_colour-2 (Dense)     (None, 32)           2080        ['pre-torso_colour-1[0][0]']
+
+ pre-leg_type-2 (Dense)         (None, 32)           2080        ['pre-leg_type-1[0][0]']
+
+ pre-leg_colour-2 (Dense)       (None, 32)           2080        ['pre-leg_colour-1[0][0]']
+
+ pre-luggage-2 (Dense)          (None, 32)           2080        ['pre-luggage-1[0][0]']
+
+ pre-gender-3 (Dense)           (None, 16)           528         ['pre-gender-2[0][0]']
+
+ pre-torso_type-3 (Dense)       (None, 16)           528         ['pre-torso_type-2[0][0]']
+
+ pre-torso_colour-3 (Dense)     (None, 16)           528         ['pre-torso_colour-2[0][0]']
+
+ pre-leg_type-3 (Dense)         (None, 16)           528         ['pre-leg_type-2[0][0]']
+
+ pre-leg_colour-3 (Dense)       (None, 16)           528         ['pre-leg_colour-2[0][0]']
+
+ pre-luggage-3 (Dense)          (None, 16)           528         ['pre-luggage-2[0][0]']
+
+ gender (Dense)                 (None, 2)            34          ['pre-gender-3[0][0]']
+
+ torso_type (Dense)             (None, 2)            34          ['pre-torso_type-3[0][0]']
+
+ torso_colour (Dense)           (None, 11)           187         ['pre-torso_colour-3[0][0]']
+
+ leg_type (Dense)               (None, 2)            34          ['pre-leg_type-3[0][0]']
+
+ leg_colour (Dense)             (None, 11)           187         ['pre-leg_colour-3[0][0]']
+
+ luggage (Dense)                (None, 2)            34          ['pre-luggage-3[0][0]']
+
+==================================================================================================
+Total params: 518,190
+Trainable params: 516,734
+Non-trainable params: 1,456
+__________________________________________________________________________________________________
+```

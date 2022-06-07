@@ -7,7 +7,9 @@ description: "Problem 1. Clustering and Recommendations. Problem 2. Multi-Task L
 
 - Name: Baorong Huang
 - Student Number: n10172912
-- assignment extension request (FORM-AEX-119078)
+- assignment extension request (**FORM-AEX-119078**)
+
+![48 hours extension approval](_assets-1C/ML-1C-48-extension-1.png)
 
 ## Problem 1. Clustering and Recommendations
 

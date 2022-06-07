@@ -372,7 +372,7 @@ weighted avg       0.75      0.73      0.72       196
 
 ![q2 Leg Clothing Type Confusion Matrix](_assets-1C/q2-leg-type-conf.png)
 
-![q2 leg clothing type bad case](_assets-1C/q2-leg-color-bad-case.png)
+![q2 leg clothing type bad case](_assets-1C/q2-leg-type-bad-case-id-15.png)
 
 | Class        | Predicted | Actual    |
 | ------------ | --------- | --------- |

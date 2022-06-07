@@ -7,6 +7,7 @@ description: "Problem 1. Clustering and Recommendations. Problem 2. Multi-Task L
 
 - Name: Baorong Huang
 - Student Number: n10172912
+- assignment extension request (FORM-AEX-119078)
 
 ## Problem 1. Clustering and Recommendations
 
@@ -298,6 +299,21 @@ weighted avg       0.54      0.53      0.54       196
 
 ![q2 Torso Clothing Type Confusion Matrix](_assets-1C/q2-torso-type-conf.png)
 
+| Class        | Predicted | Actual   |
+| ------------ | --------- | -------- |
+| gender       | 0         | 0        |
+| torso_type   | **short** | **long** |
+| torso_colour | 0         | 0        |
+| leg_type     | 1         | 0        |
+| leg_colour   | 4         | 4        |
+| luggage      | 1         | 0        |
+
+![q2 torso type bad case](_assets-1C/q2-torso-type-bad-case-id-17.png)
+
+The model misclassifies a long torso clothing as short. One reason to this could be the person is not facing the camera and the person's hands is not entirely visible.
+
+**Impact on semantic search**: the semantic search might not function well if the person to match is standing in an unexpected position or if the person's body parts are not entirely visible.
+
 #### Torso Clothing Color
 
 ```bash
@@ -322,6 +338,23 @@ weighted avg       0.33      0.36      0.32       196
 
 ![q2 Torso Clothing Color Confusion Matrix](_assets-1C/q2-torso-color-conf.png)
 
+class imbalance
+
+![q2 torso clothing color bad case](_assets-1C/q2-torso-color-bad-case-id-14.png)
+
+| Class        | Predicted | Actual  |
+| ------------ | --------- | ------- |
+| gender       | 1         | 1       |
+| torso_type   | 1         | 1       |
+| torso_colour | **pink**  | **red** |
+| leg_type     | 1         | 1       |
+| leg_colour   | 1         | 1       |
+| luggage      | 0         | 0       |
+
+The model misclassifies red as pink. The model cannot tell the subtle difference between red and pink effectively. One reason to this is ,**class imbalance**, the number of pink and red torso clothings is limited in the training set.
+
+**Impact on semantic search**: if the query is looking for colors that are rare in the training data (e.g., green, orange, purple .etc), then the search will probably fail since the model cannot classify these colors effectively due to the limited amount of training data.
+
 #### Leg Clothing Type
 
 ```bash
@@ -336,6 +369,21 @@ weighted avg       0.75      0.73      0.72       196
 ```
 
 ![q2 Leg Clothing Type Confusion Matrix](_assets-1C/q2-leg-type-conf.png)
+
+![q2 leg clothing type bad case](_assets-1C/q2-leg-color-bad-case.png)
+
+| Class        | Predicted | Actual    |
+| ------------ | --------- | --------- |
+| gender       | 0         | 1         |
+| torso_type   | 0         | 0         |
+| torso_colour | 4         | 4         |
+| leg_type     | **long**  | **short** |
+| leg_colour   | 4         | 4         |
+| luggage      | 1         | 1         |
+
+The model misclassifies the short leg clothing as long. One reason to this might be the person is wearing a very short leg clothing, and the model cannot see the short leg clothing, therefore, classify it as a long leg clothing.
+
+**Impact on semantic search**: The model might work effectively for people who are wearing very short leg clothing.
 
 #### Leg Clothing Color
 
@@ -360,6 +408,23 @@ weighted avg       0.49      0.53      0.47       196
 
 ![q2 Leg Clothing Color Confusion Matrix](_assets-1C/q2-leg-color-conf.png)
 
+caused by class imbalance.
+
+![q2 leg color bad case-id.4](_assets-1C/q2-leg-color-bad-case.png)
+
+| Class        | Predicted | Actual    |
+| ------------ | --------- | --------- |
+| gender       | 1         | 1         |
+| torso_type   | 1         | 1         |
+| torso_colour | 8         | 8         |
+| leg_type     | 1         | 1         |
+| leg_colour   | **red**   | **black** |
+| luggage      | 0         | 0         |
+
+The leg color is classified as red but it should be black. The One reason could that the model cannot tell if the red pixels on the leg area is part of the leg or not. That small amount of red pixels is actually coming from the backpack. The second reason is that the person's torso clothing color is **red**, it seems like the model is unable to distinguish torso and leg clothings. The third reason is that this person's leg clothing is too short, the model cannot find the leg clothing.
+
+**Impact on semantic search**: due to these limitations, we might not be able to match a person if the person is wearing a very short leg clothing or the person is dominant by a color (e.g., red).
+
 #### Luggage
 
 ```bash
@@ -374,6 +439,27 @@ weighted avg       0.55      0.57      0.56       196
 ```
 
 ![q2 Luggage Confusion Matrix](_assets-1C/q2-luggage-conf.png)
+
+| Class        | Predicted | Actual |
+| ------------ | --------- | ------ |
+| gender       | 1         | 0      |
+| torso_type   | 0         | 0      |
+| torso_colour | 0         | 4      |
+| leg_type     | 0         | 0      |
+| leg_colour   | 0         | 0      |
+| luggage      | 0         | 1      |
+
+![q2 luggage bad case](_assets-1C/q2-luggage-bad-case-id-18.png)
+
+The model predicts the person is carrying a luggage but he is not.
+
+Reasons why it made the mistake:
+
+- The person's right is acting like he is carrying a luggage.
+- The intersection between floors looks like a luggage.
+- The person's hand is placing on top of the intersection.
+
+**Impact on semantic search**: this bad case indicates that the model is likely to be affected by the environment. For example, it cannot tell the difference between a floor texture and a luggage. Secondly, it does not have the sense of depth, the floor is obviously far away from the person's right hand but the model cannot spot this.
 
 ## Jupyter Notebooks
 

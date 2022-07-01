@@ -59,7 +59,7 @@ Represent integer values by their binary code.
 
 A.k.a _evaluation_ function, _quality_ function or _objective_ function.
 
-Represents the task to solve, the **retirements** to adapt to. (the environment)
+Represents the task to solve, the **requirements** to adapt to. (the environment)
 
 Enables selection (provides basis for comparison)
 

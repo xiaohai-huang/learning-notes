@@ -2,7 +2,7 @@ name: Run docsearch-scraper
 
 on:
   push:
-    branches: [master, test-workflow]
+    branches: [master]
   pull_request:
     branches: [master]
 

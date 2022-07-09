@@ -9,7 +9,7 @@ export type Case = {
   preview: string;
   description: string | React.ReactNode;
   website: string;
-  source: string;
+  source?: string;
   tags: string[];
 };
 

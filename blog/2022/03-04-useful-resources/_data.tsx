@@ -1,8 +1,8 @@
 import React from "react";
 import Link from "@docusaurus/Link";
 
-// @ts-ignore
 import { Case } from "@src/pages/showcase/_components/ShowcaseCard";
+import GitPreview from "./learnGitBranching.png";
 
 export const data: Case[] = [
   {
@@ -28,5 +28,20 @@ export const data: Case[] = [
     ),
     source: "",
     tags: ["Machine Learning", "Statistics"],
+  },
+  {
+    title: "Learn Git Branching",
+    website: "https://learngitbranching.js.org",
+    preview: GitPreview,
+    description: (
+      <>
+        "Learn Git Branching" is the most visual and interactive way to learn
+        Git on the web;
+        <br />
+        <br />- You'll be challenged with exciting levels <br />- Step-by-step
+        demonstrations of powerful features
+      </>
+    ),
+    tags: ["Git"],
   },
 ];

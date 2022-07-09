@@ -1,0 +1,40 @@
+---
+title: LeetCode 75 Study Plan
+authors: xiaohai
+tags: [study, algorithm]
+description: "Follow LeetCode 75 Study Plan."
+---
+
+import JSEditor from "@src/components/js-live-code-editor";
+import solution1 from "!!raw-loader!./_day-01/1480-running-sum-of-1d-array.js";
+import solution2 from "!!raw-loader!./_day-01/724-find-pivot-index.js";
+
+> This study plan is for those who want to prepare for technical interviews but are uncertain which problems they should focus on. The problems have been carefully curated so that levels 1 and 2 will guide beginner and intermediate users through problems that cover the data structures and algorithms necessary to succeed in interviews with most mid-tier companies. While level 3 provides material to help users whose targets are top-tier companies.
+> -- <cite><a href="https://leetcode.com/study-plan/leetcode-75" target="_blank">LeetCode</a></cite>
+
+<!-- truncate -->
+
+## Day 1
+
+### 1480. Running Sum of 1d Array
+
+src: [https://leetcode.com/problems/running-sum-of-1d-array](https://leetcode.com/problems/running-sum-of-1d-array/)
+
+<JSEditor run={false}>{solution1}</JSEditor>
+
+### 724. Find Pivot Index
+
+src: [https://leetcode.com/problems/find-pivot-index](https://leetcode.com/problems/find-pivot-index/)
+
+:::note
+
+At a given index `i`, how do I get the value of `leftSum` and `rightSum`?
+
+Ans:
+
+- `leftSum` of `i` can be computed by **summing** along the values of the left.
+- `rightSum` of `i` is equal to the sum of the array **minus** the value of the current element.
+
+:::
+
+<JSEditor run={false}>{solution2}</JSEditor>

@@ -8,6 +8,8 @@ description: "Follow LeetCode 75 Study Plan."
 import JSEditor from "@src/components/js-live-code-editor";
 import solution1 from "!!raw-loader!./_day-01/1480-running-sum-of-1d-array.js";
 import solution2 from "!!raw-loader!./_day-01/724-find-pivot-index.js";
+import solution3 from "!!raw-loader!./_day-02/205-isomorphic-strings.js";
+import solution4 from "!!raw-loader!./_day-02/392-is-subsequence.js";
 
 > This study plan is for those who want to prepare for technical interviews but are uncertain which problems they should focus on. The problems have been carefully curated so that levels 1 and 2 will guide beginner and intermediate users through problems that cover the data structures and algorithms necessary to succeed in interviews with most mid-tier companies. While level 3 provides material to help users whose targets are top-tier companies.
 > -- <cite><a href="https://leetcode.com/study-plan/leetcode-75" target="_blank">LeetCode</a></cite>
@@ -38,3 +40,48 @@ Ans:
 :::
 
 <JSEditor run={false}>{solution2}</JSEditor>
+
+## Day 2
+
+### 205. Isomorphic Strings
+
+src: [https://leetcode.com/problems/isomorphic-strings](https://leetcode.com/problems/isomorphic-strings/)
+
+:::note
+
+Given two strings s and t, determine if they are isomorphic.
+
+Two strings s and t are isomorphic if the characters in s can be replaced to get t.
+
+All occurrences of a character must be replaced with another character while preserving the order of characters. No two characters may map to the same character, but a character may map to itself.
+
+:::
+
+Should pay more attention on the last paragraph of the requirement. A character can only be mapped to one character. Therefore, create a set to store the `values`. i.e. **one-to-one** relationship.
+
+|    input     | map                                                                   | result  |
+| :----------: | --------------------------------------------------------------------- | ------- |
+|  egg -> add  | `{e : a, g : d}`                                                      | `true`  |
+| badc -> baba | <ol><li>b -> b</li><li>a -> a</li><li>d -> b</li><li>c -> a</li></ol> | `false` |
+
+For "badc -> baba", it has two characters that map to b (**b** and **d**) so it is not isomorphic.
+
+<JSEditor run={false}>{solution3}</JSEditor>
+
+### 392. Is Subsequence
+
+src: [https://leetcode.com/problems/is-subsequence](https://leetcode.com/problems/is-subsequence/)
+
+:::note
+
+Given two strings s and t, return true if s is a subsequence of t, or false otherwise.
+
+A subsequence of a string is a new string that is formed from the original string by deleting some (can be none) of the characters without disturbing the relative positions of the remaining characters. (i.e., "ace" is a subsequence of "abcde" while "aec" is not).
+
+:::
+
+A simple example `isSubsequence("bc", "abagdc")`
+
+First, check if `b` in the string if it does exist then check the **remaining characters** to see if `c` exist.
+
+<JSEditor run={false}>{solution4}</JSEditor>

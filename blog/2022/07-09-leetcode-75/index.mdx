@@ -12,6 +12,8 @@ import solution3 from "!!raw-loader!./_day-02/205-isomorphic-strings.js";
 import solution4 from "!!raw-loader!./_day-02/392-is-subsequence.js";
 import solution5 from "!!raw-loader!./_day-03/21-merge-two-sorted-lists.js";
 import solution6 from "!!raw-loader!./_day-03/206-reverse-linked-list.js";
+import solution7 from "!!raw-loader!./_day-04/876-middle-of-the-linked-list.js";
+import solution8 from "!!raw-loader!./_day-04/876-middle-of-the-linked-list.js";
 
 > This study plan is for those who want to prepare for technical interviews but are uncertain which problems they should focus on. The problems have been carefully curated so that levels 1 and 2 will guide beginner and intermediate users through problems that cover the data structures and algorithms necessary to succeed in interviews with most mid-tier companies. While level 3 provides material to help users whose targets are top-tier companies.
 > -- <cite><a href="https://leetcode.com/study-plan/leetcode-75" target="_blank">LeetCode</a></cite>
@@ -111,3 +113,64 @@ Change each node's **next** pointer to its left node.
 :::
 
 <JSEditor run={false}>{solution6}</JSEditor>
+
+## Day 4
+
+### 876. Middle of the Linked List
+
+src: [https://leetcode.com/problems/middle-of-the-linked-list](https://leetcode.com/problems/middle-of-the-linked-list/)
+
+:::note
+
+Given the head of a singly linked list, return the middle node of the linked list.
+
+If there are two middle nodes, return the second middle node.
+
+**Example 1**
+
+![example 1](https://assets.leetcode.com/uploads/2021/07/23/lc-midlist1.jpg)
+
+```
+Input: head = [1,2,3,4,5]
+Output: [3,4,5]
+Explanation: The middle node of the list is node 3.
+```
+
+**Example 2**
+
+![example 2](https://assets.leetcode.com/uploads/2021/07/23/lc-midlist2.jpg)
+
+```
+Input: head = [1,2,3,4,5,6]
+Output: [4,5,6]
+Explanation: Since the list has two middle nodes with values 3 and 4, we return the second one.
+```
+
+:::
+
+:::tip
+
+**Fast and Slow Pointer**
+
+When traversing the list with a pointer slow, make another pointer fast that traverses **twice as fast**.
+
+- `slow = slow.next`
+- `fast = fast.next.next`
+
+When fast reaches the end of the list, slow must be in the middle.
+
+:::
+
+<JSEditor run={false}>{solution7}</JSEditor>
+
+### 142. Linked List Cycle II
+
+src: [https://leetcode.com/problems/linked-list-cycle-ii](https://leetcode.com/problems/linked-list-cycle-ii/)
+
+:::note
+
+Given the head of a linked list, return the node where the cycle begins. If there is no cycle, return `null`.
+
+:::
+
+<JSEditor run={false}>{solution8}</JSEditor>

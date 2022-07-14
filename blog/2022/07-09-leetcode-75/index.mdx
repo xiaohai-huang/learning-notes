@@ -10,6 +10,8 @@ import solution1 from "!!raw-loader!./_day-01/1480-running-sum-of-1d-array.js";
 import solution2 from "!!raw-loader!./_day-01/724-find-pivot-index.js";
 import solution3 from "!!raw-loader!./_day-02/205-isomorphic-strings.js";
 import solution4 from "!!raw-loader!./_day-02/392-is-subsequence.js";
+import solution5 from "!!raw-loader!./_day-03/21-merge-two-sorted-lists.js";
+import solution6 from "!!raw-loader!./_day-03/206-reverse-linked-list.js";
 
 > This study plan is for those who want to prepare for technical interviews but are uncertain which problems they should focus on. The problems have been carefully curated so that levels 1 and 2 will guide beginner and intermediate users through problems that cover the data structures and algorithms necessary to succeed in interviews with most mid-tier companies. While level 3 provides material to help users whose targets are top-tier companies.
 > -- <cite><a href="https://leetcode.com/study-plan/leetcode-75" target="_blank">LeetCode</a></cite>
@@ -85,3 +87,27 @@ A simple example `isSubsequence("bc", "abagdc")`
 First, check if `b` in the string if it does exist then check the **remaining characters** to see if `c` exist.
 
 <JSEditor run={false}>{solution4}</JSEditor>
+
+## Day 3
+
+### 21. Merge Two Sorted Lists
+
+src: [https://leetcode.com/problems/merge-two-sorted-lists](https://leetcode.com/problems/merge-two-sorted-lists/)
+
+<JSEditor run={false}>{solution5}</JSEditor>
+
+### 206. Reverse Linked List
+
+src: [https://leetcode.com/problems/reverse-linked-list](https://leetcode.com/problems/reverse-linked-list/)
+
+![reverse linked list](https://assets.leetcode.com/uploads/2021/02/19/rev1ex1.jpg)
+
+:::tip
+
+Change each node's **next** pointer to its left node.
+
+`null <- 1 <- 2 <- 3`
+
+:::
+
+<JSEditor run={false}>{solution6}</JSEditor>

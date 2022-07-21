@@ -14,6 +14,8 @@ import solution5 from "!!raw-loader!./_day-03/21-merge-two-sorted-lists.js";
 import solution6 from "!!raw-loader!./_day-03/206-reverse-linked-list.js";
 import solution7 from "!!raw-loader!./_day-04/876-middle-of-the-linked-list.js";
 import solution8 from "!!raw-loader!./_day-04/876-middle-of-the-linked-list.js";
+import solution9 from "!!raw-loader!./_day-05/121-best-time-to-buy-and-sell-stock.js";
+import solution10 from "!!raw-loader!./_day-05/409-longest-palindrome.js";
 
 > This study plan is for those who want to prepare for technical interviews but are uncertain which problems they should focus on. The problems have been carefully curated so that levels 1 and 2 will guide beginner and intermediate users through problems that cover the data structures and algorithms necessary to succeed in interviews with most mid-tier companies. While level 3 provides material to help users whose targets are top-tier companies.
 > -- <cite><a href="https://leetcode.com/study-plan/leetcode-75" target="_blank">LeetCode</a></cite>
@@ -174,3 +176,44 @@ Given the head of a linked list, return the node where the cycle begins. If ther
 :::
 
 <JSEditor run={false}>{solution8}</JSEditor>
+
+## Day 5
+
+### 121. Best Time to Buy and Sell Stock
+
+src: [https://leetcode.com/problems/best-time-to-buy-and-sell-stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/)
+
+Two import information to keep track of:
+
+- min price
+- max profit
+
+<JSEditor run={false}>{solution9}</JSEditor>
+
+### 409. Longest Palindrome
+
+src: [https://leetcode.com/problems/longest-palindrome](https://leetcode.com/problems/longest-palindrome/)
+
+:::note
+
+Given a string s which consists of lowercase or uppercase letters,
+return the length of the **longest palindrome** that **can be built** with those letters.
+
+:::
+
+Imagine we build a palindrome string, it will have as many as _partnered letters_ as possible,
+plus possibly a unique **center** character.
+
+- If the number of occurrences of a letter is **even**, add the count to the total length of the palindrome.
+- If the number of occurrences of a letter is **odd**, subtract the count by 1 and add it to the total length of the palindrome.
+- If the palindrome haven't added a unique character to the center, add 1 to the length of the palindrome if a character with the number of occurrences equals 1 is found.
+  - e.g. `{b : 2, f : 1, c : 1}`, `f` can be added to the center of the palindrome and it is the only character that is unique.
+
+:::caution
+
+- We can only insert 1 unique character and it has to be at the center.
+- `aa`, `abba` are palindrome strings. The center of the palindrome can have 2 characters.
+
+:::
+
+<JSEditor run={false}>{solution10}</JSEditor>

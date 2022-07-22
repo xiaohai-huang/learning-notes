@@ -33,7 +33,7 @@ const config = {
         showLastUpdateTime: true,
       },
     ],
-    async function plugin(conext, options) {
+    async function plugin(context, options) {
       return {
         name: "docusaurus-plugin-module-alias",
         configureWebpack() {
@@ -69,6 +69,8 @@ const config = {
           showReadingTime: true,
           editUrl:
             "https://github.com/xiaohai-huang/learning-notes/tree/master",
+          remarkPlugins: [math],
+          rehypePlugins: [katex],
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),

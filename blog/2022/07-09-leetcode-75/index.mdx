@@ -16,6 +16,8 @@ import solution7 from "!!raw-loader!./_day-04/876-middle-of-the-linked-list.js";
 import solution8 from "!!raw-loader!./_day-04/876-middle-of-the-linked-list.js";
 import solution9 from "!!raw-loader!./_day-05/121-best-time-to-buy-and-sell-stock.js";
 import solution10 from "!!raw-loader!./_day-05/409-longest-palindrome.js";
+import solution11 from "!!raw-loader!./_day-06/589-n-ary-tree-preorder-traversal.js";
+import solution12 from "!!raw-loader!./_day-06/102-binary-tree-level-order-traversal.js";
 
 > This study plan is for those who want to prepare for technical interviews but are uncertain which problems they should focus on. The problems have been carefully curated so that levels 1 and 2 will guide beginner and intermediate users through problems that cover the data structures and algorithms necessary to succeed in interviews with most mid-tier companies. While level 3 provides material to help users whose targets are top-tier companies.
 > -- <cite><a href="https://leetcode.com/study-plan/leetcode-75" target="_blank">LeetCode</a></cite>
@@ -217,3 +219,42 @@ plus possibly a unique **center** character.
 :::
 
 <JSEditor run={false}>{solution10}</JSEditor>
+
+## Day 6
+
+### 589. N-ary Tree Preorder Traversal
+
+src: [https://leetcode.com/problems/n-ary-tree-preorder-traversal](https://leetcode.com/problems/n-ary-tree-preorder-traversal/)
+
+:::note
+
+![example 1](https://assets.leetcode.com/uploads/2018/10/12/narytreeexample.png)
+
+- Input: root = `[1,null,3,2,4,null,5,6]`
+- Output: `[1,3,5,6,2,4]`
+
+:::
+
+Pre-order traversal is `root -> left -> right`.
+
+<JSEditor run={false}>{solution11}</JSEditor>
+
+### 102. Binary Tree Level Order Traversal
+
+src: [https://leetcode.com/problems/binary-tree-level-order-traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/)
+
+:::note
+
+![level order traversal example](https://assets.leetcode.com/uploads/2021/02/19/tree1.jpg)
+
+- Input: root = `[3,9,20,null,null,15,7]`
+- Output: `[[3],[9,20],[15,7]]`
+
+:::
+
+- Enqueue all nodes of a level.
+- Process the tree level-by-level.
+  - Enqueue all children of each node in the current level.
+  - How to process level-by-level? This is achieved by checking the number of nodes in a level before processing a level.
+
+<JSEditor run={false}>{solution12}</JSEditor>

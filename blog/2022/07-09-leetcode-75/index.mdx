@@ -18,6 +18,8 @@ import solution9 from "!!raw-loader!./_day-05/121-best-time-to-buy-and-sell-stoc
 import solution10 from "!!raw-loader!./_day-05/409-longest-palindrome.js";
 import solution11 from "!!raw-loader!./_day-06/589-n-ary-tree-preorder-traversal.js";
 import solution12 from "!!raw-loader!./_day-06/102-binary-tree-level-order-traversal.js";
+import solution13 from "!!raw-loader!./_day-07/704-binary-search.js";
+import solution14 from "!!raw-loader!./_day-07/278-first-bad-version.js";
 
 > This study plan is for those who want to prepare for technical interviews but are uncertain which problems they should focus on. The problems have been carefully curated so that levels 1 and 2 will guide beginner and intermediate users through problems that cover the data structures and algorithms necessary to succeed in interviews with most mid-tier companies. While level 3 provides material to help users whose targets are top-tier companies.
 > -- <cite><a href="https://leetcode.com/study-plan/leetcode-75" target="_blank">LeetCode</a></cite>
@@ -258,3 +260,37 @@ src: [https://leetcode.com/problems/binary-tree-level-order-traversal](https://l
   - How to process level-by-level? This is achieved by checking the number of nodes in a level before processing a level.
 
 <JSEditor run={false}>{solution12}</JSEditor>
+
+## Day 7 Binary Search
+
+### 704. Binary Search
+
+src: [https://leetcode.com/problems/binary-search](https://leetcode.com/problems/binary-search/)
+
+:::note
+
+Given an array of integers `nums` which is sorted in **ascending order**, and an integer `target`,
+write a function to search `target` in `nums`.
+If `target` exists, then return its index. Otherwise, return `-1`.
+
+```
+Input: nums = [-1,0,3,5,9,12], target = 9
+Output: 4
+Explanation: 9 exists in nums and its index is 4
+```
+
+```
+Input: nums = [-1,0,3,5,9,12], target = 2
+Output: -1
+Explanation: 2 does not exist in nums so return -1
+```
+
+:::
+
+<JSEditor run={false}>{solution13}</JSEditor>
+
+### 278. First Bad Version
+
+src: [https://leetcode.com/problems/first-bad-version/](https://leetcode.com/problems/first-bad-version/)
+
+<JSEditor run={false}>{solution14}</JSEditor>

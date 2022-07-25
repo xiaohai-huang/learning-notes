@@ -20,6 +20,8 @@ import solution11 from "!!raw-loader!./_day-06/589-n-ary-tree-preorder-traversal
 import solution12 from "!!raw-loader!./_day-06/102-binary-tree-level-order-traversal.js";
 import solution13 from "!!raw-loader!./_day-07/704-binary-search.js";
 import solution14 from "!!raw-loader!./_day-07/278-first-bad-version.js";
+import solution15 from "!!raw-loader!./_day-08/98-validate-binary-search-tree.js";
+import solution16 from "!!raw-loader!./_day-08/235-lowest-common-ancestor-of-a-binary-search-tree.js";
 
 > This study plan is for those who want to prepare for technical interviews but are uncertain which problems they should focus on. The problems have been carefully curated so that levels 1 and 2 will guide beginner and intermediate users through problems that cover the data structures and algorithms necessary to succeed in interviews with most mid-tier companies. While level 3 provides material to help users whose targets are top-tier companies.
 > -- <cite><a href="https://leetcode.com/study-plan/leetcode-75" target="_blank">LeetCode</a></cite>
@@ -291,6 +293,138 @@ Explanation: 2 does not exist in nums so return -1
 
 ### 278. First Bad Version
 
-src: [https://leetcode.com/problems/first-bad-version/](https://leetcode.com/problems/first-bad-version/)
+src: [https://leetcode.com/problems/first-bad-version](https://leetcode.com/problems/first-bad-version/)
 
 <JSEditor run={false}>{solution14}</JSEditor>
+
+## Day 8 Binary Search Tree
+
+### 98. Validate Binary Search Tree
+
+src: [https://leetcode.com/problems/validate-binary-search-tree](https://leetcode.com/problems/validate-binary-search-tree/)
+
+:::note
+
+Given the `root` of a binary tree, determine if it is a valid _binary search tree (BST)_.
+
+A valid **BST** is defined as follows:
+
+- The left subtree of a node contains only nodes with keys **less than** the node's key.
+- The right subtree of a node contains only nodes with keys **greater than** the node's key.
+- Both the left and right subtrees must also be binary search trees.
+
+**Example 1**
+
+![example 1](https://assets.leetcode.com/uploads/2020/12/01/tree1.jpg)
+
+```
+Input: root = [2,1,3]
+Output: true
+```
+
+![example 2](https://assets.leetcode.com/uploads/2020/12/01/tree2.jpg)
+
+```
+Input: root = [5,1,4,null,null,3,6]
+Output: false
+Explanation: The root node's value is 5 but its right child's value is 4.
+```
+
+:::
+
+#### Solution 1
+
+[solution](<https://leetcode.com/problems/validate-binary-search-tree/discuss/783930/Easy-to-understand-2-lines-solution!-O(n)-with-Examples-and-Explanation-JavaScript>)
+
+Main idea: Check if the current node's value is within the **valid range** (`floor`/`ceiling`).
+
+- Base case: `root=null`, the tree is a valid binary search tree.
+- Recursively check the valid range of each node `floor < root.val < ceiling`:
+  - Initially, the valid range of the `root` node is $[\infty, +\infty]$
+  - After visiting the `root`, we start restricting the **valid range**.
+    - If we move to the left child, the `ceiling` of the left child will be updated to `root.val`.
+    - If we move to the right child, the `floor` of the right child will be updated to `root.val`.
+
+```js
+var isValidBST = function (root, floor = -Infinity, ceiling = Infinity) {
+  if (!root) return true;
+
+  if (!(floor < root.val && root.val < ceiling)) {
+    return false;
+  }
+
+  return (
+    isValidBST(root.left, floor, root.val) &&
+    isValidBST(root.right, root.val, ceiling)
+  );
+};
+```
+
+#### Solution 2
+
+Use **in-order traversal** to collect all the `values` of a binary search tree,
+then check if the `values` are in the correct order (ascending).
+
+<JSEditor run={false}>{solution15}</JSEditor>
+
+### 235. Lowest Common Ancestor of a Binary Search Tree
+
+src: [https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/)
+
+:::note
+
+Given a binary search tree (BST), find the lowest common ancestor (LCA) node of two given nodes in the BST.
+
+“The lowest common ancestor is defined between two nodes `p` and `q` as the lowest node in `Tree`
+that has both `p` and `q` as descendants (where we allow a node to be a descendant of itself).”
+
+**Example 1:**
+
+![eg 1](https://assets.leetcode.com/uploads/2018/12/14/binarysearchtree_improved.png)
+
+```
+Input: root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 8
+Output: 6
+Explanation: The LCA of nodes 2 and 8 is 6.
+```
+
+**Example 2:**
+
+![eg 2](https://assets.leetcode.com/uploads/2018/12/14/binarysearchtree_improved.png)
+
+```
+Input: root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 4
+Output: 2
+Explanation: The LCA of nodes 2 and 4 is 2,
+since a node can be a descendant of itself according to the LCA definition.
+```
+
+:::
+
+#### Solution 1
+
+- Level order traversal, `callback(node, levelNum)`
+  - Search for the `target nodes` based on the current node.
+    - Found target nodes - update the lowest common ancestor
+    - Not found - break
+
+#### Solution 2
+
+![solution](https://raw.githubusercontent.com/hot13399/leetcode-graphic-answer/master/235.%20Lowest%20Common%20Ancestor%20of%20a%20Binary%20Search%20Tree.jpg)
+
+- If both `target nodes` are **less** than the `current node`, pick the left child as the potential common ancestor.
+- If both `target nodes` are **greater** than the `current node`, pick the right child as the potential common ancestor.
+- If the `current node` is causing a **diverging**, return the current node.
+  e.g. **0** and **5** go for different subtrees at node **2**. So node **2** is the lowest common ancestor.
+
+:::info
+
+There are some special **constraints**:
+
+- All `Node.val` are unique.
+- `p != q`
+- `p` and `q` will exist in the **BST**.
+
+:::
+
+<JSEditor run={false}>{solution16}</JSEditor>

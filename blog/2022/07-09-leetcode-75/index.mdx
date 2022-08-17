@@ -6,6 +6,7 @@ description: "Follow LeetCode 75 Study Plan."
 ---
 
 import JSEditor from "@src/components/js-live-code-editor";
+import YouTubeVideo from "@src/components/youtube-video";
 import solution1 from "!!raw-loader!./_day-01/1480-running-sum-of-1d-array.js";
 import solution2 from "!!raw-loader!./_day-01/724-find-pivot-index.js";
 import solution3 from "!!raw-loader!./_day-02/205-isomorphic-strings.js";
@@ -26,6 +27,8 @@ import solution17 from "!!raw-loader!./_day-09/733-flood-fill.js";
 import solution18 from "!!raw-loader!./_day-09/200-number-of-islands.js";
 import solution19 from "!!raw-loader!./_day-10/509-fibonacci-number.js";
 import solution20 from "!!raw-loader!./_day-10/70-climbing-stairs.js";
+import solution21 from "!!raw-loader!./_day-11/746-min-cost-climbing-stairs.js";
+import solution22 from "!!raw-loader!./_day-11/62-unique-paths.js";
 
 > This study plan is for those who want to prepare for technical interviews but are uncertain which problems they should focus on. The problems have been carefully curated so that levels 1 and 2 will guide beginner and intermediate users through problems that cover the data structures and algorithms necessary to succeed in interviews with most mid-tier companies. While level 3 provides material to help users whose targets are top-tier companies.
 > -- <cite><a href="https://leetcode.com/study-plan/leetcode-75" target="_blank">LeetCode</a></cite>
@@ -530,4 +533,32 @@ src: [https://leetcode.com/problems/fibonacci-number](https://leetcode.com/probl
 
 src: [https://leetcode.com/problems/climbing-stairs](https://leetcode.com/problems/climbing-stairs/)
 
+```python
+def climbStairs(n):
+    if n == 1:
+        return 1
+    if n == 2:
+        return 2
+    return climbStairs(n-1) + climbStairs(n-2)
+```
+
 <JSEditor run={false}>{solution20}</JSEditor>
+
+## Day 11 Dynamic Programming
+
+<YouTubeVideo
+  src="https://www.youtube.com/embed/oBt53YbR9Kk"
+  caption="Dynamic Programming - Learn to Solve Algorithmic Problems"
+/>
+
+### 746. Min Cost Climbing Stairs
+
+src: [https://leetcode.com/problems/min-cost-climbing-stairs](https://leetcode.com/problems/min-cost-climbing-stairs/)
+
+<JSEditor run={false}>{solution21}</JSEditor>
+
+### 62. Unique Paths
+
+src: [https://leetcode.com/problems/unique-paths](https://leetcode.com/problems/unique-paths/)
+
+<JSEditor run={false}>{solution22}</JSEditor>

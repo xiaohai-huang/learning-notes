@@ -33,6 +33,16 @@ Here's an example PowerShell command to add a port proxy that listens on port 30
 netsh interface portproxy add v4tov4 listenport=3000 listenaddress=0.0.0.0 connectport=3000 connectaddress=172.22.94.49
 ```
 
+:::info
+
+When you restart your PC, the IP address of the WSL2 instance will change, you need to delete the old **port proxy** and run the command above again. Below shows how to delete the old **port proxy** which listens on port 3000 on the host.
+
+```powershell
+netsh interface portproxy delete v4tov4 listenport=3000 listenaddress=0.0.0.0
+```
+
+:::
+
 ## References
 
 - [MS Docs](https://docs.microsoft.com/en-us/windows/wsl/networking)

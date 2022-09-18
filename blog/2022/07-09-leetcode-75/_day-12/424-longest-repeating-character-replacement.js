@@ -10,9 +10,6 @@ function findMaxFreq(freq) {
     return Math.max(...Object.values(freq));
 }
 
-function getWindowSize(freq) {
-    return Object.values(freq).reduce((sum, current) => sum + current, 0)
-}
 
 /**
  * @param {string} s

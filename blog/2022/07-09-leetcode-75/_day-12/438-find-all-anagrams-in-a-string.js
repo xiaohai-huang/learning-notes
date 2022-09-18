@@ -1,4 +1,3 @@
-
 function getWordFreq(str) {
     const freq = {}
     for (const char of "abcdefghijklmnopqrstuvwxyz") {
@@ -51,4 +50,3 @@ var findAnagrams = function (s, p) {
 console.log(findAnagrams("cbaebabacd", "abc")); // [0, 6]
 console.log(findAnagrams("abab", "ab")); // [0, 1, 2]
 console.log(findAnagrams("aaaaaaaaaa", "aaaaaaaaaaaaa"));
-

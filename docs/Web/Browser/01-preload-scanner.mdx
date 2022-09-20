@@ -1,0 +1,47 @@
+---
+description: Introduce the browser preload scanner.
+---
+
+# What's a Preload Scanner?
+
+> By default, JavaScript execution is "parser blocking": when the browser encounters a script in the document it must pause DOM construction, hand over control to the JavaScript runtime, and let the script execute before proceeding with DOM construction.
+
+Every browser has a primary HTML parser that tokenizes raw markup and processes it into [an object model](./00-how-browsers-work.md#dom). The parser will pause when it finds a blocking resource, such as a stylesheet loaded with a `<link>` element, or `<script>` without an `async` or `defer` attribute.
+
+:::info
+
+Why does browsers block parsing and rendering of the page?
+
+**Ans:** The reason for this is that the browser can't know for sure if any given script will modify the DOM while the **primary HTML parser** is still doing its job.
+
+:::
+
+<figure>
+  <img
+    src={require("./_assets/preload-scanner.png").default}
+    alt="A diagram of both the primary HTML parser (left) and the preload scanner (right), which is the secondary HTML parser."
+  ></img>
+  <figcaption>
+    <strong>Fig. 1:</strong> A diagram depicting how the preload scanner works
+    in parallel with the primary HTML parser to speculatively load assets. Here,
+    the primary HTML parser is blocked as it loads and processes CSS before it
+    can begin processing image markup in the <code>&lt;body&gt;</code> element,
+    but the preload scanner can look ahead in the raw markup to find that image
+    resource and begin loading it before the primary HTML parser is unblocked.
+  </figcaption>
+</figure>
+
+A preload scanner's role is to examine raw markup in order to find resources to fetch before the primary HTML parser discover them.
+
+:::caution
+
+**CSS** files block both **rendering** and **parsing**.
+
+:::
+
+## References
+
+- [Don't fight the browser preload scanner](https://web.dev/preload-scanner/)
+- [How the Browser Pre-loader Makes Pages Load Faster](https://andydavies.me/blog/2013/10/22/how-the-browser-pre-loader-makes-pages-load-faster/)
+- [JavaScript execution is "parser blocking"](https://web.dev/critical-rendering-path-adding-interactivity-with-javascript/#:~:text=By%20default%2C%20JavaScript%20execution%20is,before%20proceeding%20with%20DOM%20construction.)
+- [Parser blocking vs render blocking](https://stackoverflow.com/a/37759508)

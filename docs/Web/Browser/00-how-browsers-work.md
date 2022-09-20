@@ -118,7 +118,7 @@ Why does the CSSOM have a tree structure?
 **Ans:** Because when computing the final set of styles for any object on the page, the browser starts with the _most general rule_ applicable to that node and then recursively refines the computed styles by applying more specific rules. This behavior is called **"cascade down"**.
 :::
 
-:::warn
+:::caution
 
 CSS is **render blocking**: the browser blocks page rendering until it receives and processes all of the CSS. CSS is render blocking because rules can be overwritten, so the content can't be rendered until the CSSOM is complete.
 

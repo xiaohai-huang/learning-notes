@@ -4,7 +4,7 @@ description: Introduce the browser preload scanner.
 
 # What's a Preload Scanner?
 
-> By default, JavaScript execution is "parser blocking": when the browser encounters a script in the document it must pause DOM construction, hand over control to the JavaScript runtime, and let the script execute before proceeding with DOM construction.
+> A preloader is like a parser that scans the HTML file while the main parser is processing the HTML code. Its role is to look for resources like stylesheets, scripts or images (that also need to be retrieved from a server) and request them. Hopefully, by the time the HTML is parsed, those resources are already downloaded and ready to be processed.
 
 Every browser has a primary HTML parser that tokenizes raw markup and processes it into [an object model](./00-how-browsers-work.md#dom). The parser will pause when it finds a blocking resource, such as a stylesheet loaded with a `<link>` element, or `<script>` without an `async` or `defer` attribute.
 

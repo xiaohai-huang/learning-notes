@@ -32,6 +32,7 @@ import solution22 from "!!raw-loader!./_day-11/62-unique-paths.js";
 import solution23 from "!!raw-loader!./_day-12/438-find-all-anagrams-in-a-string";
 import solution24 from "!!raw-loader!./_day-12/424-longest-repeating-character-replacement.js";
 import solution25 from "!!raw-loader!./_day-13/438-find-all-anagrams-in-a-string.js";
+import solution26 from "!!raw-loader!./_day-14/394-decode-string.js";
 
 > This study plan is for those who want to prepare for technical interviews but are uncertain which problems they should focus on. The problems have been carefully curated so that levels 1 and 2 will guide beginner and intermediate users through problems that cover the data structures and algorithms necessary to succeed in interviews with most mid-tier companies. While level 3 provides material to help users whose targets are top-tier companies.
 > -- <cite><a href="https://leetcode.com/study-plan/leetcode-75" target="_blank">LeetCode</a></cite>
@@ -607,3 +608,27 @@ Explanation: Bulls are connected with a '|' and cows are underlined:
 Find the value of `bulls` and then find the value of `guess`.
 
 <JSEditor run={false}>{solution25}</JSEditor>
+
+## Day 14 Stack
+
+### 394. Decode String
+
+src: [https://leetcode.com/problems/decode-string](https://leetcode.com/problems/decode-string/)
+
+The encoding rule is: `k[encoded_string]`, where the encoded_string inside the square brackets is being repeated exactly `k` times. Note that `k` is guaranteed to be a positive integer.
+
+[check for balanced brackets](https://www.geeksforgeeks.org/check-for-balanced-parentheses-in-an-expression/).
+
+Inspired by NeetCode [https://www.youtube.com/watch?v=qB0zZpBJlh8](https://www.youtube.com/watch?v=qB0zZpBJlh8)
+
+:::note
+
+`"3[a2[c]]"`
+
+Push every `char` into the `stack` unless the `char` is `]`.
+
+- If `]` is found, process the content inside the brackets, and push the processed result to the stack.
+
+:::
+
+<JSEditor run={false}>{solution26}</JSEditor>

@@ -82,7 +82,11 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      hideableSidebar: true,
+      docs: {
+        sidebar: {
+          hideable: true,
+        },
+      },
       algolia: {
         appId: "NIXA4HHO8S",
         apiKey: "0e434f5d05dd96ad91008f11f2903066",

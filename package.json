@@ -17,10 +17,10 @@
     "upgrade-docusaurus": "yarn add --exact @docusaurus/core@canary @docusaurus/plugin-content-docs @docusaurus/preset-classic@canary @docusaurus/theme-live-codeblock @docusaurus/module-type-aliases"
   },
   "dependencies": {
-    "@docusaurus/core": "0.0.0-4904",
-    "@docusaurus/plugin-content-docs": "0.0.0-4904",
-    "@docusaurus/preset-classic": "0.0.0-4904",
-    "@docusaurus/theme-live-codeblock": "0.0.0-4904",
+    "@docusaurus/core": "2.1.0",
+    "@docusaurus/plugin-content-docs": "2.1.0",
+    "@docusaurus/preset-classic": "2.1.0",
+    "@docusaurus/theme-live-codeblock": "2.1.0",
     "@mdx-js/react": "^1.6.21",
     "clsx": "^1.1.1",
     "docusaurus-plugin-sass": "^0.2.2",
@@ -50,7 +50,7 @@
   "description": "",
   "keywords": [],
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "0.0.0-4904",
+    "@docusaurus/module-type-aliases": "2.1.0",
     "@tsconfig/docusaurus": "^1.0.4",
     "prettier": "^2.5.1",
     "typescript": "^4.5.5"

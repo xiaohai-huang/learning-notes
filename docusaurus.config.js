@@ -185,5 +185,6 @@ const config = {
     "https://cdn-go.cn/aegis/aegis-sdk/latest/aegis.min.js",
     "/aegis/init-script.js",
   ],
+  trailingSlash: false,
 };
 module.exports = config;

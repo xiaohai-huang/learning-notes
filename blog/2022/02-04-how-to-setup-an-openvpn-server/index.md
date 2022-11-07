@@ -1,9 +1,9 @@
 ---
-title: How to Setup a VPN Server?
+title: How to Setup a OpenVPN Server?
 authors: xiaohai
-tags: [Docker]
+tags: [Docker, VPN]
 image: https://developers.redhat.com/sites/default/files/styles/article_feature/public/blog/2014/05/homepage-docker-logo.png?itok=zx0e-vcP
-description: "Setup a VPN server using Docker in just one command."
+description: "Setup a OpenVPN server using Docker in just one command."
 ---
 
 Just a simple command
@@ -27,7 +27,7 @@ Clients:
 
 ## How to Backup VPN Data
 
-The **VPN** container uses **named volume** to store configuration data. 
+The **VPN** container uses **named volume** to store configuration data.
 So we can use the `volume-backup` utility to backup data. [https://github.com/loomchild/volume-backup](https://github.com/loomchild/volume-backup).
 
 1. **Backup**. The following command will store the vpn data in `"$(pwd)/vpn_config_data.tar.bz2"`.

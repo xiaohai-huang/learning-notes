@@ -7,8 +7,6 @@ description: "React fiber."
 
 Fiber is a single **unit of work** in React. And a Fiber is **work** on a Component that needs to be done or was done.
 
-The notes are based on React `v18.2.0`.
-
 :::info
 
 What does **work** mean?
@@ -80,7 +78,8 @@ function FiberNode(
 
   // Fiber - Singly Linked List Tree Structure
   this.return = null;
-  this.child = null;
+  this.child = null; // Represents the element returned when we call render() on the component.
+
   this.sibling = null;
   this.index = 0;
 
@@ -135,13 +134,13 @@ export const ForwardRef = 11;
 ```ts title="react/packages/react-reconciler/src/ReactFiberFlags.js"
 export type Flags = number;
 
-export const NoFlags = /*                      */ 0b00000000000000000000000000;
-export const PerformedWork = /*                */ 0b00000000000000000000000001;
-export const Placement = /*                    */ 0b00000000000000000000000010;
-export const Update = /*                       */ 0b00000000000000000000000100;
-export const ChildDeletion = /*                */ 0b00000000000000000000001000;
-export const ContentReset = /*                 */ 0b00000000000000000000010000;
-export const Callback = /*                     */ 0b00000000000000000000100000;
+export const NoFlags = /*            */ 0b00000000000000000000000000;
+export const PerformedWork = /*      */ 0b00000000000000000000000001;
+export const Placement = /*          */ 0b00000000000000000000000010;
+export const Update = /*             */ 0b00000000000000000000000100;
+export const ChildDeletion = /*      */ 0b00000000000000000000001000;
+export const ContentReset = /*       */ 0b00000000000000000000010000;
+export const Callback = /*           */ 0b00000000000000000000100000;
 
 export const MutationMask =
   Placement |
@@ -212,3 +211,4 @@ while (true) {
 - [React Fiber Architecture](https://github.com/acdlite/react-fiber-architecture)
 - [Exploring how virtual DOM is implemented in React](https://indepth.dev/posts/1501/exploring-how-virtual-dom-is-implemented-in-react)
 - [Fiber Principles: Contributing To Fiber #7942](https://github.com/facebook/react/issues/7942)
+- [A deep dive into React Fiber](https://blog.logrocket.com/deep-dive-react-fiber/#how-react-fiber-work)

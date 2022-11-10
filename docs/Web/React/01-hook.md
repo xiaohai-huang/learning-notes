@@ -138,12 +138,12 @@ const HooksDispatcherOnMount: Dispatcher = {
 
 const HooksDispatcherOnUpdate: Dispatcher = {
   readContext,
-  useCallback: mountCallback,
+  useCallback: updateCallback,
   useContext: readContext,
-  useMemo: mountMemo,
-  useReducer: mountReducer,
-  useRef: mountRef,
-  useState: mountState,
+  useMemo: updateMemo,
+  useReducer: updateReducer,
+  useRef: updateRef,
+  useState: updateState,
   ...
 }
 
@@ -398,7 +398,7 @@ function enqueueUpdate(
 
 When do we make use of `concurrentQueues`?
 
-Ans: We use `finishQueueingConcurrentUpdates` to add the `update` to the `hook.queue`'s pending list until after the next render (in `prepareFreshStack` for HostRoot).
+Ans: We use `finishQueueingConcurrentUpdates` to add the `update` to the `hook.queue`'s pending list before the next render (in `prepareFreshStack` for HostRoot).
 
 `finishQueueingConcurrentUpdates` also invokes `markUpdateLaneFromFiberToRoot(fiber, update, lane)` which updates the source fiber's `lanes` and walks the parent path to the root and update the `childLanes`.
 

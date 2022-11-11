@@ -251,10 +251,30 @@ When a function is invoked with `new` in front of it, the following things are d
 
 1. a brand new object is created.
 2. the **newly constructed object**'s prototype is set to `Func.prototype`. see [constructor](04-prototype.md#constructor)
-3. the **newly constructed object** is set as the `this` binding for the function call
-4. if there is no `return`, the function will return the **newly constructed object**. Otherwise, perform the normal return.
+3. the **newly constructed object** is set as the `this` binding for the function call.
+4. execute the constructor to populate the **newly constructed object** if necessary.
+5. if there is no `return`, the function will return the **newly constructed object**. Otherwise, perform the normal return.
 
 <JSEditor title="new binding example 1">{newBindingExample1}</JSEditor>
+
+:::info
+
+mimic `new` operator
+
+```js
+function mynew(Func, ...args) {
+  // 1.create a brand new object
+  const obj = {};
+  // 2.set the new object's prototype to be the Func.prototype.
+  obj.__proto__ = Func.prototype;
+  // 3.set `this` using .apply() and run the constructor code
+  let result = Func.apply(obj, args);
+  // 4.check if the constructor returns
+  return result instanceof Object ? result : obj;
+}
+```
+
+:::
 
 ## Priority of Rules
 

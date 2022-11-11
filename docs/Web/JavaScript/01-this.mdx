@@ -346,10 +346,10 @@ function Foo() {
   };
 }
 const { log } = console;
-let foo = new Foo();
+let foo = new Foo(); // This line logs the newly constructed object {}
 let getName = foo.getName;
 
-log(foo.getName()); // implicit binding
+log(foo.getName()); // new binding
 log(getName()); // implicit binding lost - use default binding
-log(Foo.bind(foo).getName);
+log(Foo.bind(foo).getName); // Foo.getName is undefined
 ```

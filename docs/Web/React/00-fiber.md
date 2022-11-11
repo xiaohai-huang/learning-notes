@@ -175,14 +175,100 @@ to flush the changes to the DOM.
 
 We only need to traverse the fiber tree during the render phrase.
 
-```js
+[demo](https://stackblitz.com/edit/js-ntqfil?file=index.js)
+
+```ts
+type FiberNode = {
+  name: string;
+  child: FiberNode | null;
+  sibling: FiberNode | null;
+  return: FiberNode | null;
+};
+const a1: FiberNode = { name: "a1", child: null, sibling: null, return: null };
+const b1: FiberNode = { name: "b1", child: null, sibling: null, return: null };
+const b2: FiberNode = { name: "b2", child: null, sibling: null, return: null };
+const b3: FiberNode = { name: "b3", child: null, sibling: null, return: null };
+const c1: FiberNode = { name: "c1", child: null, sibling: null, return: null };
+const c2: FiberNode = { name: "c2", child: null, sibling: null, return: null };
+const d1: FiberNode = { name: "d1", child: null, sibling: null, return: null };
+const d2: FiberNode = { name: "d2", child: null, sibling: null, return: null };
+
+a1.child = b1;
+b1.sibling = b2;
+b2.sibling = b3;
+b2.child = c1;
+b3.child = c2;
+c1.child = d1;
+d1.sibling = d2;
+
+b1.return = b2.return = b3.return = a1;
+c1.return = b2;
+d1.return = d2.return = c1;
+c2.return = b3;
+
+let workInProgress: FiberNode | null = a1;
+
 function workLoopSync() {
-  // Already timed out, so perform work without checking if we need to yield.
   while (workInProgress !== null) {
     performUnitOfWork(workInProgress);
   }
 }
 
+function performUnitOfWork(unitOfWork: FiberNode) {
+  console.log(`performUnitOfWork on fiber: ${unitOfWork.name}`);
+
+  const next = beginWork(unitOfWork); // return the child
+
+  if (next === null) {
+    // If this doesn't spawn new work, complete the current work.
+    // try to get to sibling
+    completeUnitOfWork(unitOfWork);
+  } else {
+    workInProgress = next;
+  }
+}
+
+function beginWork(unitOfWork: FiberNode): FiberNode | null {
+  console.log(`beginWork on fiber: ${unitOfWork.name}`);
+
+  return unitOfWork.child;
+}
+
+/**
+ *  Attempt to complete the current unit of work, then move to the next
+    sibling. If there are no more siblings, return to the parent fiber.
+ * @param unitOfWork work
+ */
+function completeUnitOfWork(unitOfWork: FiberNode): void {
+  console.log(`completeUnitOfWork on fiber: ${unitOfWork.name}`);
+
+  let completedWork: FiberNode | null = unitOfWork;
+
+  do {
+    const returnFiber = completedWork.return;
+
+    completeWork(completedWork);
+
+    const siblingFiber = completedWork.sibling;
+    if (siblingFiber !== null) {
+      workInProgress = siblingFiber;
+      return;
+    }
+
+    completedWork = returnFiber;
+    workInProgress = completedWork;
+  } while (completedWork !== null);
+}
+
+function completeWork(unitOfWork: FiberNode) {
+  console.log(`completeWork on fiber: ${unitOfWork.name}`);
+  return null;
+}
+
+workLoopSync();
+```
+
+```js title="base"
 let root = fiber;
 let node = fiber;
 while (true) {

@@ -373,3 +373,25 @@ log(foo.getName()); // new binding
 log(getName()); // implicit binding lost - use default binding
 log(Foo.bind(foo).getName); // Foo.getName is undefined
 ```
+
+```js title="Question 2" {4}
+var obj = {
+  a: 1,
+  foo: function (b) {
+    b = b || this.a;
+    return function (c) {
+      console.log(this.a);
+      console.log(b);
+      console.log(c);
+    };
+  },
+};
+
+var a = 2;
+var obj2 = { a: 3 };
+
+obj.foo(a).call(obj2, 1);
+obj.foo.call(obj2)(1);
+```
+
+`obj.foo.call(obj2)` create a function close over `foo` so it can access to the value of `b` defined in `foo`. Secondly, it is a **standalone function invocation**, [default binding](#default-binding) rule is applied to determine whether `this` should point to ` globalThis` or `undefined `.

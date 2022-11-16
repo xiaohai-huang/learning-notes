@@ -1,0 +1,175 @@
+---
+sidebar_label: Cache
+description: Notes about HTTP caches and the associated header fields that control cache behavior or indicate cacheable response messages.
+toc_max_heading_level: 4
+---
+
+# HTTP Cache
+
+Fetching resources over the network is both slow and expensive:
+
+- If a person is accessing your site with a limited mobile data plan, every unnecessary network request is a waste of their money.
+- Large responses (_image/audio_) require many roundtrip between the browser and the server.
+
+How can we avoid unnecessary network requests? The HTTP cache can be helpful.
+
+The HTTP cache stores a response associated with a request and reuses the stored response for subsequent requests.
+
+## Cache Key
+
+A cache key is composed from, at a minimum:
+
+- request method
+- target URI
+
+:::info
+
+Many HTTP caches only cache `GET` responses and therefore only use the URI as the cache key.
+
+Most commonly, caches stores the successful result of a retrieval request: i.e., a 200 (OK) response to a `GET` request, which contains a representation of the target resource.
+
+However, it is also possible to store redirects, negative results (e.g., **404 (Not Found)**), incomplete results (e.g., **206(Partial Content)**), and responses to other methods other than `GET`.
+
+:::
+
+### Vary
+
+`Vary` expands the [cache key](#cache-key) required to match a new request to the stored cache entry.
+
+A cache might store multiple responses for a request target that is subject to _content negotiation_. Caches differentiate these responses by incorporating some of the original request's header fields into the **cache key**, using information in the `Vary` response header field.
+
+<figure style={{ textAlign: "center" }}>
+  <img
+    alt="cache key with Accept-Language"
+    src="https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching/keyed-with-url-and-language.png"
+  ></img>
+  <figcaption>Cache keys incorporating Accept-Language.</figcaption>
+</figure>
+
+```http
+Vary: accept-encoding, accept-language
+```
+
+:::note
+
+A stored response with a `Vary` header field value containing a member "\*" always fails to match.
+
+:::
+
+## Freshness
+
+Stored HTTP responses have two states: **fresh** or **stale**.
+
+A _fresh_ response is one whose **age** has not yet exceeded its [freshness lifetime](#freshness-lifetime). While a _stale_ response is one that has already expired.
+
+### Age
+
+The `Age` field value is the cache's estimate of the number of seconds since the origin server generated or validated the response.
+
+> `Age` is the time elapsed since the response was generated.
+
+### Freshness Lifetime
+
+A cache can calculate the **freshness lifetime** of a response by evaluating the following rules and using the first match:
+
+1. If the cache is **shared** and the `s-maxage` response directive is present, use its value.
+2. If the `max-age` response directive is present, use its value.
+3. If the `Expires` response header field is present, use its value minus the value of the `Date` response header field.
+4. If no explicit expiration time is present in the response. A heuristic freshness lifetime might be applicable.
+
+### Examples
+
+## Validation
+
+Stale responses are not immediately discarded. The conditional request mechanism can transform a stale response into a fresh one by asking the origin server, or to replace the stored response(s) with a new response. This process is known as _validating_ or _revalidating_ the stored response.
+
+### Sending a Validation Request
+
+When generating a conditional request for validation, a cache synthesizes a request using a stored response by copying the method, target URI, and request header fields specified by the [Vary](#vary) header field.
+
+The cache then updates the request with one or more **precondition header fields** which contain validators sourced from a stored response(s).
+
+When generating a conditional request for validated, a cache:
+
+- _MUST_ send the relevant entity tags (using `If-None-Match`, `If-Match`) if the entity tags (ETag) were provided in the stored response(s) being validated.
+- _SHOULD_ send the `Last-Modified` value (using `If-Modified-Since`) if the request is not for a subrange, and that response contains a `Last-Modified` value.
+
+The precondition header fields are compared by recipients (servers) to determine whether the stored response is equivalent to the current representation of the resource.
+
+:::info
+
+Resource metadata is referred to as a _validator_ if it can be used within a precondition to make a conditional request.
+
+There are two forms of metadata:
+
+- modification dates
+- opaque entity tags (clearly superior)
+
+:::
+
+The precondition header fields can contain two different types of **validators**.
+
+#### Timestamp
+
+One validator is the timestamp given in a `Last-Modified` header field, which can be used in an `If-Modified-Since` header field for response validation.
+
+:::info
+
+The `Last-Modified` header field in a response provides a timestamp indicating the date and time at which the origin server believes the selected representation was last modified.
+
+```
+Last-Modified: Tue, 15 Nov 1994 12:45:26 GMT
+```
+
+:::
+
+#### Entity Tag
+
+Another validator is the entity tag given in an `ETag` field. On or more entity tags, indicating one or more stored responses, can be used in an `If-None-Match` header field for response validation.
+
+### Handling a Validation Response
+
+A cache handles a response to a conditional request by considering its status code:
+
+- A **304 (Not Modified)** response status code indicates that the stored response can be updated and reused.
+- A full response (i.e., one containing content) indicates that none of the stored responses nominated in the conditional request are suitable. Therefore, the cache _MUST_ use the full response to satisfy the request. The cache _MAY_ store the full response.
+
+## Field Definitions
+
+### Age
+
+The `Age` response header filed is the time elapsed since the response was generated or successfully validated at the origin server.
+
+### Cache-Control
+
+The `Cache-Control` header field is used to list directives for caches. Cache directives are unidirectional, the presence of a directive in a **request** does not imply that the same directive is present or copied in the **response**.
+
+:::caution
+
+The [request directives](https://httpwg.org/specs/rfc9111.html#cache-request-directive) are advisory, caches _MAY_ implement them, but are not required to. So our primary focus is on **response directives**, a cache _MUST_ obey the `Cache-Control` directives in response.
+
+:::
+
+#### `max-age`
+
+#### `must-revalidate`
+
+#### `no-cache`
+
+#### `no-store`
+
+#### `private`
+
+#### `private`
+
+#### `s-maxage`
+
+### Expires
+
+## Heuristic Caching
+
+## References
+
+- [Prevent unnecessary network requests with the HTTP Cache](https://web.dev/http-cache/)
+- [HTTP caching | MDN Docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching)
+- [RFC 9111: Hypertext Transfer Protocol (HTTP/1.1): Caching](https://httpwg.org/specs/rfc9111.html)

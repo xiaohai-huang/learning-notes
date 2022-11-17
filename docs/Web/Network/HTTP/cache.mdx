@@ -123,9 +123,33 @@ Last-Modified: Tue, 15 Nov 1994 12:45:26 GMT
 
 :::
 
-#### Entity Tag
+#### Entity Tag (ETag) {#etag}
 
-Another validator is the entity tag given in an `ETag` field. On or more entity tags, indicating one or more stored responses, can be used in an `If-None-Match` header field for response validation.
+Another validator is the entity tag given in an `ETag` field. One or more entity tags, indicating one or more stored responses, can be used in an `If-None-Match` header field for response validation.
+
+##### Example
+
+A response, an HTML file, has a `ETag` value of `33a64df5`.
+
+```bash title="response of /index.html"
+HTTP/1.1 200 OK
+Content-Type: text/html
+Content-Length: 1024
+Date: Tue, 22 Feb 2022 22:22:22 GMT
+ETag: "33a64df5"
+Cache-Control: max-age=3600
+```
+
+If that response is stale, the client takes the value of the `ETag` from the response header of the cached response, and puts it into the `If-None-Match` request header of the validation request, to ask the server if the resource has been modified.
+
+```bash title="A conditional request for validation"
+GET /index.html HTTP/1.1
+Host: example.com
+Accept: text/html
+If-None-Match: "33a64df5"
+```
+
+see below for how to handle the validation response.
 
 ### Handling a Validation Response
 
@@ -136,13 +160,15 @@ A cache handles a response to a conditional request by considering its status co
 
 ## Field Definitions
 
+This section discusses the HTTP fields related to caching.
+
 ### Age
 
 The `Age` response header filed is the time elapsed since the response was generated or successfully validated at the origin server.
 
 ### Cache-Control
 
-The `Cache-Control` header field is used to list directives for caches. Cache directives are unidirectional, the presence of a directive in a **request** does not imply that the same directive is present or copied in the **response**.
+The `Cache-Control` header field is used to list directives for caches. Cache directives are **unidirectional**👽️, the presence of a directive in a **request** does not imply that the same directive is present or copied in the **response**.
 
 :::caution
 
@@ -152,21 +178,71 @@ The [request directives](https://httpwg.org/specs/rfc9111.html#cache-request-dir
 
 #### `max-age`
 
+The `max-age` response directive indicates that the response is to be considered stale after its [age](#age) is greater than the specified number of seconds.
+
 #### `must-revalidate`
+
+The `must-revalidate` response directive indicates that once the response has become stale, a cache _MUST NOT_ reuse that response to satisfy another request until it has been successfully validated by the origin.
+
+If a cache is disconnected, a cache _MUST_ generate an error response rather than reuse the stale response. The generated status code _SHOULD_ be **504 (Gateway Timeout)** unless another error status code is more applicable.
 
 #### `no-cache`
 
-#### `no-store`
+The `no-cache` response directive indicates that the response _MUST NOT_ be used to satisfy any other request without forwarding it for validation and receiving a successful response.
+
+This allows an origin server to prevent a cache from using response to satisfy a request without contacting it.
+
+#### `no-store` ⛔️ {#no-store}
+
+The `no-store` response directive indicates that a cache _MUST NOT_ store any part of either the intermediate request or the response and _MUST NOT_ use the response to satisfy any other request.
 
 #### `private`
 
-#### `private`
+The `private` response directive indicates that a shared cache _MUST NOT_ store the response since the response is intended for a single user. It also indicates that a private cache _MAY_ store the response.
 
-#### `s-maxage`
+#### `public`
+
+It permits a shared cache to reuse a response to a request containing an `Authorization` header field.
+
+:::note
+
+It is unnecessary to add the `public` directive to a response that is already cacheable.
+
+:::
 
 ### Expires
 
+The `Expires` response header field gives the date/time after which the response is considered stale.
+
+```
+Expires: Thu, 01 Dec 1994 16:00:00 GMT
+```
+
+:::note
+
+If a response includes a [Cache-Control](#cache-control) header field with the [max-age](#max-age), a recipient _MUST_ ignore the `Expires` header field. Because the value in `Expires` is only intended for recipients that have not yet implemented the [Cache-Control](#cache-control) header field.
+
+:::
+
 ## Heuristic Caching
+
+Since origin servers do not always provide explicit expiration times, a cache _MAY_ assign a heuristic expiration time when an explicit time is not specified, employing algorithms that use other field values (such as the [Last-Modified](#last-modified) time) to estimate a plausible expiration time.
+
+If the response has a [Last-Modified](#last-modified) header field, caches are encouraged to use a heuristic expiration value that is no more than some fraction of the interval since that time. A typical setting of this fraction might be 10%;
+
+### Example
+
+If a response has a [Last-Modified](#last-modified) header field set to 1 year ago.
+
+```bash
+HTTP/1.1 200 OK
+Content-Type: text/html
+Content-Length: 1024
+Date: Tue, 22 Feb 2022 22:22:22 GMT
+Last-Modified: Tue, 22 Feb 2021 22:22:22 GMT
+```
+
+The response will be stored in a cache and it is considered as fresh for 0.1 year.
 
 ## References
 

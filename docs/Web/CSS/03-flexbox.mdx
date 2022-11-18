@@ -76,10 +76,15 @@ If `flex-basis: 0`:
 
 - It completely ignores the size of the item when doing space distribution (space-sharing calculation). This can be useful when we want to create equally-sized columns.
 - This is like setting the item `width: 0`, the width of the item will then become `min-content`.
+- A numeric value is interpreted as pixels.
 
 If `flex-basis: 200px`, a length unit:
 
 - `200px` will be the size of the item.
+
+If `flex-basis: <percentage>`, a percentage:
+
+- The `flex-basis` will be set to x% of the flex container width.
 
 ### ⚫️ Available Space {#available-space}
 

@@ -77,8 +77,6 @@ A cache can calculate the **freshness lifetime** of a response by evaluating the
 3. If the `Expires` response header field is present, use its value minus the value of the `Date` response header field.
 4. If no explicit expiration time is present in the response. A heuristic freshness lifetime might be applicable.
 
-### Examples
-
 ## Validation
 
 Stale responses are not immediately discarded. The conditional request mechanism can transform a stale response into a fresh one by asking the origin server, or to replace the stored response(s) with a new response. This process is known as _validating_ or _revalidating_ the stored response.

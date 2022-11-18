@@ -1,0 +1,208 @@
+---
+sidebar_label: Flexbox
+description: Notes about flexbox.
+---
+
+# 🍱 Flexbox {#flexbox}
+
+## 👴 Flex Container {#flex-container}
+
+## 🧒 Flex Child {#flex-child}
+
+### `flex`
+
+`flex` is a shorthand for three flex child properties - [`flex-grow`](#flex-grow), [`flex-shrink`](#flex-shrink), and [`flex-basis`](#flex-basis).
+
+These three properties enable us to control the **size** and **flexibility** of the items along the main axis.
+
+The initial value of this property is:
+
+```css
+/* flex: 0 1 auto; */
+.initial {
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: auto;
+}
+```
+
+#### Syntax
+
+The `flex` property may be specified using one, two, or three values.
+
+##### 1️⃣ One-Value Syntax
+
+The value must be one of:
+
+- a valid value for [`flex-grow`](#flex-grow): then the shorthand expands to `flex: <flex-grow> 1 0`.
+- a valid value for [`flex-basis`](#flex-basis): then the shorthand expands to `flex: 1 1 <flex-basis>`.
+- The keyword `none`. This is equivalent to setting `flex: 0 0 auto`.
+
+##### 2️⃣ Two-Value Syntax
+
+The first value must be a valid value for [`flex-grow`](#flex-grow).
+
+The second value must be one of:
+
+- a valid value for [`flex-shrink`](#flex-shrink): then the shorthand expands to `flex: <flex-grow> <flex-shrink> 0`.
+- a valid value for [`flex-basis`](#flex-basis): then the shorthand expands to `flex: <flex-grow> 1 <flex-basis>`.
+
+##### 3️⃣ Three-Value Syntax
+
+The values must be in the following order:
+
+1. a valid value for [`flex-grow`](#flex-grow).
+2. a valid value for [`flex-shrink`](#flex-shrink).
+3. a valid value for [`flex-basis`](#flex-basis).
+
+### `flex-basis`
+
+The `flex-basis` property specifies the initial size of the flex item **before** any space distribution happens.
+
+The initial value for this property is `auto`.
+
+If `flex-basis: auto`:
+
+- If the item has an **absolute size** set. For example, if you had given the item a width of 200 pixels. In this case, `200px` would be the `flex-basis` for this item.
+- If the item is **auto-sized**, then `auto` resolves to the size of its content. It will take the `max-content` size of the item as the `flex-basis`.
+
+> check the [illustration](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Controlling_Ratios_of_Flex_Items_Along_the_Main_Ax#flex_item_sizing) of `min-content` and `max-content`.
+
+If `flex-basis: content`:
+
+- The `flex-basis` will be the `max-content` size even there is a width set on the item.
+
+If `flex-basis: 0`:
+
+- It completely ignores the size of the item when doing space distribution (space-sharing calculation). This can be useful when we want to create equally-sized columns.
+- This is like setting the item `width: 0`, the width of the item will then become `min-content`.
+
+If `flex-basis: 200px`, a length unit:
+
+- `200px` will be the size of the item.
+
+### ⚫️ Available Space {#available-space}
+
+Flex items cannot grow if there is no positive free space, and they cannot shrink unless there is negative free space.
+
+#### ➕ Positive Free Space {#positive-free-space}
+
+If we took all of the **items** and added up their widths (or heights if working in a column), is that total **less** than the total width (height) of the container? If so, then we have positive free space and [`flex-grow`](#flex-grow) comes into play.
+
+When a flex container has positive free space, it has more space than is required to display the flex items inside the container.
+
+<figure style={{ textAlign: "center" }}>
+  <img
+    alt="positive free space"
+    src="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Controlling_Ratios_of_Flex_Items_Along_the_Main_Ax/basics7.png"
+  ></img>
+  <figcaption>
+    Positive free space. (3 flex items each 100 pixels wide)
+  </figcaption>
+</figure>
+
+#### ➖ Negative Free Space {#negative-free-space}
+
+If we took all of the **items** and added up their widths (or heights if working in a column), is that total **more** than the total width (or height) of the container? If so, then we have negative free space and [`flex-shrink`](#flex-shrink) comes into play.
+
+<figure style={{ textAlign: "center" }}>
+  <img
+    alt="negative free space"
+    src="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Controlling_Ratios_of_Flex_Items_Along_the_Main_Ax/ratios1.png"
+  ></img>
+  <figcaption>
+    Negative free space. (3 flex items each 200 pixels wide)
+  </figcaption>
+</figure>
+
+The total space needed for the three flex items is 600 pixels, so we have 100 pixels of negative free space. We can remove some space from the items in order to make them fit the container.
+
+### 📈 `flex-grow` {#flex-grow}
+
+The `flex-grow` property specifies the **flex grow factor**, which determines how much the flex item will grow relative to the rest of the flex items in the flex container when the [positive free space](#positive-free-space) is distributed.
+
+If the **factor** is the same, and there is [positive free space](#positive-free-space) in the flex container then the positive free space will be distributed **equally** to all flex items.
+
+#### Examples
+
+##### `flex: 1 1 auto`
+
+The `flex-basis: auto` and the items don't have a width set, so they are auto-sized. The flexbox will use the `max-content` size of the items as `flex-basis`.
+
+After placing the items we have some **positive free space** in the flex container.
+
+<figure style={{ textAlign: "center" }}>
+  <img
+    alt="Positive free space. (3 auto-sized flex items)"
+    src="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Controlling_Ratios_of_Flex_Items_Along_the_Main_Ax/ratios2.png"
+  ></img>
+  <figcaption>Positive free space. (3 auto-sized flex items)</figcaption>
+</figure>
+
+Because `flex-grow: 1`, the **positive free space** is shared out equally among each item.
+
+<figure style={{ textAlign: "center" }}>
+  <img
+    alt="The positive space is distributed between items"
+    style={{ background: "#fff" }}
+    src="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Controlling_Ratios_of_Flex_Items_Along_the_Main_Ax/ratios3.png"
+  ></img>
+  <figcaption>The positive space is distributed between items</figcaption>
+</figure>
+
+:::note
+
+💪 The **bigger item** ("hello") ends up bigger because it started from a bigger size (i.e., bigger `max-content`), even though it has the _same_ amount of **spare space** assigned to it as the others.
+
+:::
+
+##### `flex: 1 1 0`
+
+`flex-basis: 0` indicates that the size of the item for the purposes of space distribution calculation is `0`.
+
+And another effect is specifying `width: 0` to the item, which causes the actual width of the item to be `min-content` size before applying `flex-grow`. (_tip_: try to change the `flex-grow` to `0` in the example below to see the behavior)
+
+In the following example, the 3 flex items have the same `flex-grow` factor and `flex-basis` is `0`. This means that they can get an equal amount of space distributed as the **positive free space** is the width of the flex container. The end result is three equal width, flexible items.
+
+<iframe
+  style={{ background: "#fff" }}
+  src="https://mdn.github.io/css-examples/flexbox/ratios/flex-grow.html"
+  loading="lazy"
+  width="100%"
+  height="520"
+></iframe>
+
+### 📉 `flex-shrink` {#flex-shrink}
+
+The `flex-shrink` property specifies the **flex shrink factor**, which determines how much the flex item will shrink relative to the rest of the flex items in the flex container when [negative free space](#negative-free-space) is distributed.
+
+If flex items are too large to fit into the flex container (negative free space exists), `flex-shrink` will shrink the items so that they do not overflow the container.
+
+#### Example
+
+3 flex items in a flex container. Each item has given a width of 200 pixels, and the container is 500 pixels wide.
+
+Because `flex-shrink: 0`, the items are not allowed to shrink and they overflow the container.
+
+<iframe
+  src="https://mdn.github.io/css-examples/flexbox/ratios/flex-shrink.html"
+  loading="lazy"
+  width="100%"
+  height="500"
+  style={{ background: "#fff" }}
+></iframe>
+
+By changing the `flex-shrink` value to `1`, each item shrink by the **same amount** to fit into the container. They have become smaller than their initial width resolved by [`flex-basis`](#flex-basis).
+
+:::caution
+
+By default flex items don't shrink below their minimum content size. To change this, set the item's `min-width` or `min-height`.
+
+:::
+
+## References
+
+- [Controlling ratios of flex items along the main axis](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Controlling_Ratios_of_Flex_Items_Along_the_Main_Ax)
+- [Basic concepts of flexbox - Properties applied to flex items | MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox#properties_applied_to_flex_items)
+- [CSS Flexible Box Layout Module Level 1 | W3C](https://www.w3.org/TR/css-flexbox-1/)
+- [flex | MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/flex)

@@ -42,11 +42,7 @@ const permute = (nums) => {
       ...nums.slice(i + 1, nums.length),
     ];
     for (const permutation of permute(remainingNums)) {
-      if (Array.isArray(permutation)) {
-        permutationsArray.push([num, ...permutation]);
-      } else {
-        permutationsArray.push([num, permutation]);
-      }
+      permutationsArray.push([num, ...permutation]);
     }
   }
   return permutationsArray;

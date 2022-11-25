@@ -267,7 +267,42 @@ The `getPromiseState` function still runs asynchronously, because there is no wa
 
 ### `Promise.resolve()` {#resolve}
 
+The `Promise.resolve()` method can take three types of input.
+
+- If the input is a `Promise`, that promise is returned.
+- If the input is a `thenable`, `Promise.resolve()` will call the `then()` method with two callbacks it prepared.
+- Otherwise, returns a `Promise` fulfilled with the input. (i.e. `Promise.resolve(5)`)
+
+#### Resolving Another Promise
+
+```js
+const originalPromise = Promise.resolve(233);
+const newPromise = Promise.resolve(originalPromise);
+
+newPromise.then((v) => console.log(v)); // 233
+console.log(originalPromise === newPromise); // true
+```
+
+#### Resolving Thenable
+
+```js
+const obj = {
+  then(onfulfilled, onrejected) {
+    console.log("inside then method");
+    onfulfilled("6666");
+  },
+};
+
+const p = Promise.resolve(obj); // cast thenable to promise
+console.log(p); // p is an instance of Promise
+p.then((v) => console.log(v));
+```
+
 ### `Promise.reject()` {#reject}
+
+The `Promise.reject()` method returns a `Promise` object that is rejected with a given reason.
+
+It is useful to make `reason` an instance of `Error`.
 
 ## Instance Methods
 

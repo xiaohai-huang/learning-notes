@@ -306,13 +306,139 @@ It is useful to make `reason` an instance of `Error`.
 
 ## Instance Methods
 
-### `Promise.prototype.then()`
+### `Promise.prototype.then()` {#then}
 
-### `Promise.prototype.catch()`
+The `.then()` method returns a `Promise` immediately, which allows for method chaining. It accepts two optional arguments which will be executed to handle the current promises' fulfillment or rejection.
 
-### `Promise.prototype.finally()`
+- `onFulfilled`
 
-## Examples
+  A Function asynchronously called if the current promise is fulfilled. This function has one argument, the fulfilled value.
+
+  If it is **not** a function, it is internally replaced with an _identity_ function `x => x` which simply passes the fulfilled value forward.
+
+- `onRejected`
+
+  A Function asynchronously called if the current promise is rejected. This function has one argument, the rejection reason.
+
+  If it is **not** a function, it is internally replaced with a _thrower_ function `x => {throw x;}`.
+
+#### Returned Promise
+
+The `.then()` method returns a `Promise` immediately. This new promise is always ⏳️ pending when returned, regardless of the current promise's state.
+
+The behavior of the returned promise (call it `p`) depends on the handler's (`onFulfilled`, `onRejected`) execution result, following a specific set of rules.
+
+If the handler function:
+
+- ✅ returns a value: `p` gets **fulfilled** with the returned value as its value, `[[PromiseResult]] === value`.
+- ✅ does not return anything: `p` get **fulfilled** with `undefined`, `[[PromiseResult]] === undefined`.
+- ❌ throws an **error**: `p` get **rejected** with the thrown error, `[[PromiseResult]] === Error`.
+- returns an **already settled** promise: `p` gets **settled** with that promise's result as its `[[PromiseResult]]`.
+- ⏳️ returns another **pending** promise: `p` will be fulfilled/rejected based on the eventual state of that promise.
+
+#### Examples
+
+In this example, the return value of `onRejected` fulfills the `p`.
+
+```js
+// the first rule, the handler returns a value
+// `p` gets fulfilled with the returned value
+const p = Promise.reject("no reason!").then(
+  () => "will not be invoked",
+  () => "invoke the onRejected handler"
+);
+p.then((value) => console.log("value is " + value));
+// logs: value is invoke the onRejected handler
+```
+
+```js
+const p = Promise.reject("no reason!")
+  .then(() => "will not be invoked")
+  .catch(() => "invoke the onRejected handler");
+p.then((value) => console.log("value is " + value));
+```
+
+In this example, the handler functions are non-function.
+
+```js
+// .then(x => x)
+Promise.resolve("resolved value").then(2333).then(console.log); // "resolved value"
+// .then(x => x, x => {throw x})
+Promise.reject("a reason").then(666, "a ha~").then(console.log, console.log); // a reason
+```
+
+### `Promise.prototype.catch()` {#catch}
+
+The `.catch()` methods returns a `Promise` immediately and will be invoked if the current promise is rejected. It behaves the same as calling `Promise.prototype.then(undefined, onRejected)`.
+
+Calling `obj.catch(onRejected)` internally calls `obj.then(undefined, onRejected).`
+
+#### Examples
+
+Errors thrown inside `setTimeout` cannot be caught by `.catch`.
+
+```js
+const p = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    throw new Error("an Error that cannot be caught by .catch");
+  }, 1000);
+});
+p.catch((e) => console.log(e));
+```
+
+To solve this, you should call `reject()` inside the `setTimeout`.
+
+```js
+const p = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    reject(new Error("I am a reason!!!"));
+  }, 1000);
+});
+
+p.catch((e) => {
+  console.error(e);
+});
+```
+
+Errors thrown after calling `resolve()` will be silenced.
+
+```js
+const p3 = new Promise((resolve, reject) => {
+  resolve();
+  throw new Error("Silenced Exception!");
+});
+
+p3.catch((e) => {
+  console.error(e); // This is never called
+});
+```
+
+### `Promise.prototype.finally()` {#finally}
+
+The `.finally()` method returns a `Promise` immediately.
+
+The main use case is to avoid repeated code in both the promise's [`.then()`](#then) and [`.catch()`](#catch) handlers. It is useful if you want to do some processing or cleanup once the promise is settled, regardless of its outcome.
+
+The behavior of the returned promise (call it `p`) depends on the **handler function**, following 2 rules:
+
+- ❌ If the handler throws an error or returns a rejected promise, `p` will be rejected with that value.
+- Otherwise, the return value of the handler **DOES NOT AFFECT** the state of the original promise.
+
+#### Examples
+
+```js
+// rule 1
+Promise.reject(46).finally(() => {
+  throw "good reason";
+}); // good reason
+// rule 1
+Promise.reject(46).finally(() => Promise.reject("nice reason")); // nice reason
+
+// rule 2
+Promise.resolve("yes").finally(() => 77); // "yes"
+// rule 2 - the current promise is rejected
+Promise.reject("a reason").finally(() => 233); // "a reason"
+```
 
 ## References
 

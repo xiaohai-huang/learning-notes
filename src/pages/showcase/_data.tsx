@@ -71,10 +71,9 @@ export const cases: Case[] = [
     description: (
       <>
         分析北美冰球队伍
-        <br />- 性能优化/监控, 服务器端渲染
+        <br />- SEO, 性能优化/监控, 服务器端渲染
         <br />- Serverless function
         <br />- Chart.js 图表
-        <br />- SEO 优化
         <br />- 响应式设计
         <br />- monorepo
       </>

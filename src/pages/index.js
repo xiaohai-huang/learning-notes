@@ -16,13 +16,10 @@ function HomepageHeader() {
         </p>
         <div className={styles.buttons}>
           <Link className="button button--secondary button--lg" to="/docs">
-            View Notes
+            📘 View Notes
           </Link>
-          <Link
-            className="button button--secondary button--lg"
-            to="/university"
-          >
-            View University
+          <Link className="button button--secondary button--lg" to="/about">
+            👨‍🏭 View Resume
           </Link>
         </div>
       </div>

@@ -21,13 +21,10 @@ function ShowCaseCard(props: Case) {
         onClick={() => window.open(props.website)}
       >
         <img
-          style={{ objectFit: "cover", height: "auto" }}
           src={props.preview}
           alt={props.title}
           title={props.title}
           className={styles.cardImage}
-          width="640px"
-          height="320px"
         />
       </div>
       <div className="card__body">

@@ -31,7 +31,7 @@ export const cases: Case[] = [
         <br />
         <b>活动页面</b>: 页面展示 + 上报用户行为 <br />
         <b>管理页面</b>: 登录鉴权 + 文案配置 + 图片/PDF上传 +
-        图表展示分析用户行为 (微前端架构)
+        图表展示分析用户行为
       </>
     ),
     source: "",
@@ -59,12 +59,30 @@ export const cases: Case[] = [
         - 重构云直播计费用量页面
         <br />- 实现了 '拉流转推' 统计数据展示页面
         <br />- 实现了 视频处理控制台的一些小需求
-        <br />- 学习了 微前端架构
       </>
     ),
     source: "",
     tags: ["Tencent", "react"],
   },
+  {
+    title: "fhfhockey.com",
+    website: "https://fhfhockey.com/charts",
+    preview: require("./_previews/fhfhockey.com-player-card.png").default,
+    description: (
+      <>
+        分析北美冰球队伍
+        <br />- 性能优化/监控, 服务器端渲染
+        <br />- Serverless function
+        <br />- Chart.js 图表
+        <br />- SEO 优化
+        <br />- 响应式设计
+        <br />- monorepo
+      </>
+    ),
+    source: "https://github.com/FHFHockey-dev/fhfhockey.com",
+    tags: ["production", "react", "next.js"],
+  },
+
   {
     title: "今日小条",
     website: "https://toutiao.vercel.app",

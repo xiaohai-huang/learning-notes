@@ -13,7 +13,7 @@ description: "Word occurrence counts helps us rank the most relevant document hi
 
 In an inverted index that contains only document information ([previous page](0-document-based-index.md)), the features are binary (1 contains a term, 0 otherwise). This information is important, but it is too coarse to find the best few documents when there are a lot of possible matches.
 
-For instance, consider teh query "tropical fish". Three documents match this query: $S_1, S_2, S_3$.
+For instance, consider the query "tropical fish". Three documents match this query: $S_1, S_2, S_3$.
 
 The data in the [document-based index](0-document-based-index.md) gives us no reason to prefer any of these documents over any other.
 

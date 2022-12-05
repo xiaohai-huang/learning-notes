@@ -9,7 +9,7 @@ description: "Add position information to the index."
 
 ## Motivation
 
-When looking for matches for a query like "tropical fish", the location of the words in teh document is an information predictor of relevance.
+When looking for matches for a query like "tropical fish", the location of the words in the document is an information predictor of relevance.
 
 :::note
 

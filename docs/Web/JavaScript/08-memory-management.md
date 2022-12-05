@@ -1,9 +1,9 @@
 ---
-sidebar_label: Memory Management
+sidebar_label: 🗑️ Memory Management
 description: Notes for JavaScript memory management especially garbage collection (GC).
 ---
 
-# Memory Management
+# 🗑️ Memory Management
 
 Memory management happens in heap's [young generation](#young-generation) and [old generation](#old-generation).
 

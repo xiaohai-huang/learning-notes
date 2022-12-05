@@ -1,9 +1,9 @@
 ---
-sidebar_label: Promise
+sidebar_label: 🤞 Promise
 description: Notes about JavaScript promise.
 ---
 
-# Promise
+# 🤞 Promise
 
 A **Promise** is an object representing the eventual ✅*completion* or ❌*failure* of an asynchronous operation. It allows you to attach handlers (`onfulfilled`, `onrejected`) via `.then()` to the object to deal with the eventual **success** value or **failure** reason.
 

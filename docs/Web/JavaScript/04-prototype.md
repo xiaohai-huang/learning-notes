@@ -1,9 +1,9 @@
 ---
-sidebar_label: Prototype
+sidebar_label: 🧬 Prototype
 description: JavaScript prototype notes.
 ---
 
-# Prototype
+# 🧬 Prototype
 
 Every object has a built-in property, which is `prototype`. The `prototype` itself is an object, so the prototype will have its own prototype, making what's called a **prototype chain**.
 

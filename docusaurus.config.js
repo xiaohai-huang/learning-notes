@@ -74,6 +74,7 @@ const config = {
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
+       
         },
       }),
     ],
@@ -165,6 +166,7 @@ const config = {
       prism: {
         theme: darkCodeTheme,
         darkTheme: darkCodeTheme,
+        additionalLanguages: ['csharp'],
       },
     }),
   stylesheets: [

@@ -66,7 +66,7 @@ networks:
 
 ## Redirect Domain to Subpath
 
-- domain: "[pxd.pink](pxd.pink)"
+- domain: "[pxd.pink](https://pxd.pink)"
 - `build` folder location: "https://storage.xiaohai-huang.net/website/build/"
 
 Write the following config in the `Advanced tab` of the `Edit Proxy Host` menu.

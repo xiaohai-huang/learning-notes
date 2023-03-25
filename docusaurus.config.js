@@ -165,6 +165,7 @@ const config = {
       prism: {
         theme: darkCodeTheme,
         darkTheme: darkCodeTheme,
+        additionalLanguages:['csharp','nginx']
       },
     }),
   stylesheets: [

@@ -91,7 +91,7 @@ volumes:
 
 ### Nginx Configuration
 
-```bash title="nginx.conf"
+```nginx title="nginx.conf"
 events {}
 
 http {

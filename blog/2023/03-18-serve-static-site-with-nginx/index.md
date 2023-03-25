@@ -71,7 +71,7 @@ networks:
 
 Write the following config in the `Advanced tab` of the `Edit Proxy Host` menu.
 
-```
+```nginx
 location / {
     proxy_intercept_errors on;
     error_page 404 = /index.html;

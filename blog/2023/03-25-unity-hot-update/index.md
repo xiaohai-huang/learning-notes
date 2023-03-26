@@ -1,54 +1,81 @@
 ---
-title: Perform In-Game Updates in Unity using Addressables
+title: Perform In-Game Updates in Unity using HybridCLR and Addressables
 authors: xiaohai
+description: A solution that allows you to update both code and resources without requiring users to download a new version of the app
 tags: [Unity, Game, Hot Update, Addressables]
 ---
 
-In this article, I am going to show you how to update your game code that is already __published__ using [__Addressables__](https://docs.unity3d.com/Packages/com.unity.addressables@1.21/manual/index.html) & [__HybridCLR__](https://github.com/focus-creative-games/hybridclr).
+Imagine you are playing your favorite game on your phone. You are enjoying the graphics, the gameplay, and the story. Suddenly, you encounter a bug that crashes the game. You check the app store for an update, but there is none. You are frustrated and disappointed.
+
+Now imagine you are developing a game with Unity. You want to deliver the best experience to your players, but you also want to save time and money. You don't want to recompile and resubmit your entire project every time you need to fix a bug or add a feature. You want to update your game without requiring users to download a new version of the app.
+
+How can you achieve this?
+
+The answer is hot updating.
+
+Hot updating is a technique that allows you to update both code and resources of your game at runtime. This means that you can fix bugs, add features, and optimize performance without affecting the user experience.
+
+But how can you implement hot updating in Unity?
+
+In this blog post, I will introduce you a solution that can help you perform in-game updates in Unity with minimal effort and maximum flexibility. It is based on two open source projects: [__HybridCLR__](https://github.com/focus-creative-games/hybridclr) and  [__Addressables__](https://docs.unity3d.com/Packages/com.unity.addressables@1.21/manual/index.html).
+
+[__HybridCLR__](https://github.com/focus-creative-games/hybridclr) is a framework that allows you to write C# code that can be compiled into IL2CPP or Mono assemblies at runtime. This means that you can update your game logic without recompiling your entire project.
+
+[__Addressables__](https://docs.unity3d.com/Packages/com.unity.addressables@1.21/manual/index.html) is a Unity package that provides an easy way to load assets by key from local or remote locations.
+
+By combining these two tools, you can perform in-game updates in Unity with minimal effort and maximum flexibility.
+
+In this blog post, I will show you how to use HybridCLR and Addressables to perform in-game updates in Unity, and demonstrate how this solution can improve your game development workflow and user experience.
 
 <!-- truncate -->
 
-## Installations
+## How to Install HybridCLR and Addressables
 
-Open __Package Manager__ and install the following 2 packages.
+Before we can use HybridCLR and Addressables to perform in-game updates in Unity, we need to install and configure them properly. In this section, I will show you how to do that in a few simple steps.
 
-- __Addressables__ - In Unity Registry.
-- __HybridCLR__ - Use `Add package from git URL...`  
-    [https://gitee.com/focus-creative-games/hybridclr_unity.git](https://gitee.com/focus-creative-games/hybridclr_unity.git)
+First, open __Package Manager__ from the menu bar and install the following two packages:
+
+- __Addressables__ - This package is available in Unity Registry. It provides an easy way to load assets by key from local or remote locations.
+- __HybridCLR__ - This package is not available in Unity Registry. You need to use `Add package from git URL...` option and enter this URL: [https://gitee.com/focus-creative-games/hybridclr_unity.git](https://gitee.com/focus-creative-games/hybridclr_unity.git). This package is a framework that allows you to write C# code that can be compiled into IL2CPP or Mono assemblies at runtime.
 
 ## Initialize HybridCLR
 
-Open `HybridCLR/Installer...` from the menu bar to install and initialize HybridCLR.
+Next, open `HybridCLR/Installer...` from the menu bar to install and initialize HybridCLR.
 
 ![installer](./HybridCLR-Installer.png)
 
 ## Project Configuration For HybridCLR
 
-Aftering initialzing __[hybridclr_unity](https://github.com/focus-creative-games/hybridclr_unity)__, we need to split the project's assesmblies into 2 main categories and adjust some settings.
-
 ### Configure Player Settings
 
-- Disable __`Use Incremental GC`__. HybridCLR does not support this feature at the moment.
-- Set __`Scripting Backend`__ to `IL2CPP`.
-- __`Api Compatiability Level`__ to `.Net Framework`.
+- Disable __`Use Incremental GC`__. HybridCLR does not support this feature at the moment. This means that garbage collection will happen less frequently but more intensively.
+- Set __`Scripting Backend`__ to `IL2CPP`. This is the scripting backend that HybridCLR uses to compile dynamic assemblies at runtime. It has better performance and security than Mono.
+- Set __`Api Compatiability Level`__ to `.Net Framework`. This is the API level that HybridCLR uses to compile dynamic assemblies at runtime.
+
 
 ![Player settings](player-settings.png)
 
-### Split Assemblies
+### How to Split Assemblies into Static and Dynamic
 
-There are two categories of __Assemblies__.
+In order to use HybridCLR to update our game code at runtime, we need to split our project's assemblies into two main categories: static assemblies and dynamic assemblies. Static assemblies are the ones that will be compiled into our app's binary file. Dynamic assemblies are the ones that will be compiled at runtime and can be updated without recompiling our app.
 
-- 🪨 AOT Assemblies (shipped with the app, __cannot__ be updated after publishing)
-- 🏃‍♂️ Hot Update Assemblies (can be updated after publishing)⚡
 
-In this example, I will create an AOT Assembly called __`Assembly-Entry.dll`__ using __assembly definition__. It simply loads the Home Screen of my app using `Addressables.LoadSceneAsync();`. The Home Screen will download the Hot Update Assemblies from the remote server and load them.
+Static assemblies are also called AOT (Ahead-of-Time) assemblies because they are compiled before the app is launched. They have better performance and security than dynamic assemblies, but they cannot be updated after publishing.
 
-And I will use the default __`Assembly-CSharp.dll`__ for game logic and __`Assembly-Updater.dll`__ for updater as my Hot Update Assemblies. The published app will load these two assemblies dynamically in order to update the game. Note: I can add more assemblies as Hot Update Assemblies if necessary.
+Dynamic assemblies are also called Hot Update assemblies because they can be updated after publishing. They have more flexibility and convenience than static assemblies, but they have lower performance and security.
 
-Here is how to do it in action.
+In this section, I will show you how to split our project's assemblies into static and dynamic using assembly definitions. I will also show you how to configure HybridCLR settings to recognize which assemblies are Hot Update assemblies.
 
-1. Create a folder `Assets/Scripts/Entry` and create a __assembly definition__ "Assembly-Entry.asmdef".
-1. Create a folder `Assets/Scripts/Home Screen` and create a __assembly definition__ "Assembly-Updater.asmdef".
+In this example, I will create a static assembly called __`Assembly-Entry.dll`__ using an assembly definition. It simply loads the Home Screen of my app using `Addressables.LoadSceneAsync();`. The Home Screen will download the Hot Update assemblies from the remote server and load them.
+
+
+And I will use the default __`Assembly-CSharp.dll`__ for game logic and __`Assembly-Updater.dll`__ for updater as my Hot Update assemblies. The published app will load these two assemblies dynamically in order to update the game. Note: I can add more assemblies as Hot Update assemblies if necessary.
+
+
+Here is how to do it in action:
+
+1. Create a folder `Assets/Scripts/Entry` and create an assembly definition "Assembly-Entry.asmdef".
+2. Create a folder `Assets/Scripts/Home Screen` and create an assembly definition "Assembly-Updater.asmdef".
 
 
 :::info
@@ -57,37 +84,46 @@ By default, Unity compiles almost all of your game scripts into the predefined a
 
 :::
 
-### Configure HybridCLR
-
-Open __`HybridCLR/Settings`__ and pay attention to 
+Next, open __`HybridCLR/Settings`__ from the menu bar and pay attention to these two fields:
 
 - __`Hot Update Assembly Definitions`__
 - __`Hot Update Assemblies`__
 
-These two fields are equvalent. Do not add the same assembly twice.
+These two fields are equivalent. Do not add the same assembly twice.
+
 
 In this example, I will add `Assembly-CSharp` and `Assembly-Updater` (without `.dll`) to __`Hot Update Assemblies`__.
 
 ![add hot assemblies in settings](hybrid-settings.png)
 
+
 :::caution
 
-Do not add __`Assembly-Entry.dll`__, cuz it is shipped with the app and cannot be updated.
+Do not add __`Assembly-Entry.dll`__, because it is shipped with the app and cannot be updated.
 
 :::
 
-## Scene & Addressables Setup
+Now we have split our project's assemblies into static and dynamic using assembly definitions. We have also configured HybridCLR settings to recognize which assemblies are Hot Update assemblies. In the next section, we will see how to use Addressables to update our game resources.
 
-Create 3 Scenes:
+## Set Up Scenes and Addressables
+
+In order to use Addressables to update our game resources at runtime, we need to set up our scenes and configure Addressables properly. In this section, I will show you how to do that in a few simple steps.
+
+Addressables is a Unity package that provides an easy way to load assets by key from local or remote locations. It has many advantages over traditional asset management methods, such as reducing build size, improving loading speed, simplifying dependency resolution, and enabling hot updating.
+
+However, using Addressables also comes with some challenges. We need to create different profiles and groups for our assets, assign them labels and addresses, and manage their loading and unloading.
+
+
+In this example, I will create three scenes:
 
 1. Entry Scene (the only scene that is in the app, the only scene in __Build Settings__)
-2. Home Screen Scene (used to download dlls and load dlls)
+2. Home Screen Scene (used to download dynamic assemblies and assets from the remote server and load them)
 3. Game Play Scene (normal game play scene)
-
 
 ![setup](scene-and-addressables-setup.png)
 
-### Configure Addressable
+
+Next, I will configure Addressables for these scenes.
 
 #### Addressables Profile
 
@@ -96,6 +132,7 @@ Create 3 Scenes:
 Create an __Addressables Profile__ called __Production__. Change `Remote.LoadPath` to your URL (the place that stores your dlls and hot update assets). In my case, these hot update assets are stored in `https://storage.xiaohai-huang.net/unity-demo/tutorial-storage/StandaloneWindows64`
 
 ![remote load path](remote-load-path.png)
+
 #### Addressables Group
 
 Create two groups, __Scene Group__ and __Dll Group__.
@@ -111,11 +148,15 @@ These `xxx.dll.bytes` will be generated when we compile the code using __`Hybrid
 
 ### Entry Scene
 
-In this scene, create an Empty Game Object and attach it with the following Script. 
+The Entry Scene is the only scene that is in our app's binary file. It is responsible for loading the Home Screen Scene from the remote server. The Home Screen Scene will download and load the dynamic assemblies and assets that we want to update.
 
-The purpose of this script is to load the Home Screen Scene from remote server. And execute `LoadMetadataForAOTAssembly` to supply metadata for AOT (need this for generics to work).
+The Entry Scene is also responsible for executing `LoadMetadataForAOTAssembly` to supply metadata for AOT assemblies. This is necessary for generics to work with HybridCLR.
 
-The script should be part of the `Assembly-Entry.dll` as it will be shipped with the app, so it cannot be updated after you build the app.
+In this section, I will show you how to create the Entry Scene which contains a game object that uses HybridCLR and Addressables.
+
+The script should be part of the `Assembly-Entry.dll` assembly because it will be shipped with the app and cannot be updated after we build the app.
+
+Here is the code for the script:
 
 ```csharp title="Assets/Scripts/Entry/GameEntry.cs"
 using HybridCLR;
@@ -162,9 +203,13 @@ public class GameEntry : MonoBehaviour
 
 ### Home Screen Scene
 
-In this scene, create a Empty Game Object called "App Updater" and attach it with the following script.
+The Home Screen Scene is the scene that we load from the remote server using Addressables. It is responsible for downloading and loading the dynamic assemblies and assets that we want to update. It also provides a button for the user to start playing the game.
 
-This script is in __`Assembly-Updater.dll`__. So it is part of the Hot Update Assemblies.
+The Home Screen Scene is part of the `Scene Group` in Addressables. It can be updated without recompiling our app.
+
+The script that controls the Home Screen Scene is part of the `Assembly-Updater.dll` assembly. It is also a dynamic assembly that can be updated without recompiling our app.
+
+In this scene, create a Empty Game Object called "App Updater" and attach it with the following script.
 
 ```csharp title="Assets/Scripts/Home Screen/Updater.cs"
 using TMPro;
@@ -218,9 +263,20 @@ public class Updater : MonoBehaviour
 
 In this scene, you can do the normal unity stuff.
 
-## Build Player
+## How to Buiild the Player
 
-Create an editor command to compile Hot Update Assemblies and copy them to the desired location which will be later bundled by __Addressables__. This command will compile your dynamic code and copy dlls to `Assets/Dlls/Hot Update Dlls` and `Assets/Dlls/Metadata For AOT Dlls`.
+In order to build our app with HybridCLR and Addressables, we need to create an editor command that compiles and copies our dynamic assemblies to the desired location. This location will be later bundled by Addressables and uploaded to the remote server
+
+The editor command is a script that uses `HybridCLR.Editor.Commands` namespace. It performs three tasks: compiling dynamic assemblies for the current build target, copying them to `Assets/Dlls/Hot Update Dlls` folder, and copying metadata for AOT assemblies to `Assets/Dlls/Metadata For AOT Dlls` folder.
+
+The editor command also clears Addressables output cache to ensure that the latest dynamic assemblies are bundled.
+
+This command is necessary because we want to update our game code without recompiling our app. By using Addressables to bundle and distribute our dynamic assemblies, we can reduce our app size, improve our loading speed, simplify our dependency resolution, and enable hot updating.
+
+However, using Addressables also comes with some challenges. We need to make sure that our dynamic assemblies are compatible with our static assemblies, that they are compiled for the correct build target, that they have metadata for AOT assemblies, and that they are bundled with the correct settings.
+
+In this section, I will show you how to create an editor command that compiles and copies our dynamic assemblies using HybridCLR.Editor.Commands.
+
 
 ```csharp title="Assets/Editor/Hot Update/CopyDllsAndClearAddressablesCacheCommand.cs"
 using HybridCLR.Editor;

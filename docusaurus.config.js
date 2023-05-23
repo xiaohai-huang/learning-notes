@@ -165,15 +165,13 @@ const config = {
       prism: {
         theme: darkCodeTheme,
         darkTheme: darkCodeTheme,
-        additionalLanguages:['csharp','nginx']
+        additionalLanguages: ["csharp", "nginx"],
       },
     }),
   stylesheets: [
     {
-      href: "https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css",
-      integrity:
-        "sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc",
-      crossorigin: "anonymous",
+      href: "/katex/katex.min.css",
+      type: "text/css",
     },
   ],
   themes: ["@docusaurus/theme-live-codeblock"],

@@ -33,6 +33,21 @@ const config = {
         showLastUpdateTime: true,
       },
     ],
+    [
+      "@docusaurus/plugin-content-docs",
+      /** @type {import('@docusaurus/plugin-content-docs').Options} */
+      {
+        id: "unity",
+        path: "unity",
+        routeBasePath: "unity",
+        editUrl: "https://github.com/xiaohai-huang/learning-notes/tree/master",
+        sidebarPath: require.resolve("./sidebarsUnity.js"),
+        remarkPlugins: [math],
+        rehypePlugins: [katex],
+        showLastUpdateAuthor: true,
+        showLastUpdateTime: true,
+      },
+    ],
     async function plugin(context, options) {
       return {
         name: "docusaurus-plugin-module-alias",
@@ -110,6 +125,11 @@ const config = {
             label: "University",
             position: "left",
           },
+          {
+            to: "/unity",
+            label: "Unity",
+            position: "left",
+          },
           { to: "/blog", label: "Blog", position: "left" },
           { to: "/showcase", label: "Showcase", position: "left" },
           { to: "/about", label: "About", position: "right" },
@@ -133,6 +153,10 @@ const config = {
               {
                 label: "University",
                 to: "/university",
+              },
+              {
+                label: "Unity",
+                to: "/unity",
               },
               {
                 label: "Todos",

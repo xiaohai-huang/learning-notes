@@ -20,6 +20,10 @@ __Animation Clips__ are the fundamental building blocks of Unity's animation sys
 
 The data stored on an __Animation Clip__ is made up of two parts: values and bindings.
 
+![values and bindings](_assets-01/values-bindings.png)
+
+<center>The Animation window is split into two main areas, one for each part of an Animation Clip, with the bindings on the left and the values on the right.</center>
+
 ### Values
 
 Values are the actual data that is stored in an Animation Clip. These values represent the changes in properties of a GameObject over time. Imagine an Animation Clip that animates a character jumping. The values would be the different positions of the character at different points in time.

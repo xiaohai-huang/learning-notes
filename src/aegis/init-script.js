@@ -1,3 +1,5 @@
+import Aegis from "aegis-web-sdk";
+
 const aegis = new Aegis({
   id: "kwL2lcKr1KJe8rXnlD", // 上报 id
   uin: "", // 用户唯一 ID（可选）

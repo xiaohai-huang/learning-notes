@@ -204,10 +204,7 @@ const config = {
     defaultLocale: "en-ZA",
     locales: ["en-ZA"],
   },
-  scripts: [
-    "https://cdn-go.cn/aegis/aegis-sdk/latest/aegis.min.js",
-    "/aegis/init-script.js",
-  ],
+  clientModules: [require.resolve("./src/aegis/init-script.js")],
   trailingSlash: false,
 };
 module.exports = config;

@@ -7,7 +7,7 @@ description: Introduction to the reflow and repaint.
 How the browser renders the document?
 
 1. Receives the data (bytes) from the server.
-1. Parses and converts into tokens (<, TagName, Attribute, AttributeValue, >).
+1. Parses and converts into tokens (\<, TagName, Attribute, AttributeValue, \>).
 1. Turns tokens into nodes.
 1. Turns nodes into the DOM tree.
 1. Builds CSSOM tree from the `css rules`.

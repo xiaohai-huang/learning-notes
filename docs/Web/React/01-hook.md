@@ -287,8 +287,7 @@ There are a few different ways to tell React to queue a **re-render**:
   - Calling the ReactDOM top-level `root.render(<App />)` method **again**.
   - Updates triggered from the `useSyncExternalStore` hook.
 
-<cite><a href="https://blog.isquaredsoftware.com/2020/05/blogged-answers-a-mostly-complete-guide-to-react-rendering-behavior/#queuing-renders">How Does React Handle Renders?
-</a></cite>
+<cite><a href="https://blog.isquaredsoftware.com/2020/05/blogged-answers-a-mostly-complete-guide-to-react-rendering-behavior/#queuing-renders">How Does React Handle Renders?</a></cite>
 
 :::
 
@@ -402,8 +401,6 @@ Ans: We use `finishQueueingConcurrentUpdates` to add the `update` to the `hook.q
 
 `finishQueueingConcurrentUpdates` also invokes `markUpdateLaneFromFiberToRoot(fiber, update, lane)` which updates the source fiber's `lanes` and walks the parent path to the root and update the `childLanes`.
 
-<cite><a href="https://github.com/facebook/react/pull/24663">
-Refactor of interleaved ("concurrent") update queue
-#24663</a></cite>
+<cite><a href="https://github.com/facebook/react/pull/24663">Refactor of interleaved ("concurrent") update queue #24663</a></cite>
 
 :::

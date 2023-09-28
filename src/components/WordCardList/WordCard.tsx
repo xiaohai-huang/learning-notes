@@ -46,7 +46,6 @@ function WordCard({ word = "" }) {
   if (loading) {
     return <div>loading...</div>;
   }
-  console.log(data);
 
   return data ? (
     <div className="card shadow--md">

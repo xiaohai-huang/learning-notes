@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import BrowserOnly from "@docusaurus/BrowserOnly";
 import Editor from "react-simple-code-editor";
 import inspect from "object-inspect";
 import { highlight, languages } from "prismjs/components/prism-core";
@@ -132,7 +133,9 @@ export default function JSEditor({
           "padding--sm"
         )}
       >
-        {output === "" ? " " : output}
+        <BrowserOnly fallback={<>loading...</>}>
+          {() => <>{output === "" ? " " : output}</>}
+        </BrowserOnly>
       </div>
     </section>
   );

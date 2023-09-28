@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
+import BrowserOnly from "@docusaurus/BrowserOnly";
+import ExecutionEnvironment from "@docusaurus/ExecutionEnvironment";
 import Editor from "react-simple-code-editor";
 import inspect from "object-inspect";
-import { highlight, languages } from "prismjs/components/prism-core";
-import "prismjs/components/prism-clike";
-import "prismjs/components/prism-javascript";
+import { Prism, Language } from "prism-react-renderer";
 import clsx from "clsx";
 
 import "./styles.scss";
 
-const hightlightWithLineNumbers = (input, language) =>
-  highlight(input, language)
+if (ExecutionEnvironment.canUseDOM) {
+  (typeof global !== "undefined" ? global : window).Prism = Prism;
+}
+
+const hightlightWithLineNumbers = (input: string, language: Language) =>
+  Prism.highlight(input, Prism.languages[language], language)
     .split("\n")
     .map((line, i) => `<span class='editorLineNumber'>${i + 1}</span>${line}`)
     .join("\n");
@@ -104,7 +108,7 @@ export default function JSEditor({
           textareaClassName="codeArea"
           value={code}
           onValueChange={(code) => setCode(code)}
-          highlight={(code) => hightlightWithLineNumbers(code, languages.js)}
+          highlight={(code) => hightlightWithLineNumbers(code, "javascript")}
           padding={10}
           style={{
             fontFamily: '"Fira code", "Fira Mono", monospace',
@@ -132,7 +136,9 @@ export default function JSEditor({
           "padding--sm"
         )}
       >
-        {output === "" ? " " : output}
+        <BrowserOnly fallback={<> </>}>
+          {() => <>{output === "" ? " " : output}</>}
+        </BrowserOnly>
       </div>
     </section>
   );

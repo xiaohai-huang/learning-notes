@@ -135,18 +135,15 @@ video sources:
 1. If there is a linear relationship, we want to make sure the `x` is correlated with the result `y`.
 2. Want our predictors to be uncorrelated with each other, since each predictor models a different aspect of the overall relationship. If they are correlated, we can end up with redundancy in the model.
 
+{/* prettier-ignore */}
 <details>
   <summary>
     Why do we want our predictors to be uncorrelated with each other?
   </summary>
-  <div>
-    In the{" "}
-    <Link to="https://github.com/xiaohai-huang/cab420-workspace/blob/master/work/week1/CAB420_Regression_Example_1_Linear_Regression.ipynb">
-      "number of cyclists"
-    </Link>{" "}
-    case study, one of the linear regression model contains <code>temp</code> ,
-    and <code>atemp</code> as parameters, they are correlated, and thus the
-    relationship between that variable and the response is (to some extent)
-    captured twice in the model. That causes the `p-value` to be less important.
-  </div>
+  In the <Link to="https://github.com/xiaohai-huang/cab420-workspace/blob/master/work/week1/CAB420_Regression_Example_1_Linear_Regression.ipynb">
+    "number of cyclists"
+  </Link> case study, one of the linear regression model contains <code>temp</code>, 
+  and <code>atemp</code> as parameters, they are correlated, and thus the
+  relationship between that variable and the response is (to some extent) captured
+  twice in the model. That causes the `p-value` to be less important.
 </details>

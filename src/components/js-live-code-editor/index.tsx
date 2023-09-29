@@ -1,22 +1,22 @@
+// Inspired by https://github.com/FormidableLabs/prism-react-renderer/blob/v1.3.5/src/components/Highlight.js
 import React, { useEffect, useState } from "react";
 import BrowserOnly from "@docusaurus/BrowserOnly";
 import ExecutionEnvironment from "@docusaurus/ExecutionEnvironment";
 import Editor from "react-simple-code-editor";
 import inspect from "object-inspect";
-import { Prism, Language } from "prism-react-renderer";
+import { Prism } from "prism-react-renderer";
+import darkCodeTheme from "prism-react-renderer/themes/vsDark";
+
 import clsx from "clsx";
+import normalizeTokens from "./normalizeTokens";
+import themeToDict from "./themeToDict";
 
 import "./styles.scss";
+const themeDict = themeToDict(darkCodeTheme, "javascript");
 
 if (ExecutionEnvironment.canUseDOM) {
   (typeof global !== "undefined" ? global : window).Prism = Prism;
 }
-
-const hightlightWithLineNumbers = (input: string, language: Language) =>
-  Prism.highlight(input, Prism.languages[language], language)
-    .split("\n")
-    .map((line, i) => `<span class='editorLineNumber'>${i + 1}</span>${line}`)
-    .join("\n");
 
 const formatOutput = (outputLines: any[]) => {
   let result = "";
@@ -29,6 +29,70 @@ const formatOutput = (outputLines: any[]) => {
     result += `${idx + 1}:  ${formatedLine}\n`;
   });
   return result;
+};
+
+const getLineProps = ({ key, className, style, line, ...rest }: any) => {
+  const output = {
+    ...rest,
+    className: "token-line",
+    style: undefined,
+    key: undefined,
+  };
+
+  if (themeDict !== undefined) {
+    output.style = themeDict.plain;
+  }
+
+  if (style !== undefined) {
+    output.style =
+      output.style !== undefined ? { ...output.style, ...style } : style;
+  }
+
+  if (key !== undefined) output.key = key;
+  if (className) output.className += ` ${className}`;
+
+  return output;
+};
+
+export type Token = {
+  types: string[];
+  content: string;
+  empty?: boolean;
+};
+
+const getStyleForToken = ({ types, empty }: Token) => {
+  const typesSize = types.length;
+  if (themeDict === undefined) {
+    return undefined;
+  } else if (typesSize === 1 && types[0] === "plain") {
+    return empty ? { display: "inline-block" } : undefined;
+  } else if (typesSize === 1 && !empty) {
+    return themeDict[types[0]];
+  }
+
+  const baseStyle = empty ? { display: "inline-block" } : {};
+  const typeStyles = types.map((type) => themeDict[type]);
+  return Object.assign(baseStyle, ...typeStyles);
+};
+
+const getTokenProps = ({ key, className, style, token, ...rest }: any) => {
+  const output = {
+    ...rest,
+    className: `token ${token.types.join(" ")}`,
+    children: token.content,
+    style: getStyleForToken(token),
+    key: undefined,
+  };
+
+  if (style !== undefined) {
+    output.style =
+      output.style !== undefined ? { ...output.style, ...style } : style;
+  }
+
+  if (key !== undefined) output.key = key;
+  if (className) output.className += ` ${className}`;
+
+  return output;
 };
 
 type JSEditorProps = {
@@ -102,17 +166,26 @@ export default function JSEditor({
   return (
     <section className="js-live-editor margin-bottom--md">
       <i>{title}</i>
-      <div className="editorWrapper shadow--md thin-scrollbar">
+      <div className="shadow--md thin-scrollbar">
         <Editor
           className="editor"
           textareaClassName="codeArea"
+          style={darkCodeTheme.plain}
+          padding={10}
           value={code}
           onValueChange={(code) => setCode(code)}
-          highlight={(code) => hightlightWithLineNumbers(code, "javascript")}
-          padding={10}
-          style={{
-            fontFamily: '"Fira code", "Fira Mono", monospace',
-            fontSize: 18,
+          highlight={(code) => {
+            const tokens = normalizeTokens(
+              Prism.tokenize(code, Prism.languages.javascript, "javascript")
+            );
+            return tokens.map((line, i) => (
+              <div key={i} {...getLineProps({ line })}>
+                <span className="editorLineNumber">{i + 1}</span>
+                {line.map((token, key) => (
+                  <span key={key} {...getTokenProps({ token })} />
+                ))}
+              </div>
+            ));
           }}
         />
       </div>

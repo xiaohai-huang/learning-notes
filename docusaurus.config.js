@@ -108,11 +108,14 @@ module.exports = async function createConfigAsync() {
           indexName: "xiaohai-mind-palace-index",
         },
         navbar: {
-          title: "Home",
+          title: "Mind Palace",
           hideOnScroll: true,
           logo: {
             alt: "My Site Logo",
             src: "img/favicon.ico",
+            width: 32,
+            height: 32,
+            style: { borderRadius: "var(--ifm-global-radius)" },
           },
           items: [
             {

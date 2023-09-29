@@ -168,7 +168,7 @@ The `Age` response header filed is the time elapsed since the response was gener
 
 The `Cache-Control` header field is used to list directives for caches. Cache directives are **unidirectional**👽️, the presence of a directive in a **request** does not imply that the same directive is present or copied in the **response**.
 
-:::caution
+:::warning
 
 The [request directives](https://httpwg.org/specs/rfc9111.html#cache-request-directive) are advisory, caches _MAY_ implement them, but are not required to. So our primary focus is on **response directives**, a cache _MUST_ obey the `Cache-Control` directives in response.
 

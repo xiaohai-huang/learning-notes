@@ -15,7 +15,7 @@ It is similar to a reverse Proxy in a traditional server-client environment.
 We are able to intercept, define, custom behavior for fundamental language operations. (e.g., "property lookup", "assignment", "enumeration", "function invocation", etc.).
 
 ![js proxy](_assets/js-proxy.png)
-:::caution
+:::warning
 
 Proxies cannot be transpiled or polyfilled.
 

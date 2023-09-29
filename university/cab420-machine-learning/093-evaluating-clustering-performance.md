@@ -13,7 +13,7 @@ We are going to consider:
 - Completeness
 - V-Measure
 
-:::caution
+:::warning
 
 Why don't we use ground truth clusters to evaluate the performance?
 

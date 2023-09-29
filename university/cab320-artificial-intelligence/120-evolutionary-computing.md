@@ -71,7 +71,7 @@ Holds the candidate solutions of the problem as individuals ([genotypes](#repres
 
 A population is a multi-set of individuals, i.e. repetitions are possible.
 
-:::caution
+:::warning
 
 - Population is the **basic unit** of evolution, i.e. the population is evolving, not the individuals.
 - Selection operators act on population level.
@@ -116,7 +116,7 @@ Variation operators are used to generate new candidate solutions.
 
 Most EAs use both. Variation operators must match the given representation.
 
-:::caution
+:::warning
 
 Type of a variation operators depends on chosen representation.
 

@@ -97,7 +97,7 @@ In this example, I will add `Assembly-CSharp` and `Assembly-Updater` (without `.
 ![add hot assemblies in settings](hybrid-settings.png)
 
 
-:::caution
+:::warning
 
 Do not add __`Assembly-Entry.dll`__, because it is shipped with the app and cannot be updated.
 

@@ -114,7 +114,7 @@ Two measures are used to evaluate the quality of a document ranking (how well it
 - **precision**: the portion of retrieved documents that are relevant.
 - **recall**: the portion of relevant documents that are retrieved.
 
-:::caution
+:::warning
 
 When measure **recall** is used, there is an _assumption_ that the number of relevant documents is known. It is impossible in real web. But it can be useful when dealing with _test collections_ of documents (e.g., competitions).
 

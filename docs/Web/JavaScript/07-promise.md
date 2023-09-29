@@ -49,7 +49,7 @@ The `Promise.all()` method takes an iterable of promises as input and returns a 
 
 #### Implementation
 
-:::caution
+:::warning
 
 `Promise.all` resolves **synchronously** if and only if the `iterable` passed is empty `[]`. In other situations, the returned `Promise` will be _asynchronously_ fulfilled or _asynchronously_ rejected.
 

@@ -15,7 +15,7 @@ Like a _deep learning_ method for **dimension reduction**.
 - Unlike PCA or LDA, it can learn a highly non-linear representation.
 - Like PCA, the compressed representation can be used to reconstruct the original signal.
 
-:::caution
+:::warning
 
 - We don't have the **interpretability** that PCA has.
 - Cannot change the size of the compressed representation. For example, in PCA we can reconstruct the signal by just using the first few components. However, we are not allowed to do this unless we re-train the model.

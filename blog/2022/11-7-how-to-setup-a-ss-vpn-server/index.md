@@ -16,21 +16,21 @@ Copy the following two files into a folder and run `docker-compose up -d`
 
 ```yaml title="docker-compose.yaml"
 version: "3.7"
-    services:
-        ss-v2ray-service:
-            image: teddysun/shadowsocks-libev
-            container_name: ss-v2ray
-            cap_add:
-                - NET_ADMIN
-            environment:
-                - PUID=1000
-                - PGID=1000
-            volumes:
-                - ./:/etc/shadowsocks-libev # folder of SS config file
-            ports:
-                - 6300:9000
-                - 6300:9000/udp
-            restart: always
+services:
+  ss-v2ray-service:
+    image: teddysun/shadowsocks-libev
+    container_name: ss-v2ray
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - ./:/etc/shadowsocks-libev # folder of SS config file
+    ports:
+      - 8333:9000
+      - 8333:9000/udp
+    restart: always
 ```
 
 ```json title="config.json"

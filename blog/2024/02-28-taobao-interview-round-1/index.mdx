@@ -1,0 +1,119 @@
+---
+title: Taobao HangZhou Interview Round 1
+authors: xiaohai
+tags: [study, interview]
+---
+
+1.  How do you decide when to run `useLayoutEffect`?
+
+    Ans: `useLayoutEffect` is a version of `useEffect` that fires before the browser **repaints** the screen.
+
+    - Measuring layout before the browser repaints the screen.
+    - Blocks the browser from repainting.
+
+1.  The execution order of `useEffect` and `useLayoutEffect`.
+
+    | Feature          | useEffect                                                                                                                 | useLayoutEffect                                                                                                                                                                             |
+    | ---------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | Execution Timing | Runs after the render is committed to the screen. This means it runs after the browser has painted changes to the screen. | Runs synchronously after all DOM mutations. This means it runs before the browser has a chance to paint, making it suitable for reading layout from the DOM and synchronously re-rendering. |
+    | Use Cases        | Most side effects (data fetching, subscriptions)                                                                          | DOM manipulation, measuring elements, critical layout updates                                                                                                                               |
+    | Performance      | Generally better performance due to async nature                                                                          | Can impact performance if used excessively, as it blocks the browser from repainting                                                                                                        |
+
+    ```jsx live
+    function Clock(props) {
+      const [a, setA] = useState(0);
+      useEffect(() => {
+        console.log("1");
+      }, []);
+      useEffect(() => {
+        console.log("2");
+      }, [a]);
+      useEffect(() => {
+        console.log("3");
+      }, []);
+      useEffect(() => {
+        console.log("4");
+      }, []);
+
+      useLayoutEffect(() => {
+        console.log("layoutEffect");
+      }, []);
+
+      return (
+        <pre>
+          {`
+    layoutEffect
+    1
+    2
+    3
+    4
+    `}
+        </pre>
+      );
+    }
+    ```
+
+1.  function chaining
+
+    ```js
+    // new Monkey('xiaohai').eat('apple').sleep(3).eat('banana').eat('rice').sleep(1).eat('orange')
+    // My name is xiaohai
+    // Eating apple
+    // ...sleep for 3 seconds
+    // Eating banana
+    // Eating rice
+    // ...sleep for 1 seconds
+    // Eating orange
+    class Monkey {
+      constructor(name) {
+        this.name = name;
+        this.queue = [];
+        console.log(`My name is ${name}`);
+
+        // start all the tasks
+        setTimeout(() => {
+          this.#onComplete();
+        }, 0);
+      }
+
+      #onComplete = () => {
+        const task = this.queue.shift();
+        task && task();
+      };
+
+      #enqueue = (task) => {
+        this.queue.push(() => task(this.#onComplete));
+      };
+
+      sleep(seconds) {
+        this.#enqueue((next) => {
+          setTimeout(next, seconds * 1000);
+        });
+
+        return this;
+      }
+
+      eat(food) {
+        this.#enqueue((next) => {
+          console.log(`Eating ${food}`);
+          next();
+        });
+        return this;
+      }
+    }
+    ```
+
+1.  HTTP 1 vs HTTP 2
+
+    | **Protocol Version**      | HTTP/1.1                                                             | HTTP/2                                                                                  |
+    | ------------------------- | -------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+    | **Multiplexing**          | No                                                                   | Yes, multiple requests can be sent over a single connection                             |
+    | **Stream Prioritization** | No                                                                   | Yes, allows the client to prioritize requests                                           |
+    | **Header Compression**    | No                                                                   | Yes, using HPACK compression                                                            |
+    | **Server Push**           | No                                                                   | Yes, allows the server to send resources to the client proactively                      |
+    | **Binary Protocol**       | Text-based                                                           | Binary, more efficient for parsing                                                      |
+    | **Connection Management** | Connection per request/response                                      | Single connection for multiple requests/responses                                       |
+    | **Performance**           | Slower due to multiple connections and latency                       | Faster due to multiplexing, header compression, and binary protocol                     |
+    | **Security**              | SSL/TLS for encryption                                               | TLS 1.2 or higher required, with additional features like ALPN for protocol negotiation |
+    | **Compatibility**         | Widely supported, but requires separate connections for each request | Requires HTTPS and modern browsers/servers                                              |
+    | **Use Cases**             | Ideal for simple, stateless requests                                 | Ideal for complex, stateful applications with many small requests                       |

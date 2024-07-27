@@ -1,0 +1,33 @@
+---
+title: Setup Caddy for Minio
+authors: xiaohai
+tags: [docker, self-hosting, object storage]
+description: Learn how to set up Caddy as a reverse proxy for Minio in this comprehensive guide. Configure your Caddyfile to efficiently serve and manage Minio's object storage and console. Perfect for Docker and self-hosting enthusiasts looking to optimize their storage solutions.
+---
+
+In this guide, we'll configure Caddy to serve as a reverse proxy for Minio, an object storage server. This setup will allow you to access the Minio console and the object storage service through Caddy.
+
+## Caddy Configuration
+
+```
+storage.xiaohai-huang.net {
+    redir /minio-console /minio-console/
+    handle_path /minio-console/* {
+        reverse_proxy my-minio-server:9001
+    }
+
+    handle_path /* {
+        reverse_proxy my-minio-server:9000
+    }
+}
+```
+
+:::note
+
+You can remove the `redir` line if the Minio container specifies the console path as **/minio-console/** (the trailing slash is needed)
+
+:::
+
+## Conclusion
+
+With this configuration, Caddy will route traffic to the appropriate Minio services, making it easy to manage your object storage setup.

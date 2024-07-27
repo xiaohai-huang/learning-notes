@@ -1,0 +1,61 @@
+---
+title: Setup Caddy for SPA Stored at S3 Object Storage. (React with react-router)
+authors: xiaohai
+tags: [docker, self-hosting, SPA, React]
+description: Set up Caddy for serving a Single Page Application (SPA) like a React app with react-route. The react app is stored at a remote storage like S3, minio.
+---
+
+To set up Caddy for serving a Single Page Application (SPA) like a React app with react-router, you need to handle routing such that all navigation requests are routed to `index.html`, while also serving the static assets correctly.
+
+## Directory Structure on Remote Storage
+
+The **build** folder is stored at **http://my-minio-server:9000/website/short-videos** (_S3 bucket_) which contains the `index.html` and `js`/`css` files. see below for examples
+
+- **http://my-minio-server:9000/website/short-videos/index.html**
+- **http://my-minio-server:9000/website/short-videos/assets/xxx.js**
+
+## Caddy Configuration
+
+The goal is to serve the React app at **shorts.xiaohai-huang.net**, with the build output of the app stored on remote storage as mentioned above.
+
+Below is a Caddy configuration to serve your SPA correctly:
+
+```
+shorts.xiaohai-huang.net {
+    rewrite * /website/short-videos{uri}
+    reverse_proxy my-minio-server:9000 {
+        @error status 404
+        handle_response @error {
+            rewrite * /website/short-videos/index.html
+            reverse_proxy my-minio-server:9000
+        }
+    }
+}
+```
+
+### Explanation
+
+1. Site Address: The `shorts.xiaohai-huang.net` is your site's domain.
+1. Rewrite Rule: The `rewrite * /website/short-videos{uri}` ensures that all requests are rewritten to include the path to your build folder on the MinIO server.
+1. Reverse Proxy: The `reverse_proxy my-minio-server:9000` forwards requests to your MinIO server.
+1. Error Handling: The `@error status 404` block handles **404** errors. If a requested URL is not found (common with SPAs), it rewrites the request to index.html, ensuring that the React app's routing can take over.
+
+:::info
+
+It is often necessary to override the **Host** header with the configured upstream address when proxying to **HTTPS**, such that the **Host** header matches the **TLS** ServerName value.
+
+```
+reverse_proxy https://example.com {
+	header_up Host {upstream_hostport}
+}
+```
+
+See [https://caddyserver.com/docs/caddyfile/directives/reverse_proxy#https](https://caddyserver.com/docs/caddyfile/directives/reverse_proxy#https)
+
+:::
+
+:::note
+
+In this example, the app is served at the index route (**shorts.xiaohai-huang.net**) aka. `/` . So the `base` public path of the react app should be set to `/` in your react build config.
+
+:::

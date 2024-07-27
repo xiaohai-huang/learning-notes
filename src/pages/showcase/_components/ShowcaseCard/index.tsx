@@ -42,12 +42,14 @@ function ShowCaseCard(props: Case) {
           ))}
         </section>
         <div className="button-group button-group--block">
-          <button
-            className="button button--primary button--block"
-            onClick={() => window.open(props.website)}
-          >
-            Visit
-          </button>
+          {props.website.length !== 0 && (
+            <button
+              className="button button--primary button--block"
+              onClick={() => window.open(props.website)}
+            >
+              Visit
+            </button>
+          )}
           {props.source && (
             <button
               className="button button--secondary button--block"

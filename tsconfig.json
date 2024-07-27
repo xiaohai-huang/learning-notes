@@ -2,6 +2,7 @@
   "extends": "@docusaurus/tsconfig",
   "include": ["./src/", "./blog/", "global.d.ts"],
   "compilerOptions": {
+    "jsx": "react",
     "baseUrl": ".",
     "paths": {
       "@src/*": ["src/*"]

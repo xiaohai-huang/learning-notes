@@ -84,6 +84,7 @@ export const cases: Case[] = [
 
   {
     title: "今日小条",
+    website: "",
     preview: require("./_previews/xiaotiao.png").default,
     description:
       '模仿 "今日头条" web 的PC端和移动端的网站. 响应式设计/Puppeteer 爬取的头条新闻数据',

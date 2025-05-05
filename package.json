@@ -14,7 +14,7 @@
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
     "dev": "docusaurus start",
-    "upgrade-docusaurus": "yarn add --exact @docusaurus/core@canary @docusaurus/plugin-content-docs @docusaurus/preset-classic@canary @docusaurus/theme-live-codeblock @docusaurus/module-type-aliases"
+    "upgrade-docusaurus": "npm install --save-exact @docusaurus/core@canary @docusaurus/plugin-content-docs @docusaurus/preset-classic@canary @docusaurus/theme-live-codeblock @docusaurus/module-type-aliases"
   },
   "dependencies": {
     "@docusaurus/core": "3.0.0-beta.0",

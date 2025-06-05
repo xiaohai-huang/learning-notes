@@ -1,0 +1,173 @@
+---
+sidebar_label: Velocity, Force and the Jacobian
+sidebar_position: 1
+description: How fast should each motor turn in order to achieve a desire tool point velocity?
+---
+
+import SINGLE_PRISMATIC_JOINT from "./_assets-03/single-prismatic-joint.png";
+import SINGLE_REVOLUTE_JOINT from "./_assets-03/single-revolute-joint.png";
+import example01 from "./_assets-03/using-inverse-jocobian-example.png";
+
+# Velocity, Force and the Jacobian
+
+## Velocity for A Single Joint
+
+### Prismatic Joint
+
+$$
+\begin{align}
+v &= \dot{q} r \\
+\omega &= 0
+\end{align}
+$$
+
+<figure style={{ textAlign: "center" }}>
+  <img alt="example" src={SINGLE_PRISMATIC_JOINT}></img>
+</figure>
+
+- $\dot{q}$ is the rate of change of the joint position. (e.g., 0.5 m/s)
+- $k$ is the unit vector along the axis of translation. The direction of the movement/actuation.
+
+### Revolute Joint
+
+$$
+\begin{align}
+v &= \dot{q} k \times r \\
+\omega &= \dot{q} k
+\end{align}
+$$
+
+- $v$ is the velocity at the tool point.
+- $\omega$ is the angular velocity of the tool point.
+- $\dot{q}$ is rotation speed. (e.g., 2 rad/s)
+- $k$ is the **unit vector** along the axis of rotation. z-axis
+- $r$ is the length of the link.
+
+<figure style={{ textAlign: "center" }}>
+  <img alt="example" src={SINGLE_REVOLUTE_JOINT}></img>
+</figure>
+## Velocity for Two Joints
+
+With more than one joint. **tool point** velocity components are a function of joint velocity **and** position.
+
+$$
+\begin{bmatrix}
+v \\
+\omega
+\end{bmatrix}
+= f(\dot{q}_1, \dot{q}_2, q_1, q_2)
+$$
+
+- $\dot{q}$ is the rotation speed of the joint.
+- $q$ is the joint position.
+
+## The Jacobian
+
+The Jocobian is a matrix that is a **function** of joint **position**, that linearly relates joint **velocity** to tool point **velocity**.
+
+$$
+\begin{bmatrix}
+v \\
+\omega
+\end{bmatrix}
+= J(q_1, q_2)
+\begin{bmatrix}
+\dot{q}_1 \\
+\dot{q}_2
+\end{bmatrix}
+$$
+
+### Elements of the Jocobian
+
+## Inverting the Jocobian
+
+To compute the joint velocities for a given tool point velocity, we need to invert the Jacobian.
+
+$$
+\begin{align}
+\begin{bmatrix}
+v \\
+\omega
+\end{bmatrix}
+&= J(q)\dot{q}
+\\
+\dot{q} &= J^{-1}(q)
+\begin{bmatrix}
+v \\
+\omega
+\end{bmatrix}
+\end{align}
+$$
+
+The inverse Jocobian can be found by inverting a square portion of the Jacobian.
+
+Find the joint velocities ($\dot{q}_1, \dot{q}_2$) in terms of the tool point velocity ($\dot{x}, \dot{y}$).
+
+### Using the Inverse Jocobian
+
+The arm points in the x direction, with joint 2 extended to 0.5 m. Find the joint velocities to move the tool point such that:
+
+$$
+\dot{x} = 1\, \text{m/s} \\
+\dot{y} = 1\, \text{m/s}
+$$
+
+<figure style={{ textAlign: "center" }}>
+  <img alt="example" src={example01}></img>
+</figure>
+
+$$
+\begin{align}
+\begin{bmatrix}
+\dot{q}_1 \\
+\dot{q}_2
+\end{bmatrix}
+&=
+\frac{1}{-q_2}
+\begin{bmatrix}
+sin(q_1) & -cos(q_1) \\
+-q_2 cos(q_1) & -q_2 sin(q_1)
+\end{bmatrix}
+
+\begin{bmatrix}
+\dot{x} \\
+\dot{y}
+\end{bmatrix}
+\\
+
+
+\begin{bmatrix}
+\dot{q}_1 \\
+\dot{q}_2
+\end{bmatrix}
+&=
+\frac{1}{-q_2}
+\begin{bmatrix}
+0 & -1 \\
+-0.5 & 0
+\end{bmatrix}
+
+\begin{bmatrix}
+1 \\
+1
+\end{bmatrix}
+=
+\begin{bmatrix}
+2 \\
+1
+\end{bmatrix}
+\end{align}
+$$
+
+$$
+\begin{align}
+\dot{q}\_1 &= 2\, \text{rad/s}; \\
+\dot{q}\_2 &= 1\, \text{m/s};
+\end{align}
+$$
+
+### Singularities
+
+A singularity occurs when the Jacobian is not invertible. This happens when the determinant of the Jacobian is zero.
+
+In the previous example, $\frac{\dot{q}_1}{\dot{q_2}}$. If $\dot{q}_2 = 0$, then the Jacobian is not invertible. There are no valid joint velocity solutions.

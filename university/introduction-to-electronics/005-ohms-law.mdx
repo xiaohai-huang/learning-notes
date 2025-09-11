@@ -1,0 +1,260 @@
+---
+sidebar\_label: Ohm's Law
+title: Ohm's Law
+toc\_max\_heading\_level: 4
+description: A practical guide to Ohm's Law — definitions, algebraic forms, power relationships, worked examples, and how to apply it in series and parallel circuits.
+---
+
+## Learning Objectives
+
+By the end of this module you will be able to:
+
+- **State** Ohm's Law and its algebraic rearrangements.
+- **Compute** voltage, current, or resistance from two known quantities.
+- **Calculate** power dissipated in resistive elements using three equivalent formulas.
+- **Apply** Ohm's Law to series, parallel, and series-parallel circuits.
+- **Use** Ohm's Law correctly with measurement instruments (multimeter).
+- **Recognize** Ohmic vs non-ohmic behavior and limitations of Ohm's Law.
+- **Solve** step-by-step circuit problems and check units for correctness.
+
+---
+
+## 1. What is Ohm's Law?
+
+**Ohm's Law** describes a linear relationship between voltage, current, and resistance for many electrical components (called _ohmic_ devices).
+
+The law is most commonly written as:
+
+$$
+\boxed{V = I \, R}
+$$
+
+Where:
+
+- $V$ is **voltage** (potential difference) in **volts (V)**,
+- $I$ is **current** in **amperes (A)**,
+- $R$ is **resistance** in **ohms ($\Omega$)**.
+
+You can rearrange Ohm's Law to solve for any one variable:
+
+$$
+\boxed{I = \dfrac{V}{R}} \qquad\text{and}\qquad \boxed{R = \dfrac{V}{I}}
+$$
+
+:::info Ohm's Law is empirical
+Ohm's Law was formulated based on observation: many materials (like metal wires) show a linear $V$ vs $I$ relationship over a useful operating range. Devices that do **not** show a constant $R$ (e.g., diodes, transistors, incandescent bulbs at varying temperature) are called **non-ohmic**.
+:::
+
+---
+
+## 2. Units and Symbols — quick reference
+
+- Voltage: $V$ — **volts (V)**
+- Current: $I$ — **amperes (A)**
+- Resistance: $R$ — **ohms ($\Omega$)**
+
+SI prefixes you will commonly see: milli (m, $10^{-3}$), kilo (k, $10^3$), mega (M, $10^6$).
+
+---
+
+## 3. Power and Ohm's Law
+
+Power dissipated by an electrical element (usually as heat in a resistor) is:
+
+$$
+P = V \, I
+$$
+
+Using Ohm's Law this can be written in alternative forms:
+
+$$
+\boxed{P = V I = I^2 R = \dfrac{V^2}{R}}
+$$
+
+Units: $P$ in **watts (W)**.
+
+**Why three formulas?** Depending on which two quantities you know (e.g., $V$ and $R$ or $I$ and $R$), you pick the appropriate form.
+
+---
+
+## 4. Measurement tips (multimeter)
+
+- **Measure voltage** across (in parallel with) the component. Set meter to volts.
+- **Measure current** in series with the circuit path. Break the circuit and insert the meter in series; set meter to amps.
+- **Measure resistance** only with the circuit power **off** (or isolate the resistor), because Ohm's Law $(R = V/I)$ requires measured voltage and current under the same powered condition, while resistance from a cold, isolated resistor uses an ohmmeter.
+
+:::info Passive sign convention
+Using the **passive sign convention**, if current enters the positive-voltage terminal of an element, power $P = VI$ is **absorbed** (positive). If current leaves the positive terminal, the element is delivering power (negative $P$).
+:::
+
+---
+
+## 5. Worked examples — step-by-step (digit-by-digit arithmetic)
+
+> Per good practice, arithmetic is shown in explicit steps to avoid mistakes.
+
+### Example 1 — Simple: find current
+
+**Problem:** A resistor of $R = 4\ \Omega$ has $V = 12\ \text{V}$ across it. Find $I$.
+
+Use $I = \dfrac{V}{R}$.
+
+Step arithmetic:
+
+1. $V = 12$, $R = 4$.
+2. Compute $12 \div 4$.
+
+   - $4 \times 3 = 12$.
+   - Therefore $12 \div 4 = 3$.
+
+3. $I = 3\ \text{A}$.
+
+**Answer:** $I = 3\ \text{A}$.
+
+### Example 2 — Power from current and resistance
+
+**Problem:** A resistor $R = 10\ \Omega$ carries $I = 2\ \text{A}$. Find power $P$.
+
+Use $P = I^2 R$.
+
+Step arithmetic:
+
+1. $I^2 = 2^2 = 4$.
+2. Multiply by $R$: $4 \times 10$.
+
+   - $4 \times 10 = 40$.
+
+3. $P = 40\ \text{W}$.
+
+**Answer:** $P = 40\ \text{W}$.
+
+### Example 3 — Two resistors in series
+
+**Problem:** Three resistors $R_1=10\ \Omega$, $R_2=20\ \Omega$, $R_3=30\ \Omega$ are in series across a $V_s = 12\ \text{V}$ battery. Find the current and voltage across each resistor.
+
+Steps:
+
+1. Series total $R_T = R_1 + R_2 + R_3$.
+
+   - $R_1 + R_2 = 10 + 20 = 30$.
+   - $30 + R_3 = 30 + 30 = 60$.
+   - So $R_T = 60\ \Omega$.
+
+2. Total current $I = V_s / R_T$.
+
+   - Compute $12 \div 60$.
+   - $12 \div 60 = 0.2$ because $60 \times 0.2 = 12$.
+   - So $I = 0.2\ \text{A}$.
+
+3. Voltage across each resistor $V_n = I \, R_n$.
+
+   - $V_1 = 0.2 \times 10 = 2.0\ \text{V}$. (since $0.2 \times 10 = 2$)
+   - $V_2 = 0.2 \times 20 = 4.0\ \text{V}$. (since $0.2 \times 20 = 4$)
+   - $V_3 = 0.2 \times 30 = 6.0\ \text{V}$. (since $0.2 \times 30 = 6$)
+
+Check: $2.0 + 4.0 + 6.0 = 12.0\ \text{V}$ matches supply.
+
+### Example 4 — Two resistors in parallel
+
+**Problem:** $R_1 = 100\ \Omega$ and $R_2 = 200\ \Omega$ in parallel connected to $V_s = 12\ \text{V}$. Find equivalent resistance, total current, and branch currents.
+
+Steps:
+
+1. Compute reciprocals:
+
+   - $1/R_1 = 1/100 = 0.01$. (since $1 \div 100 = 0.01$)
+   - $1/R_2 = 1/200 = 0.005$. (since $1 \div 200 = 0.005$)
+
+2. Sum reciprocals:
+
+   - $1/R_T = 0.01 + 0.005 = 0.015$.
+
+3. Equivalent resistance $R_T = 1 / 0.015$.
+
+   - Note $0.015 = 15/1000$.
+   - Reciprocal $= 1000 / 15$.
+   - $1000 \div 15 = 66.666\ldots$ (repeating). We'll keep three decimals: $66.667\ \Omega$.
+
+4. Total current $I_T = V_s / R_T$.
+
+   - Use the exact reciprocal method: $I_T = V_s \times (1/R_T) = 12 \times 0.015$.
+   - $12 \times 0.015 = 12 \times (15/1000) = (12 \times 15) / 1000 = 180 / 1000 = 0.180$.
+   - So $I_T = 0.180\ \text{A}$.
+
+5. Branch currents (use $I = V/R$):
+
+   - $I_1 = 12 \div 100 = 0.12\ \text{A}$. (because $100 \times 0.12 = 12$)
+   - $I_2 = 12 \div 200 = 0.06\ \text{A}$. (because $200 \times 0.06 = 12$)
+
+6. Check: $I_1 + I_2 = 0.12 + 0.06 = 0.18\ \text{A} = I_T$.
+
+**Answers:** $R_T \approx 66.667\ \Omega$, $I_T = 0.180\ \text{A}$, $I_1 = 0.12\ \text{A}$, $I_2 = 0.06\ \text{A}$.
+
+---
+
+## 6. Using Ohm's Law in series-parallel circuits
+
+**Strategy (stepwise simplification):**
+
+1. Identify simple series or parallel groups.
+2. Replace each group with its equivalent resistance.
+3. Recompute until you have a single equivalent resistance for the whole network.
+4. Use $I = V / R_T$ to find total current, then work backwards (voltage division, current division) to find branch quantities.
+
+**Tip:** Keep units consistent (volts, ohms, amps) and track significant figures sensibly.
+
+---
+
+## 7. Common pitfalls and troubleshooting
+
+- **Forgetting units:** e.g., using $k\Omega$ vs $\Omega$ without converting causes large errors. Always convert to base units (V, A, Ω) before arithmetic.
+- **Measuring current incorrectly:** never measure current by placing the meter across a voltage source (that will short the source).
+- **Applying Ohm's Law to non-ohmic elements:** for diodes, transistors, many lamps, and some semiconductor devices, $R$ is not constant — treat those with their I–V curve or small-signal resistance.
+- **Temperature effects:** resistor values can change with temperature (see the Resistance module). For high accuracy, use temperature coefficients or measure under operating conditions.
+
+---
+
+## 8. Quick reference — formulas
+
+- Ohm's Law: $\;V = I R$
+- Current: $\;I = \dfrac{V}{R}$
+- Resistance: $\;R = \dfrac{V}{I}$
+- Power: $\;P = V I = I^2 R = \dfrac{V^2}{R}$
+- Series resistors: $\;R_T = \displaystyle\sum R_n$
+- Parallel resistors: $\;\dfrac{1}{R_T} = \displaystyle\sum \dfrac{1}{R_n}$
+
+---
+
+## 9. Practice problems (with answers)
+
+1. **Find $R$**: A lamp draws $I=0.5\ \text{A}$ from a $120\ \text{V}$ source. What is the lamp's resistance?
+
+   - $R = V / I = 120 \div 0.5$.
+     $0.5 \times 240 = 120$ so $120 \div 0.5 = 240$.
+   - **Answer:** $R = 240\ \Omega$.
+
+2. **Power check**: Using the lamp above ($R=240\ \Omega$, $V=120\ \text{V}$), what is power $P$?
+
+   - Use $P = V^2 / R$.
+   - $V^2 = 120^2 = 14400$.
+   - $P = 14400 \div 240$. Since $240 \times 60 = 14400$, $P = 60\ \text{W}$.
+   - **Answer:** $P = 60\ \text{W}$.
+
+3. **Mixed network**: $R_1 = 50\ \Omega$ in series with a parallel pair $R_2 = 100\ \Omega$ and $R_3 = 100\ \Omega$. Supply $V_s = 24\ \text{V}$. Find total current.
+
+   - Parallel $R_{23} = (100 \times 100) / (100 + 100) = 10000 / 200 = 50\ \Omega$.
+   - Total $R_T = R_1 + R_{23} = 50 + 50 = 100\ \Omega$.
+   - $I_T = 24 \div 100 = 0.24\ \text{A}$ because $100 \times 0.24 = 24$.
+   - **Answer:** $I_T = 0.24\ \text{A}$.
+
+---
+
+## 10. Limitations & final notes
+
+- Ohm's Law is **local** and **linear** — it holds for components whose voltage–current relationship is linear over the operating range. For non-linear devices, use their I–V curves or linearize for small signals (small-signal resistance).
+- For high-precision work, account for temperature coefficients of resistors and wiring resistance.
+- Combining Ohm's Law with Kirchhoff's Voltage and Current Laws lets you analyze arbitrarily complex linear circuits.
+
+:::tip Key takeaway
+Ohm's Law connects voltage, current, and resistance in a simple algebraic way: $V=IR$. Use the rearranged forms, paired with series/parallel simplification and the power formulas, to solve most basic circuit problems. Always check units and the device's linearity before applying it.
+:::

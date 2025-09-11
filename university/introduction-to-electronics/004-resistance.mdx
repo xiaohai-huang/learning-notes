@@ -1,0 +1,228 @@
+---
+sidebar_label: Resistance
+title: Resistance
+toc_max_heading_level: 4
+description: A comprehensive guide to electrical resistance, resistors, and circuit calculations.
+---
+
+## Learning Objectives
+
+By the end of this module, you will be able to:
+
+- **Define** resistance and explain its effect in a circuit.
+- **Calculate** the resistance of a conductor based on its physical properties.
+- **Identify** common resistor types: carbon composition, wirewound, film, and surface mount.
+- **Determine** the tolerance range of a resistor.
+- **Describe** how a variable resistor (potentiometer and rheostat) operates.
+- **Decode** a resistor's value using the color code or alphanumeric SMD code.
+- **Identify** the three types of resistor circuits.
+- **Calculate** total resistance in series, parallel, and series-parallel circuits.
+
+## 1. What is Resistance?
+
+**Resistance** is the opposition to the flow of electric current (electron flow) in a circuit. It is a fundamental property of materials.
+
+Think of it like friction in a water pipe. A narrow, rough pipe has high resistance and restricts water flow, while a wide, smooth pipe has low resistance and allows water to flow easily.
+
+- **Symbol:** $R$
+- **Unit:** Ohm
+- **Abbreviation:** The Greek letter Omega ($\Omega$)
+
+### Factors Affecting Resistance
+
+The resistance of a conductor is determined by four main factors:
+
+1.  **Material (Resistivity $\rho$):** Different materials have different inherent abilities to resist electron flow. This property is called **resistivity** ($\rho$). Materials with low resistivity are **conductors** (e.g., copper, silver), while those with high resistivity are **insulators** (e.g., rubber, glass).
+2.  **Length (L):** Resistance is directly proportional to the length of the conductor. A longer wire has more resistance.
+3.  **Cross-Sectional Area (A):** Resistance is inversely proportional to the cross-sectional area. A thicker wire (larger area) has less resistance.
+4.  **Temperature (T):** For most conductors, resistance increases as temperature increases.
+
+The relationship is described by the formula:
+
+$$
+R = \rho \frac{L}{A}
+$$
+
+Where:
+
+- $R$ is resistance in Ohms ($\Omega$)
+- $\rho$ (rho) is resistivity in Ohm-meters ($\Omega \cdot m$)
+- $L$ is the length in meters ($m$)
+- $A$ is the cross-sectional area in square meters ($m^2$)
+
+### Resistivity of Common Materials
+
+The table below shows the resistivity of various materials. A lower number indicates a better conductor.
+
+| Material | Resistivity ($\rho$) at 20°C ($\Omega \cdot m$) | Relative to Silver |
+| :------- | :---------------------------------------------- | :----------------- |
+| Silver   | $1.59 \times 10^{-8}$                           | 1.00               |
+| Copper   | $1.68 \times 10^{-8}$                           | 1.06               |
+| Gold     | $2.44 \times 10^{-8}$                           | 1.53               |
+| Aluminum | $2.82 \times 10^{-8}$                           | 1.77               |
+| Tungsten | $5.60 \times 10^{-8}$                           | 3.52               |
+| Iron     | $9.71 \times 10^{-8}$                           | 6.11               |
+
+### Conductance
+
+**Conductance** is the opposite of resistance. It is the measure of how easily a material allows electrons to flow.
+
+- **Symbol:** $G$
+- **Unit:** Siemens ($S$)
+- An older, informal unit is the _Mho_ ($\mho$), which is "ohm" spelled backward.
+
+Conductance is simply the reciprocal of resistance:
+
+$$
+G = \frac{1}{R} \quad \text{or} \quad R = \frac{1}{G}
+$$
+
+## 2. Resistors (The Component)
+
+A **resistor** is an electronic component specifically designed to have a precise value of resistance. Its primary purpose is to control current, divide voltage, and manage signal levels within a circuit.
+
+Resistors are classified into two main categories: **fixed** and **variable**.
+
+### Power Rating & Tolerance
+
+Two critical parameters for any resistor are its power rating and tolerance.
+
+- **Power Rating:** Measured in **Watts (W)**, this indicates how much heat the resistor can safely dissipate before being damaged. A higher wattage rating means a physically larger resistor.
+- **Tolerance:** This is the percentage of error in the resistor's manufactured resistance value. Common tolerances are $\pm1\%$, $\pm5\%$, and $\pm10\%$. For example, a $100\Omega$ resistor with a $\pm5\%$ tolerance can have an actual value between $95\Omega$ and $105\Omega$.
+
+### Fixed Resistor Types
+
+| Type                    | Key Characteristics                                                        | Common Use Cases                            |
+| ----------------------- | -------------------------------------------------------------------------- | ------------------------------------------- |
+| **Carbon Composition**  | Inexpensive, durable, but low precision.                                   | General-purpose, non-critical applications. |
+| **Wirewound**           | High precision and high power ratings.                                     | High-current circuits, power supplies.      |
+| **Film Resistors**      | Good precision and stability. Metal film is more precise than carbon film. | Audio circuits, measurement devices.        |
+| **Surface Mount (SMD)** | Very small, designed for automated circuit board assembly.                 | Modern electronics (phones, computers).     |
+
+### Variable Resistors
+
+A variable resistor allows its resistance value to be adjusted, typically by turning a knob or a screw.
+
+- They work by moving a conductive **wiper** across a resistive track.
+- The resistance changes based on the wiper's position along the track.
+- Their resistance can change **linearly** (a steady change) or **logarithmically** (slow change at first, then rapid). Logarithmic types are often used for audio volume controls.
+
+When used in a circuit, they are commonly called a **potentiometer** or a **rheostat**.
+
+:::info How do they control voltage and current?
+
+#### **Potentiometer (Voltage Controller)**
+
+A potentiometer (or "pot") is used to create an adjustable **voltage divider**. It has **three terminals**: two ends of the resistive track and one for the wiper.
+
+- **How it works:** A source voltage is applied across the two outer terminals. The output voltage is taken between the wiper and one of the outer terminals. As the wiper moves, it "taps off" a different voltage level, from 0V up to the full source voltage.
+
+#### **Rheostat (Current Controller)**
+
+A rheostat is used to control the current in a circuit. It only uses **two terminals**: one end of the resistive track and the wiper.
+
+- **How it works:** The rheostat is connected in **series** with the load (e.g., an LED or motor). By changing the resistance, you change the total resistance of the circuit path. According to Ohm's Law ($I = V/R$), increasing the resistance decreases the current flow, and vice-versa.
+
+:::
+
+## 3. Decoding Resistor Values
+
+### Axial Resistor Color Code (4-Band)
+
+| Color  | Digit | Multiplier |  Tolerance  |
+| :----- | :---: | :--------: | :---------: |
+| Black  |   0   |   $10^0$   |      -      |
+| Brown  |   1   |   $10^1$   |  $\pm1\%$   |
+| Red    |   2   |   $10^2$   |  $\pm2\%$   |
+| Orange |   3   |   $10^3$   |      -      |
+| Yellow |   4   |   $10^4$   |      -      |
+| Green  |   5   |   $10^5$   | $\pm0.5\%$  |
+| Blue   |   6   |   $10^6$   | $\pm0.25\%$ |
+| Violet |   7   |   $10^7$   | $\pm0.1\%$  |
+| Grey   |   8   |   $10^8$   |      -      |
+| White  |   9   |   $10^9$   |      -      |
+| Gold   |   -   | $10^{-1}$  |  $\pm5\%$   |
+| Silver |   -   | $10^{-2}$  |  $\pm10\%$  |
+
+**Example:**
+A resistor has the bands: **Orange, White, Red, Gold**.
+
+- **Band 1 (Orange):** 3
+- **Band 2 (White):** 9
+- **Band 3 (Red):** Multiplier of $10^2$ (or add 2 zeros)
+- **Band 4 (Gold):** Tolerance of $\pm5\%$
+
+The value is $39 \times 10^2 = 3900 \Omega$ or $3.9 k\Omega$, with a tolerance of $\pm5\%$.
+
+### Surface Mount (SMD) Alphanumeric Code
+
+SMD resistors use a printed code because they are too small for color bands.
+
+- **3-Digit Code:** The first two digits are the significant figures, and the third is the multiplier (the power of 10).
+  - `472` = $47 \times 10^2 = 4700\Omega = 4.7k\Omega$
+- **4-Digit Code:** Used for higher precision resistors. The first three digits are significant figures, and the fourth is the multiplier.
+  - `1003` = $100 \times 10^3 = 100,000\Omega = 100k\Omega$
+- **EIA-96 Code (1% Tolerance):** A more complex system with a two-digit number code followed by a letter multiplier. (e.g., `01A` = $100\Omega$)
+
+## 4. Resistors in Circuits
+
+Resistors can be connected in three primary configurations: series, parallel, and series-parallel (also called compound or combination).
+
+### Series Circuits
+
+In a series circuit, components are connected end-to-end, providing only **one path** for the current.
+
+> The total resistance ($R_T$) is the sum of all individual resistances.
+
+$$
+R_T = R_1 + R_2 + R_3 + \dots + R_n
+$$
+
+**Example:**
+
+- $R_1 = 10\Omega$
+- $R_2 = 20\Omega$
+- $R_3 = 30\Omega$
+
+$R_T = 10\Omega + 20\Omega + 30\Omega = 60\Omega$
+
+### Parallel Circuits
+
+In a parallel circuit, components are connected across the same two points, providing **multiple paths** for the current.
+
+> The reciprocal of the total resistance is the sum of the reciprocals of the individual resistances.
+
+$$
+\frac{1}{R_T} = \frac{1}{R_1} + \frac{1}{R_2} + \frac{1}{R_3} + \dots + \frac{1}{R_n}
+$$
+
+**Shortcut for Two Resistors:**
+A common and much faster formula for only two resistors in parallel is "product over sum":
+
+$$
+R_T = \frac{R_1 \times R_2}{R_1 + R_2}
+$$
+
+:::tip Key Takeaway
+The total resistance in a parallel circuit is **always less** than the value of the smallest individual resistor.
+:::
+
+### Series-Parallel (Compound) Circuits
+
+These circuits are a combination of series and parallel configurations. To find the total resistance, you simplify the circuit in steps.
+
+**Strategy:**
+
+1.  Identify any groups of resistors that are in parallel.
+2.  Calculate the equivalent resistance ($R_{eq}$) for each parallel group.
+3.  Redraw the circuit, replacing each parallel group with its single equivalent resistor.
+4.  The circuit is now a simple series circuit. Add up all the resistances to find the total.
+
+**Example:**
+$R_1 = 50\Omega$ is in series with a parallel group of $R_2 = 100\Omega$ and $R_3 = 100\Omega$.
+
+1.  **Solve the parallel group ($R_2$ and $R_3$):**
+    $R_{eq} = \frac{R_2 \times R_3}{R_2 + R_3} = \frac{100 \times 100}{100 + 100} = \frac{10000}{200} = 50\Omega$
+2.  **Add the series components:**
+    The circuit is now just $R_1$ in series with the $50\Omega$ equivalent resistor.
+    $R_T = R_1 + R_{eq} = 50\Omega + 50\Omega = 100\Omega$

@@ -1,0 +1,163 @@
+---
+sidebar_label: Power
+title: Power
+toc_max_heading_level: 4
+description: Overview of electrical power - definitions, formulas, worked examples, sign convention, AC notes, circuit strategies, common pitfalls, and practice problems.
+---
+
+# Power
+
+## Learning Objectives
+
+- Define **power** in the context of electric circuits.
+- Describe the relationship between **voltage (V)** and **current (I)** and their role in power.
+- Use and manipulate the basic power formulas to compute power consumption.
+- Compute power in **series**, **parallel**, and **series-parallel** circuits.
+- Explain passive sign convention and interpret positive/negative power.
+- (Advanced) Recognize power concepts for AC circuits: instantaneous, average, apparent, reactive power, and power factor.
+
+---
+
+## Quick Definition
+
+**Power** is the **rate of energy transfer** — how quickly electrical energy is converted into another form (heat, light, mechanical work, etc.).
+
+- Instantaneous power (time domain): $$p(t)=v(t)\,i(t)$$
+- For steady DC, power is constant and measured in **watts (W)**.
+- Energy is the integral of power: $$E=\int P\,dt$$. For constant $$P$$, $$E=P\cdot t$$ (Joules).
+
+---
+
+## Core Formulas (DC / Instantaneous)
+
+1. Basic:
+
+   $$
+   P = V \times I
+   $$
+
+2. Combine with Ohm's law ($$V=I\,R$$) to get:
+
+   $$
+   P = I^2 R \qquad\text{and}\qquad P=\frac{V^2}{R}
+   $$
+
+3. For time-varying signals (instantaneous):
+
+   $$
+   p(t) = v(t)\,i(t)
+   $$
+
+   Average power over time $$T$$:
+
+   $$
+   P_\text{avg} = \frac{1}{T}\int_{0}^{T} p(t)\,dt
+   $$
+
+---
+
+## Units and Prefixes
+
+- 1 watt (W) = 1 joule/second.
+- Common prefixes: mW (10⁻³ W), W, kW (10³ W), MW (10⁶ W).
+- Horsepower: 1 hp ≈ 745.7 W.
+
+---
+
+## Passive Sign Convention
+
+- If current **enters** the terminal of an element labeled with the **positive** polarity of voltage, then $$P=V\cdot I$$ is **positive** → the element **absorbs** power (consumes).
+- If $$P<0$$, the element is **supplying** power (a source).
+- Conservation: In any complete circuit, algebraic sum of powers = **0**.
+
+---
+
+## Power in Series and Parallel Circuits
+
+### Strategy
+
+1. Simplify the circuit (series/parallel reduction).
+2. Find total current/voltage.
+3. Work back to find currents/voltages on each element.
+4. Compute power ($$P=VI$$, $$I^2R$$, or $$V^2/R$$).
+5. Verify conservation of power.
+
+### Series Circuits
+
+- Current is the same: $$I=I_\text{series}$$.
+- $$P_i = I^2 R_i$$.
+
+### Parallel Circuits
+
+- Voltage is the same: $$V=V_\text{parallel}$$.
+- $$P_i = \dfrac{V^2}{R_i}$$.
+
+---
+
+## Worked Examples
+
+### Example 1 — Series Resistors (DC)
+
+12 V source, $$R_1=2\ \Omega$$, $$R_2=4\ \Omega$$.
+
+- $$R_\text{tot}=6\ \Omega$$
+- $$I=12/6=2\ \text{A}$$
+- $$P_1=I^2R_1=8\ \text{W}$$
+- $$P_2=I^2R_2=16\ \text{W}$$
+- Source power: $$12\cdot2=24\ \text{W}$$ ✅ Balanced.
+
+---
+
+### Example 2 — Parallel Resistors (DC)
+
+12 V source, $$R_1=3\ \Omega$$, $$R_2=6\ \Omega$$.
+
+- $$I_1=12/3=4\ \text{A}$$, $$P_1=48\ \text{W}$$
+- $$I_2=12/6=2\ \text{A}$$, $$P_2=24\ \text{W}$$
+- Source: $$I=6\ \text{A}$$, $$P=72\ \text{W}$$ ✅ Balanced.
+
+---
+
+## Quick Reference Table
+
+| Quantity           | Symbol | Formula (DC)           |
+| ------------------ | ------ | ---------------------- |
+| Power              | $$P$$  | $$P = V \cdot I$$      |
+| Using Ohm’s law    | —      | $$P = I^2 R$$          |
+| Using voltage only | —      | $$P = \dfrac{V^2}{R}$$ |
+| Energy             | $$E$$  | $$E = P \cdot t$$ (J)  |
+
+---
+
+## Practice Problems
+
+### Problem 1 (Easy)
+
+A 9 V battery is connected to $$R_1=1\ \Omega$$ and $$R_2=2\ \Omega$$ in series.  
+Find the current and power in each resistor.
+
+**Solution:**  
+$$R_\text{tot}=3\ \Omega,\quad I=3\ \text{A}$$  
+$$P_1=9\ \text{W},\quad P_2=18\ \text{W}$$
+
+---
+
+### Problem 2 (Medium)
+
+24 V source, $$R_a=8\ \Omega$$, $$R_b=12\ \Omega$$ in parallel.
+
+**Solution:**  
+$$I_a=3\ \text{A},\quad P_a=72\ \text{W}$$  
+$$I_b=2\ \text{A},\quad P_b=48\ \text{W}$$  
+Source: $$I=5\ \text{A},\quad P=120\ \text{W}$$
+
+---
+
+## Summary Checklist
+
+1. Mark polarities and directions.
+2. Simplify the circuit.
+3. Solve for currents/voltages.
+4. Compute power ($$VI$$, $$I^2R$$, $$V^2/R$$).
+5. Apply passive sign convention.
+6. Verify power balance.
